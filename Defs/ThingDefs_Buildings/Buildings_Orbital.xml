@@ -1,0 +1,189 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+	<ThingDef ParentName="DoorBase">
+		<defName>VacDoor</defName>
+		<label>vac door</label>
+		<description>An ultrasonic barrier that prevents depressurization in space. The field compresses air molecules near the threshold, preventing gases from escaping while allowing people to freely travel through it. A vac barrier will do nothing to prevent intruders.\n\nMust be powered to prevent depressurization.</description>
+		<thingClass>Building_VacBarrier</thingClass>
+		<statBases>
+			<WorkToBuild>2000</WorkToBuild>
+			<MaxHitPoints>100</MaxHitPoints>
+			<Flammability>0</Flammability>
+		</statBases>
+		<rotatable>false</rotatable>
+		<graphicData>
+			<texPath>Things/Building/Door/Autodoor_Mover</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<damageData>
+				<enabled>false</enabled>
+			</damageData>
+			<!-- <texPath>Things/Building/VacBarrier/VacBarrier_Barrier</texPath> -->
+			<!-- <graphicClass>Graphic_Multi</graphicClass> -->
+			<!-- <drawSize>(1.5,1.5)</drawSize> -->
+			<!-- <shaderType>TransparentPostLight</shaderType> -->
+			<!-- <damageData> -->
+				<!-- <enabled>false</enabled> -->
+			<!-- </damageData> -->
+			<!-- <color>(142,142,142)</color> -->
+		</graphicData>
+		<uiIconPath>Things/Building/Door/Autodoor_MenuIcon</uiIconPath>
+		<!-- <uiIconPath>Things/Building/VacBarrier/VacBarrier_MenuIcon_south</uiIconPath> -->
+		<costList>
+			<Steel>80</Steel>
+			<ComponentIndustrial>4</ComponentIndustrial>
+			<GravlitePanel>2</GravlitePanel>
+		</costList>
+		<costStuffCount>25</costStuffCount>
+		<useStuffTerrainAffordance>false</useStuffTerrainAffordance>
+		<terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
+		<useBlueprintGraphicAsGhost>true</useBlueprintGraphicAsGhost>
+		<designationCategory>Odyssey</designationCategory>
+		<building>
+			<isAirtight>true</isAirtight>
+			<isSupportDoor>true</isSupportDoor>
+			<doorTopGraphic>
+				<texPath>Things/Building/VacBarrier/VacBarrier_Top</texPath>
+				<graphicClass>Graphic_Multi</graphicClass>
+				<drawSize>(1.5,1.5)</drawSize>
+			</doorTopGraphic>
+			<blueprintClass>Blueprint_Door</blueprintClass>
+			<blueprintGraphicData>
+				<texPath>Things/Building/VacBarrier/VacBarrier_MenuIcon</texPath>
+				<graphicClass>Graphic_Multi</graphicClass>
+				<shaderType>EdgeDetect</shaderType>
+				<drawSize>(1.5,1.5)</drawSize>
+			</blueprintGraphicData>
+		</building>
+		<researchPrerequisites>
+			<li>Autodoors</li>
+			<li>OrbitalTech</li>
+			<li>AdvancedGravtech</li>
+		</researchPrerequisites>
+		<constructionSkillPrerequisite>8</constructionSkillPrerequisite>
+		<comps>
+			<li Class="CompProperties_Flickable"/>
+			<li Class="CompProperties_Power">
+				<compClass>CompPowerTrader</compClass>
+				<basePowerConsumption>100</basePowerConsumption>
+			</li>
+			<li Class="CompProperties_LowPowerUnlessVacuum">
+				<lowPowerConsumptionFactor>0.55</lowPowerConsumptionFactor>
+				<checkRoomVacuum>false</checkRoomVacuum>
+			</li>
+			<li Class="CompProperties_Breakdownable"/>
+		</comps>
+		<!-- <designationHotKey>Misc1</designationHotKey> -->
+		<uiOrder>2015</uiOrder>
+		<building>
+			<isStuffableAirtight>true</isStuffableAirtight>
+		</building>
+	</ThingDef>
+
+	<!-- <ThingDef ParentName="DoorBase"> -->
+		<!-- <defName>Autodoor</defName> -->
+		<!-- <label>autodoor</label> -->
+		<!-- <description>Divides rooms. Powered operation allows people to move through the door without slowing down.</description> -->
+		<!-- <statBases> -->
+			<!-- <WorkToBuild>1100</WorkToBuild> -->
+		<!-- </statBases> -->
+		<!-- <graphicData> -->
+			<!-- <texPath>Things/Building/Door/Autodoor_Mover</texPath> -->
+			<!-- <graphicClass>Graphic_Single</graphicClass> -->
+			<!-- <damageData> -->
+				<!-- <enabled>false</enabled> -->
+			<!-- </damageData> -->
+		<!-- </graphicData> -->
+		<!-- <uiIconPath>Things/Building/Door/Autodoor_MenuIcon</uiIconPath> -->
+		<!-- <costList> -->
+			<!-- <Steel>40</Steel> -->
+			<!-- <ComponentIndustrial>2</ComponentIndustrial> -->
+		<!-- </costList> -->
+		<!-- <costStuffCount>25</costStuffCount> -->
+		<!-- <comps> -->
+			<!-- <li Class="CompProperties_Power"> -->
+				<!-- <compClass>CompPowerTrader</compClass> -->
+				<!-- <basePowerConsumption>50</basePowerConsumption> -->
+			<!-- </li> -->
+			<!-- <li Class="CompProperties_Breakdownable"/> -->
+			<!-- <li Class="CompProperties_Styleable"/> -->
+		<!-- </comps> -->
+		<!-- <designationHotKey>Misc2</designationHotKey> -->
+		<!-- <researchPrerequisites> -->
+			<!-- <li>Autodoors</li> -->
+		<!-- </researchPrerequisites> -->
+		<!-- <constructionSkillPrerequisite>6</constructionSkillPrerequisite> -->
+		<!-- <building> -->
+			<!-- <isStuffableAirtight>true</isStuffableAirtight> -->
+		<!-- </building> -->
+	<!-- </ThingDef> -->
+
+	<!-- <ThingDef ParentName="DoorBase"> -->
+		<!-- <defName>VacBarrier</defName> -->
+		<!-- <label>vac barrier</label> -->
+		<!-- <description>An ultrasonic barrier that prevents depressurization in space. The field compresses air molecules near the threshold, preventing gases from escaping while allowing people to freely travel through it. A vac barrier will do nothing to prevent intruders.\n\nMust be powered to prevent depressurization.</description> -->
+		<!-- <thingClass>Building_VacBarrier</thingClass> -->
+		<!-- <statBases> -->
+			<!-- <WorkToBuild>2000</WorkToBuild> -->
+			<!-- <MaxHitPoints>100</MaxHitPoints> -->
+			<!-- <Flammability>0</Flammability> -->
+		<!-- </statBases> -->
+		<!-- <rotatable>false</rotatable> -->
+		<!-- <graphicData> -->
+			<!-- <texPath>Things/Building/VacBarrier/VacBarrier_Barrier</texPath> -->
+			<!-- <graphicClass>Graphic_Multi</graphicClass> -->
+			<!-- <drawSize>(1.5,1.5)</drawSize> -->
+			<!-- <shaderType>TransparentPostLight</shaderType> -->
+			<!-- <damageData> -->
+				<!-- <enabled>false</enabled> -->
+			<!-- </damageData> -->
+			<!-- <color>(142,142,142)</color> -->
+		<!-- </graphicData> -->
+		<!-- <uiIconPath>Things/Building/VacBarrier/VacBarrier_MenuIcon_south</uiIconPath> -->
+		<!-- <costList> -->
+			<!-- <Steel>40</Steel> -->
+			<!-- <ComponentIndustrial>2</ComponentIndustrial> -->
+			<!-- <GravlitePanel>2</GravlitePanel> -->
+		<!-- </costList> -->
+		<!-- <stuffCategories Inherit="False"/> -->
+		<!-- <useStuffTerrainAffordance>false</useStuffTerrainAffordance> -->
+		<!-- <terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded> -->
+		<!-- <useBlueprintGraphicAsGhost>true</useBlueprintGraphicAsGhost> -->
+		<!-- <designationCategory>Odyssey</designationCategory> -->
+		<!-- <building> -->
+			<!-- <isAirtight>true</isAirtight> -->
+			<!-- <isSupportDoor>true</isSupportDoor> -->
+			<!-- <doorTopGraphic> -->
+				<!-- <texPath>Things/Building/VacBarrier/VacBarrier_Top</texPath> -->
+				<!-- <graphicClass>Graphic_Multi</graphicClass> -->
+				<!-- <drawSize>(1.5,1.5)</drawSize> -->
+			<!-- </doorTopGraphic> -->
+			<!-- <blueprintClass>Blueprint_Door</blueprintClass> -->
+			<!-- <blueprintGraphicData> -->
+				<!-- <texPath>Things/Building/VacBarrier/VacBarrier_MenuIcon</texPath> -->
+				<!-- <graphicClass>Graphic_Multi</graphicClass> -->
+				<!-- <shaderType>EdgeDetect</shaderType> -->
+				<!-- <drawSize>(1.5,1.5)</drawSize> -->
+			<!-- </blueprintGraphicData> -->
+		<!-- </building> -->
+		<!-- <researchPrerequisites> -->
+			<!-- <li>OrbitalTech</li> -->
+		<!-- </researchPrerequisites> -->
+		<!-- <constructionSkillPrerequisite>6</constructionSkillPrerequisite> -->
+		<!-- <comps> -->
+			<!-- <li Class="CompProperties_Flickable"/> -->
+			<!-- <li Class="CompProperties_Power"> -->
+				<!-- <compClass>CompPowerTrader</compClass> -->
+				<!-- <basePowerConsumption>50</basePowerConsumption> -->
+			<!-- </li> -->
+			<!-- <li Class="CompProperties_LowPowerUnlessVacuum"> -->
+				<!-- <lowPowerConsumptionFactor>0.1</lowPowerConsumptionFactor> -->
+				<!-- <checkRoomVacuum>false</checkRoomVacuum> -->
+			<!-- </li> -->
+			<!-- <li Class="CompProperties_Breakdownable"/> -->
+		<!-- </comps> -->
+		<!-- <designationHotKey>Misc1</designationHotKey> -->
+		<!-- <uiOrder>2015</uiOrder> -->
+	<!-- </ThingDef> -->
+	
+</Defs>
