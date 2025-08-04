@@ -1,14 +1,7 @@
-﻿using HarmonyLib;
-using System;
-using System.Collections.Generic;
+﻿using RimWorld;
 using System.Linq;
-using Verse;
-using System.Reflection;
-using RimWorld;
-using Verse.Sound;
 using UnityEngine;
-using Verse.AI;
-using System.Drawing;
+using Verse;
 
 namespace OdysseyCompact
 {
@@ -21,8 +14,18 @@ namespace OdysseyCompact
         public VacuumComponent Vacuum => vacuumCached ?? (vacuumCached = base.MapHeld?.GetComponent<VacuumComponent>());
         private VacuumComponent vacuumCached;
 
-        public GraphicData graphicDataSub => graphicDataSubCached ?? (graphicDataSubCached = Graphic.data.attachments.FirstOrDefault());
-        private GraphicData graphicDataSubCached;
+        public Graphic graphicSub
+        {
+            get
+            {
+                if (graphicSubCached == null)
+                {
+                    graphicSubCached = Graphic.data.attachments.FirstOrDefault().Graphic;
+                }
+                return graphicSubCached;
+            }
+        }
+        private Graphic graphicSubCached;
 
         public override bool ExchangeVacuum => !IsAirtight || (Open && !PowerTrader.PowerOn);
 
@@ -48,11 +51,8 @@ namespace OdysseyCompact
 
         protected override void DrawAt(Vector3 drawLoc, bool flip = false)
         {
-            base.DrawAt(drawLoc, flip); 
-            if (graphicDataSub != null && PowerTrader.PowerOn && base.Map.Biome.inVacuum)
-            {
-                graphicDataSub.Graphic.Draw(drawLoc + graphicDataSub.drawOffset, flip ? base.Rotation.Opposite : base.Rotation, this);
-            }
+            graphicSub?.Draw(drawLoc, flip ? base.Rotation.Opposite : base.Rotation, this);
+            base.DrawAt(drawLoc, flip);
         }
     }
 }
