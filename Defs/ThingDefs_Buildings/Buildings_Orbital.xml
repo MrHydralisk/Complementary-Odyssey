@@ -5,10 +5,10 @@
 		<defName>VacDoor</defName>
 		<label>vac door</label>
 		<description>An ultrasonic barrier that prevents depressurization in space. The field compresses air molecules near the threshold, preventing gases from escaping while allowing people to freely travel through it. A vac barrier will do nothing to prevent intruders.\n\nMust be powered to prevent depressurization.</description>
-		<thingClass>Building_VacBarrier</thingClass>
+		<thingClass>OdysseyCompact.Building_VacDoor</thingClass>
 		<statBases>
 			<WorkToBuild>2000</WorkToBuild>
-			<MaxHitPoints>100</MaxHitPoints>
+			<MaxHitPoints>230</MaxHitPoints>
 			<Flammability>0</Flammability>
 		</statBases>
 		<rotatable>false</rotatable>
