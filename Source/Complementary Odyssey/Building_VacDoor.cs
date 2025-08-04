@@ -3,7 +3,7 @@ using System.Linq;
 using UnityEngine;
 using Verse;
 
-namespace OdysseyCompact
+namespace ComplementaryOdyssey
 {
     public class Building_VacDoor : Building_SupportedDoor
     {

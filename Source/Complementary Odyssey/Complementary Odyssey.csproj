@@ -7,8 +7,8 @@
     <ProjectGuid>{F0033B10-F4CE-47D8-BDC8-58CBE1653E87}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>OdysseyCompact</RootNamespace>
-    <AssemblyName>Odyssey Compact</AssemblyName>
+    <RootNamespace>ComplementaryOdyssey</RootNamespace>
+    <AssemblyName>Complementary Odyssey</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -25,10 +25,6 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="0Harmony">
-      <HintPath>..\..\..\..\..\..\workshop\content\294100\2009463077\Current\Assemblies\0Harmony.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -38,7 +34,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Building_VacDoor.cs" />
-    <Compile Include="HarmonyPatches.cs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Krafs.Rimworld.Ref">

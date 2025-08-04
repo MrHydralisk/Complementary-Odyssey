@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34714.143
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Odyssey Compact", "Odyssey Compact\Odyssey Compact.csproj", "{F0033B10-F4CE-47D8-BDC8-58CBE1653E87}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Complementary Odyssey", "Complementary Odyssey\Complementary Odyssey.csproj", "{F0033B10-F4CE-47D8-BDC8-58CBE1653E87}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

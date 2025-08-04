@@ -1,27 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ModMetaData>
-	<name>Odyssey Compact</name>
+	<name>Complementary Odyssey</name>
 	<authors>
 		<li>MrHydralisk</li>
 	</authors>
-	<packageId>MrHydralisk.OdysseyCompact</packageId>
-	<!-- <url>https://github.com/MrHydralisk/Place-Holder</url> -->
+	<packageId>MrHydralisk.ComplementaryOdyssey</packageId>
+	<url>https://github.com/MrHydralisk/Complementary-Odyssey</url>
 	<supportedVersions>
 		<li>1.6</li>
 	</supportedVersions>
-	<modIconPath IgnoreIfNoMatchingField="True">UI/Icons/VisitorsHelp</modIconPath>
+	<modIconPath IgnoreIfNoMatchingField="True">Things/Building/CO_VacDoor/CO_VacDoor_MenuIcon</modIconPath>
 	<description>---.</description>
 	<modDependencies>
 		<li>
-			<packageId>brrainz.harmony</packageId>
-			<displayName>Harmony</displayName>
-			<steamWorkshopUrl>steam://url/CommunityFilePage/2009463077</steamWorkshopUrl>
-			<downloadUrl>https://github.com/pardeike/HarmonyRimWorld/releases/latest</downloadUrl>
+			<packageId>Ludeon.RimWorld.Odyssey</packageId>
+			<displayName>Odyssey</displayName>
+			<steamWorkshopUrl>https://store.steampowered.com/app/3022790</steamWorkshopUrl>
 		</li>
 	</modDependencies>
 	<loadAfter>
 		<li>Ludeon.RimWorld</li>
 		<li>Ludeon.Odyssey</li>
-		<li>brrainz.harmony</li>
 	</loadAfter>
 </ModMetaData>

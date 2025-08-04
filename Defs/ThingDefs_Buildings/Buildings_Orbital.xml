@@ -2,24 +2,24 @@
 <Defs>
 
 	<ThingDef ParentName="DoorBase">
-		<defName>VacDoor</defName>
+		<defName>CO_VacDoor</defName>
 		<label>vac door</label>
-		<description>An ultrasonic barrier that prevents depressurization in space. The field compresses air molecules near the threshold, preventing gases from escaping while allowing people to freely travel through it. A vac barrier will do nothing to prevent intruders.\n\nMust be powered to prevent depressurization.</description>
-		<thingClass>OdysseyCompact.Building_VacDoor</thingClass>
+		<description>A strong airtight door that prevents oxygen leaks in the vacuum of space. Installed ultrasonic barrier that prevents depressurization in space. The field compresses air molecules near the threshold, preventing gases from escaping while allowing people to freely travel through it.\n\nMust be powered to prevent depressurization, when vac door is open. Powered operation allows people to move through the door without slowing down.</description>
+		<thingClass>ComplementaryOdyssey.Building_VacDoor</thingClass>
 		<statBases>
 			<WorkToBuild>2000</WorkToBuild>
 			<MaxHitPoints>230</MaxHitPoints>
 			<Flammability>0</Flammability>
 		</statBases>
 		<graphicData>
-			<texPath>Things/Building/VacDoor/VacDoor_Mover</texPath>
+			<texPath>Things/Building/CO_VacDoor/CO_VacDoor_Mover</texPath>
 			<graphicClass>Graphic_Single</graphicClass>
 			<damageData>
 				<enabled>false</enabled>
 			</damageData>
 			<attachments>
 				<li>
-					<texPath>Things/Building/VacDoor/VacDoor_Barrier</texPath>
+					<texPath>Things/Building/CO_VacDoor/CO_VacDoor_Barrier</texPath>
 					<graphicClass>Graphic_Multi</graphicClass>
 					<drawSize>1.5</drawSize>
 					<drawOffset>(0,-0.03658537,0)</drawOffset>
@@ -31,7 +31,7 @@
 				</li>
 			</attachments>
 		</graphicData>
-		<uiIconPath>Things/Building/VacDoor/VacDoor_MenuIcon</uiIconPath>
+		<uiIconPath>Things/Building/CO_VacDoor/CO_VacDoor_MenuIcon</uiIconPath>
 		<costList>
 			<Steel>80</Steel>
 			<ComponentIndustrial>4</ComponentIndustrial>
@@ -47,13 +47,13 @@
 			<isSupportDoor>true</isSupportDoor>
 			<doorTopHorizontalOffset>(0,0,0)</doorTopHorizontalOffset>
 			<doorTopGraphic>
-				<texPath>Things/Building/VacDoor/VacDoor_Top</texPath>
+				<texPath>Things/Building/CO_VacDoor/CO_VacDoor_Top</texPath>
 				<graphicClass>Graphic_Multi</graphicClass>
 				<drawSize>1.5</drawSize>
 			</doorTopGraphic>
 			<blueprintClass>Blueprint_Door</blueprintClass>
 			<blueprintGraphicData>
-				<texPath>Things/Building/VacDoor/VacDoor_Top_south</texPath>
+				<texPath>Things/Building/CO_VacDoor/CO_VacDoor_Top_south</texPath>
 				<graphicClass>Graphic_Multi</graphicClass>
 				<shaderType>EdgeDetect</shaderType>
 				<drawSize>1.5</drawSize>

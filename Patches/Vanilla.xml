@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+
+	<Operation Class="PatchOperationSequence">
+		<operations>
+			<li Class="PatchOperationConditional">
+				<xpath>Defs/ThingDef[defName ="Wall"]/building/relatedBuildCommands</xpath>
+				<nomatch Class="PatchOperationAdd">
+					<xpath>Defs/ThingDef[defName ="Wall"]/building</xpath>
+					<order>Append</order>
+					<value>
+						<relatedBuildCommands>
+							<li>CO_VacDoor</li>
+						</relatedBuildCommands>
+					</value>
+				</nomatch>
+				<match Class="PatchOperationAdd">
+					<xpath>Defs/ThingDef[defName ="Wall"]/building/relatedBuildCommands</xpath>
+					<order>Append</order>
+					<value>
+						<li>CO_VacDoor</li>
+					</value>
+				</match>
+			</li>
+		</operations>
+	</Operation>
+
+</Patch>
