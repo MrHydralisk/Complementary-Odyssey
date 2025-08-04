@@ -8,17 +8,21 @@ using RimWorld;
 using Verse.Sound;
 using UnityEngine;
 using Verse.AI;
+using System.Drawing;
 
 namespace OdysseyCompact
 {
     public class Building_VacDoor : Building_SupportedDoor
     {
 
-        private CompPowerTrader PowerTrader => powerTraderCached ?? (powerTraderCached = GetComp<CompPowerTrader>());
+        public CompPowerTrader PowerTrader => powerTraderCached ?? (powerTraderCached = GetComp<CompPowerTrader>());
         private CompPowerTrader powerTraderCached;
 
-        private VacuumComponent Vacuum => vacuumCached ?? (vacuumCached = base.MapHeld?.GetComponent<VacuumComponent>());
+        public VacuumComponent Vacuum => vacuumCached ?? (vacuumCached = base.MapHeld?.GetComponent<VacuumComponent>());
         private VacuumComponent vacuumCached;
+
+        public GraphicData graphicDataSub => graphicDataSubCached ?? (graphicDataSubCached = Graphic.data.attachments.FirstOrDefault());
+        private GraphicData graphicDataSubCached;
 
         public override bool ExchangeVacuum => !IsAirtight || (Open && !PowerTrader.PowerOn);
 
@@ -44,10 +48,10 @@ namespace OdysseyCompact
 
         protected override void DrawAt(Vector3 drawLoc, bool flip = false)
         {
-            base.DrawAt(drawLoc, flip);
-            if (PowerTrader.PowerOn && base.Map.Biome.inVacuum)
+            base.DrawAt(drawLoc, flip); 
+            if (graphicDataSub != null && PowerTrader.PowerOn && base.Map.Biome.inVacuum)
             {
-                Graphic.Draw(drawLoc, flip ? base.Rotation.Opposite : base.Rotation, this);
+                graphicDataSub.Graphic.Draw(drawLoc + graphicDataSub.drawOffset, flip ? base.Rotation.Opposite : base.Rotation, this);
             }
         }
     }

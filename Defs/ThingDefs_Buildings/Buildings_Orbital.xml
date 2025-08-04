@@ -18,14 +18,19 @@
 			<damageData>
 				<enabled>false</enabled>
 			</damageData>
-			<!-- <texPath>Things/Building/VacBarrier/VacBarrier_Barrier</texPath> -->
-			<!-- <graphicClass>Graphic_Multi</graphicClass> -->
-			<!-- <drawSize>(1.5,1.5)</drawSize> -->
-			<!-- <shaderType>TransparentPostLight</shaderType> -->
-			<!-- <damageData> -->
-				<!-- <enabled>false</enabled> -->
-			<!-- </damageData> -->
-			<!-- <color>(142,142,142)</color> -->
+			<attachments>
+				<li>
+					<texPath>Things/Building/VacBarrier/VacBarrier_Barrier</texPath>
+					<graphicClass>Graphic_Multi</graphicClass>
+					<drawSize>(1.5,1.5)</drawSize>
+					<drawOffset>(0,-0.03658537,0)</drawOffset>
+					<shaderType>TransparentPostLight</shaderType>
+					<damageData>
+						<enabled>false</enabled>
+					</damageData>
+					<color>(142,142,142)</color>
+				</li>
+			</attachments>
 		</graphicData>
 		<uiIconPath>Things/Building/Door/Autodoor_MenuIcon</uiIconPath>
 		<!-- <uiIconPath>Things/Building/VacBarrier/VacBarrier_MenuIcon_south</uiIconPath> -->
