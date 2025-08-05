@@ -22,6 +22,13 @@
 					</value>
 				</match>
 			</li>
+			<li Class="PatchOperationAdd">
+				<xpath>Defs/ThingDef[defName ="GravEngine"]/comps/li[@Class="CompProperties_AffectedByFacilities"]/linkableFacilities</xpath>
+				<order>Append</order>
+				<value>
+					<li>CO_GiantThruster</li>
+				</value>
+			</li>
 		</operations>
 	</Operation>
 

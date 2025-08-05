@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+	<ThingDef ParentName="ThrusterBase">
+		<defName>CO_GiantThruster</defName>
+		<label>giant thruster</label>
+		<description>A high tech chemfuel thruster with a heat-resistant vacstone liner. It greatly increases the range of a gravship. Thrusters require an unobstructed area free of large buildings and gravship substructure.\n\nRequires vacstone blocks, which can be obtained from orbital asteroids.\n\nA gravship can support up to two giant thrusters.</description>
+		<graphicData>
+			<graphicClass>Graphic_Multi</graphicClass>
+			<texPath>Things/Building/LateralThruster/LateralThruster</texPath>
+			<drawSize>(3.3, 3.3)</drawSize>
+			<shadowData>
+				<volume>(2.8, 0.9, 2.8)</volume>
+			</shadowData>
+		</graphicData>
+		<statBases>
+			<MaxHitPoints>1000</MaxHitPoints>
+			<Flammability>0</Flammability>
+			<Beauty>-10</Beauty>
+			<WorkToBuild>19600</WorkToBuild>
+			<Mass>65</Mass>
+		</statBases>
+		<size>(3, 3)</size>
+		<constructionSkillPrerequisite>8</constructionSkillPrerequisite>
+		<costList>
+			<Steel>440</Steel>
+			<BlocksVacstone>150</BlocksVacstone>
+			<ComponentSpacer>7</ComponentSpacer>
+		</costList>
+		<researchPrerequisites>
+			<li>AdvancedGravtech</li>
+		</researchPrerequisites>
+		<comps>
+			<li Class="CompProperties_GravshipThruster">
+				<statOffsets>
+					<GravshipRange>32</GravshipRange>
+				</statOffsets>
+				<componentTypeDef>Thruster</componentTypeDef>
+				<exclusionAreaSize>(3, 0, 10)</exclusionAreaSize>
+				<exclusionAreaOffset>(-1, 0, -11)</exclusionAreaOffset>
+				<directionInfluence>60</directionInfluence>
+				<flameSize>4.0</flameSize>
+				<flameOffsetsPerDirection>
+					<li>(0, 0, 1.0)</li>
+					<li>(0, 0, 0.5)</li>
+					<li>(0, 0, 0.5)</li>
+					<li>(0, 0, 0.5)</li>
+				</flameOffsetsPerDirection>
+				<flameShaderType>MoteGlow</flameShaderType>
+				<flameShaderParameters>
+					<_MainTex>/Things/Mote/LargeThruster_Burn</_MainTex>
+				</flameShaderParameters>
+				<requiresLOS>false</requiresLOS>
+				<maxSimultaneous>2</maxSimultaneous>
+				<maxDistance>500</maxDistance>
+				<exhaustSettings>
+					<exhaustFleckDef>GravshipThrusterExhaust</exhaustFleckDef>
+					<emissionsPerSecond>40.0</emissionsPerSecond>
+					<spawnRadiusRange>0.0~0.5</spawnRadiusRange>
+					<velocity>(0.0,0.0,-20.0)</velocity>
+					<velocityRotationRange>-10.0~10.0</velocityRotationRange>
+					<velocityMultiplierRange>0.8~1.2</velocityMultiplierRange>
+					<rotationOverTimeRange>-180.0~180.0</rotationOverTimeRange>
+					<scaleRange>5.0~8.0</scaleRange>
+				</exhaustSettings>
+			</li>
+			<li Class="CompProperties_Breakdownable"/>
+		</comps>
+		<uiOrder>2205</uiOrder>
+	</ThingDef>
+	
+</Defs>
