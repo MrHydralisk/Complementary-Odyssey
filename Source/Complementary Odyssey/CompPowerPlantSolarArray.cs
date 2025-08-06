@@ -1,9 +1,9 @@
 ﻿using RimWorld;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Verse;
-using System.Collections.Generic;
-using UnityEngine.Analytics;
-using System;
 
 namespace ComplementaryOdyssey
 {
@@ -21,8 +21,8 @@ namespace ComplementaryOdyssey
         private static readonly Material PowerPlantSolarBarUnfilledMat = SolidColorMaterials.SimpleSolidColorMaterial(new Color(0.15f, 0.15f, 0.15f));
 
         public List<IntVec3> solarTiles = new List<IntVec3>();
-        public Vector3 solarDrawOffset;
-        public int SolarPanelsTotal;
+        public List<Building_SolarArrayPanel> solarPanels = new List<Building_SolarArrayPanel>();
+        public int SolarPanelsTotal => Props.zoneTiles().Count();
 
         protected override float DesiredPowerOutput
         {
@@ -38,7 +38,8 @@ namespace ComplementaryOdyssey
             }
         }
 
-        private int SolarPanelsAvailable => solarTiles.Count((IntVec3 iv3) => !parent.Map.roofGrid.Roofed(iv3));
+        private int SolarPanelsAvailable => solarPanels.Count((Thing t) => !t.Map.roofGrid.Roofed(t.Position));
+        private int SolarPanelsDeployed => solarPanels.Count();
 
         private float RoofedPowerOutputFactor => (float)SolarPanelsAvailable / SolarPanelsTotal;
 
@@ -46,25 +47,34 @@ namespace ComplementaryOdyssey
         {
             base.PostSpawnSetup(respawningAfterLoad);
             solarTiles = new List<IntVec3>();
-            SolarPanelsTotal = 0;
             foreach (IntVec3 tile in Props.zoneTiles())
             {
                 solarTiles.Add(parent.Position + tile.RotatedBy(parent.Rotation));
-                SolarPanelsTotal++;
             }
-            solarDrawOffset = new Vector3(0.5f, parent.DrawPos.y, 0.5f);
+            foreach (IntVec3 tile in solarTiles)
+            {
+                TryDeploySolarPanel(tile);
+            }
         }
 
-        public override void DrawAt(Vector3 drawLoc, bool flip = false)
+        public bool TryDeploySolarPanel(IntVec3 tile)
         {
-            base.DrawAt(drawLoc, flip);
-            foreach (IntVec3 item in solarTiles)
+            Building building = tile.GetFirstBuilding(parent.Map);
+            if (!parent.Map.roofGrid.Roofed(tile) && ((building == null) || (building == parent)))
             {
-                if (!item.Roofed(parent.Map))
-                {
-                    Props.graphicDataSub.Graphic.Draw(item.ToVector3() + solarDrawOffset, flip ? parent.Rotation.Opposite : parent.Rotation, parent);
-                }
+                Building_SolarArrayPanel solarPanel = ThingMaker.MakeThing(Props.deployableThing) as Building_SolarArrayPanel;
+                solarPanel.solarArray = parent;
+                solarPanel.SetFactionDirect(parent.Faction);
+                GenSpawn.Spawn(solarPanel, tile, parent.Map, parent.Rotation);
+                solarPanels.Add(solarPanel);
+                return true;
             }
+            return false;
+        }
+
+        public void Notify_SolarPanelDestroyed(Building_SolarArrayPanel solarPanel)
+        {
+            solarPanels.Remove(solarPanel);
         }
 
         public override void PostDraw()
@@ -87,7 +97,7 @@ namespace ComplementaryOdyssey
         {
             List<string> inspectStrings = new List<string>();
             inspectStrings.Add(base.CompInspectStringExtra());
-            inspectStrings.Add($"{SolarPanelsAvailable}/{SolarPanelsTotal} Panels");
+            inspectStrings.Add($"Deployed {SolarPanelsDeployed}[{SolarPanelsAvailable}]/{SolarPanelsTotal} Panels");
             return String.Join("\n", inspectStrings);
         }
     }

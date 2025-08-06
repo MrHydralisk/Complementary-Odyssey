@@ -8,6 +8,7 @@ namespace ComplementaryOdyssey
     public class CompProperties_PowerPlantDeployable : CompProperties_Power
     {
         public GraphicData graphicDataSub;
+        public ThingDef deployableThing;
         public float powerOutputVacMult = 0;
         public IntVec2 zoneSize = IntVec2.One;
         public List<IntVec3> zoneAdditionalTiles = new List<IntVec3>();

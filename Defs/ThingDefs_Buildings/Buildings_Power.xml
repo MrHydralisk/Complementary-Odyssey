@@ -55,17 +55,7 @@
 				<zoneAdditionalTiles>
 					<li>(0,0,-5)</li>
 				</zoneAdditionalTiles>
-				<graphicDataSub>
-					<texPath>Things/Building/Power/SolarCollector</texPath>
-					<graphicClass>Graphic_Single</graphicClass>
-					<drawSize>(1,1)</drawSize>
-					<shadowData>
-						<volume>(0.5,0.2,0.54)</volume>
-					</shadowData>
-					<damageData>
-						<rect>(0,0.6,4,2.8)</rect>
-					</damageData>
-				</graphicDataSub>
+				<deployableThing>CO_SolarArrayPanel</deployableThing>
 			</li>
 			<li Class="CompProperties_Breakdownable"/>
 			<li Class="CompProperties_Stunnable">
@@ -87,13 +77,65 @@
 			<li>ComplementaryOdyssey.PlaceWorker_PowerPlantDeployable</li>
 		</placeWorkers>
 		<uiOrder>2100</uiOrder>
-		<designationHotKey>Misc5</designationHotKey>
 		<constructEffect>ConstructMetal</constructEffect>
 		<researchPrerequisites>
 			<li>SolarPanels</li>
 			<li>AdvancedGravtech</li>
 		</researchPrerequisites>
 		<constructionSkillPrerequisite>8</constructionSkillPrerequisite>
+	</ThingDef>
+
+	<ThingDef ParentName="BuildingBase">
+		<defName>CO_SolarArrayPanel</defName>
+		<label>roll out solar array panel</label>
+		<description>Produces electricity from sunlight. Does not work in the dark or under artificial light.</description>
+		<thingClass>ComplementaryOdyssey.Building_SolarArrayPanel</thingClass>
+		<drawerType>MapMeshOnly</drawerType>
+		<graphicData>
+			<texPath>Things/Building/Power/SolarCollector</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<drawSize>(1,1)</drawSize>
+			<drawOffset>(0,0.03658537,0)</drawOffset>
+			<shadowData>
+				<volume>(0.5,0.2,0.54)</volume>
+			</shadowData>
+			<damageData>
+				<rect>(0,0.6,4,2.8)</rect>
+			</damageData>
+		</graphicData>
+		<altitudeLayer>BuildingOnTop</altitudeLayer>
+		<passability>Standable</passability>
+		<pathCost>0</pathCost>
+		<fillPercent>0.25</fillPercent>
+		<canOverlapZones>true</canOverlapZones>
+		<statBases>
+			<MaxHitPoints>20</MaxHitPoints>
+			<WorkToBuild>2500</WorkToBuild>
+			<Flammability>0.7</Flammability>
+		</statBases>
+		<tickerType>Never</tickerType>
+		<building>
+			<!-- <isEdifice>false</isEdifice> -->
+			<isAttachment>true</isAttachment>
+			<expandHomeArea>false</expandHomeArea>
+			<destroySound>BuildingDestroyed_Metal_Small</destroySound>
+		</building>
+		<comps>
+			<!-- <li Class="ComplementaryOdyssey.CompProperties_PowerPlantDeployable"> -->
+				<!-- <compClass>ComplementaryOdyssey.CompPowerPlantSolarArray</compClass> -->
+				<!-- <basePowerConsumption>-1700</basePowerConsumption> -->
+				<!-- <powerOutputVacMult>1.4</powerOutputVacMult> -->
+				<!-- <transmitsPower>true</transmitsPower> -->
+				<!-- <zoneSize>(3,5)</zoneSize> -->
+				<!-- <zoneOffset>(-1,0,-4)</zoneOffset> -->
+				<!-- <zoneAdditionalTiles> -->
+					<!-- <li>(0,0,-5)</li> -->
+				<!-- </zoneAdditionalTiles> -->
+				<!-- <graphicDataSub> -->
+				<!-- </graphicDataSub> -->
+			<!-- </li> -->
+		</comps>
+		<terrainAffordanceNeeded IsNull="True" />
 	</ThingDef>
 
 </Defs>

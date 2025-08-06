@@ -33,6 +33,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Building_SolarArrayPanel.cs" />
     <Compile Include="PlaceWorker_PowerPlantDeployable.cs" />
     <Compile Include="CompProperties_PowerPlantDeployable.cs" />
     <Compile Include="CompPowerPlantSolarArray.cs" />
