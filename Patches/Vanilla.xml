@@ -29,6 +29,20 @@
 					<li>CO_TwinThruster</li>
 				</value>
 			</li>
+			<li Class="PatchOperationAdd">
+				<xpath>Defs/RitualOutcomeEffectDef[defName ="GravshipLaunch"]/comps</xpath>
+				<order>Append</order>
+				<value>
+					<li Class="ComplementaryOdyssey.RitualOutcomeComp_GravshipFacilities">
+						<facilityQualityOffsets>
+							<li>
+								<key>CO_TwinThruster</key>
+								<value>0.05</value>
+							</li>
+						</facilityQualityOffsets>
+					</li>
+				</value>
+			</li>
 		</operations>
 	</Operation>
 

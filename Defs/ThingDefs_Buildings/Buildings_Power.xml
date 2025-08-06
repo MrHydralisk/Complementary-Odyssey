@@ -3,8 +3,8 @@
 
 	<ThingDef ParentName="BuildingBase">
 		<defName>CO_SolarArrayGenerator</defName>
-		<label>roll out solar array</label>
-		<description>Produces electricity from sunlight. Does not work in the dark or under artificial light.</description>
+		<label>roll out solar array box</label>
+		<description>Produces electricity from sunlight. Can deploy roll out solar array panels and packed them back, when needed. Does not work in the dark or under artificial light. Have higher efficiency in orbit.</description>
 		<thingClass>Building</thingClass>
 		<drawerType>MapMeshAndRealTime</drawerType>
 		<graphicData>
@@ -48,7 +48,8 @@
 			<li Class="ComplementaryOdyssey.CompProperties_PowerPlantDeployable">
 				<compClass>ComplementaryOdyssey.CompPowerPlantSolarArray</compClass>
 				<basePowerConsumption>-1700</basePowerConsumption>
-				<ticksPerDeploy>100</ticksPerDeploy>
+				<ticksPerDeploy>50</ticksPerDeploy>
+				<ticksPerPacking>25</ticksPerPacking>
 				<powerOutputVacMult>1.4</powerOutputVacMult>
 				<transmitsPower>true</transmitsPower>
 				<zoneSize>(3,5)</zoneSize>
@@ -89,7 +90,7 @@
 	<ThingDef ParentName="BuildingBase">
 		<defName>CO_SolarArrayPanel</defName>
 		<label>roll out solar array panel</label>
-		<description>Produces electricity from sunlight. Does not work in the dark or under artificial light.</description>
+		<description>Produces electricity from sunlight. Can be deployed from roll out solar array box. Does not work in the dark or under artificial light. Have higher efficiency in orbit.</description>
 		<thingClass>ComplementaryOdyssey.Building_SolarArrayPanel</thingClass>
 		<drawerType>MapMeshOnly</drawerType>
 		<graphicData>

@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Verse;
-using Verse.Noise;
 
 namespace ComplementaryOdyssey
 {
@@ -27,7 +26,10 @@ namespace ComplementaryOdyssey
         public int SolarPanelsTotal => Props.zoneTiles().Count();
 
         public int tickNextDeploy = -1;
+        public int tickNextPacking = -1;
         public bool isDeploying;
+        public bool isPacking;
+        public bool isAutoDeploying = true;
 
         protected override float DesiredPowerOutput
         {
@@ -57,13 +59,11 @@ namespace ComplementaryOdyssey
                 solarTiles.Add(parent.Position + tile.RotatedBy(parent.Rotation));
             }
             solarTiles.Sort((IntVec3 a, IntVec3 b) => GetCellAffect(b).CompareTo(GetCellAffect(a)));
-            //foreach (IntVec3 tile in solarTiles)
-            //{
-            //    TryDeploySolarPanel(tile);
-            //}
-
-
-            isDeploying = true;
+            tickNextDeploy = Find.TickManager.TicksGame + Props.ticksPerDeploy;
+            if (isAutoDeploying)
+            {
+                isDeploying = true;
+            }
         }
 
         private int GetCellAffect(IntVec3 cell)
@@ -95,33 +95,27 @@ namespace ComplementaryOdyssey
             {
                 List<IntVec3> checkTiles = new List<IntVec3>() { parent.Position };
                 bool isNotDeployed = true;
-                while(checkTiles.Count > 0)
+                while (checkTiles.Count > 0)
                 {
                     IntVec3 tile = checkTiles[0];
-                    Log.Message($"{tile} [{checkTiles.Count}]:\n{string.Join("\n", checkTiles)}");
                     checkTiles.RemoveAt(0);
                     checkedTiles.Add(tile);
                     bool b = TryDeploySolarPanel(tile);
-                    Log.Message($"{isNotDeployed && !b} = {isNotDeployed} && !{b}");
                     isNotDeployed = isNotDeployed && !b;
-                    Log.Message($"{tile} !{isNotDeployed} && {Find.TickManager.TicksGame < tickNextDeploy}");
                     if (!isNotDeployed && Find.TickManager.TicksGame < tickNextDeploy)
                     {
                         break;
                     }
-                    Log.Message($"Checking for {tile}");
                     Building building = tile.GetFirstBuilding(parent.Map);
                     if (building != null && (building == parent || building.def == Props.deployableThing))
                     {
                         foreach (IntVec3 adjTile in GenAdjFast.AdjacentCellsCardinal(tile))
                         {
-                            Log.Message($"Checking {adjTile} for {tile}\n{checkedTiles.Contains(adjTile)} || !{solarTiles.Contains(adjTile)}");
                             if (checkedTiles.Contains(adjTile) || !solarTiles.Contains(adjTile))
                             {
                                 continue;
                             }
                             Building buildingAdj = adjTile.GetFirstBuilding(parent.Map);
-                            Log.Message($"Added {adjTile}\n{buildingAdj?.Label} {buildingAdj == null} || {buildingAdj?.def == Props.deployableThing}");
                             if ((buildingAdj == null || buildingAdj.def == Props.deployableThing))
                             {
                                 checkTiles.AddDistinct(adjTile);
@@ -135,6 +129,24 @@ namespace ComplementaryOdyssey
                 }
                 checkedTiles.Clear();
             }
+            else if (isPacking && Find.TickManager.TicksGame >= tickNextPacking)
+            {
+                bool isNotPacked = true;
+                while (solarPanels.Count > 0)
+                {
+                    solarPanels[0].Destroy();
+                    isNotPacked = false;
+                    tickNextPacking = Find.TickManager.TicksGame + Props.ticksPerPacking;
+                    if (Find.TickManager.TicksGame < tickNextPacking)
+                    {
+                        break;
+                    }
+                }
+                if (isNotPacked)
+                {
+                    isPacking = false;
+                }
+            }
         }
 
         public bool TryDeploySolarPanel(IntVec3 tile)
@@ -145,7 +157,6 @@ namespace ComplementaryOdyssey
             {
                 if (list[i] is Building building)
                 {
-                    Log.Message($"{isCanDeploy && ((building == null) || (building == parent) || (building.def != Props.deployableThing))} = {isCanDeploy} && (({building == null}) || ({building == parent}) || ({building.def != Props.deployableThing}))");
                     isCanDeploy = isCanDeploy && ((building == null) || (building == parent) || (building.def != Props.deployableThing));
                 }
             }
@@ -169,11 +180,62 @@ namespace ComplementaryOdyssey
 
         public override void PostDeSpawn(Map map, DestroyMode mode = DestroyMode.Vanish)
         {
-            for(int i = solarPanels.Count() - 1; i >= 0; i--)
+            for (int i = solarPanels.Count() - 1; i >= 0; i--)
             {
                 solarPanels[i].Destroy();
             }
             base.PostDeSpawn(map, mode);
+        }
+
+        public override IEnumerable<Gizmo> CompGetGizmosExtra()
+        {
+            foreach (Gizmo gizmo in base.CompGetGizmosExtra())
+            {
+                yield return gizmo;
+            }
+            yield return new Command_Action
+            {
+                action = delegate
+                {
+                    isDeploying = true;
+                },
+                defaultLabel = "ComplementaryOdyssey.Deployable.Gizmo.isDeploying.Label".Translate(),
+                defaultDesc = "ComplementaryOdyssey.Deployable.Gizmo.isDeploying.Desc".Translate(Props.deployableThing.label),
+                icon = ContentFinder<Texture2D>.Get("UI/Commands/SelectNextTransporter"),
+                Order = 30,
+                Disabled = isDeploying || isPacking,
+                disabledReason = isDeploying ? "ComplementaryOdyssey.Deployable.Gizmo.isDeploying.Reason.Active".Translate(Props.deployableThing.label) : "ComplementaryOdyssey.Deployable.Gizmo.isPacking.Reason.Active".Translate(Props.deployableThing.label)
+            };
+            if (solarPanels.Count() > 0)
+            {
+                yield return new Command_Action
+                {
+                    action = delegate
+                    {
+                        isPacking = true;
+                        solarPanels.Sort((Building_SolarArrayPanel a, Building_SolarArrayPanel b) => GetCellAffect(b.Position).CompareTo(GetCellAffect(a.Position)));
+                    },
+                    defaultLabel = "ComplementaryOdyssey.Deployable.Gizmo.isPacking.Label".Translate(),
+                    defaultDesc = "ComplementaryOdyssey.Deployable.Gizmo.isPacking.Desc".Translate(Props.deployableThing.label),
+                    icon = ContentFinder<Texture2D>.Get("UI/Commands/SelectPreviousTransporter"),
+                    Order = 30,
+                    Disabled = isDeploying || isPacking,
+                    disabledReason = isDeploying ? "ComplementaryOdyssey.Deployable.Gizmo.isDeploying.Reason.Active".Translate(Props.deployableThing.label) : "ComplementaryOdyssey.Deployable.Gizmo.isPacking.Reason.Active".Translate(Props.deployableThing.label)
+                };
+            }
+            Command_Toggle command_Toggle = new Command_Toggle();
+            command_Toggle.defaultLabel = "ComplementaryOdyssey.Deployable.Gizmo.isAutoDeploying.Label".Translate();
+            command_Toggle.defaultDesc = "ComplementaryOdyssey.Deployable.Gizmo.isAutoDeploying.Desc".Translate(Props.deployableThing.label);
+            command_Toggle.isActive = () => isAutoDeploying;
+            command_Toggle.toggleAction = delegate
+            {
+                isAutoDeploying = !isAutoDeploying;
+            };
+            command_Toggle.activateSound = SoundDefOf.Tick_Tiny;
+            command_Toggle.icon = ContentFinder<Texture2D>.Get("UI/Commands/LaunchGravship");
+            command_Toggle.hotKey = KeyBindingDefOf.Misc6;
+            command_Toggle.Order = 30;
+            yield return command_Toggle;
         }
 
         public override void PostExposeData()
@@ -181,14 +243,25 @@ namespace ComplementaryOdyssey
             base.PostExposeData();
             Scribe_Collections.Look(ref solarPanels, "solarPanels", LookMode.Reference);
             Scribe_Values.Look(ref tickNextDeploy, "tickNextDeploy", -1);
+            Scribe_Values.Look(ref tickNextPacking, "tickNextPacking", -1);
             Scribe_Values.Look(ref isDeploying, "isDeploying", false);
+            Scribe_Values.Look(ref isPacking, "isPacking", false);
+            Scribe_Values.Look(ref isAutoDeploying, "isAutoDeploying", true);
         }
 
         public override string CompInspectStringExtra()
         {
             List<string> inspectStrings = new List<string>();
             inspectStrings.Add(base.CompInspectStringExtra());
-            inspectStrings.Add($"Deployed {SolarPanelsDeployed}[{SolarPanelsAvailable}]/{SolarPanelsTotal} Panels");
+            inspectStrings.Add("ComplementaryOdyssey.Deployable.InspectString.Deployed".Translate(SolarPanelsDeployed, SolarPanelsAvailable, SolarPanelsTotal));
+            if (isDeploying)
+            {
+                inspectStrings.Add("ComplementaryOdyssey.Deployable.Gizmo.isDeploying.Reason.Active".Translate(Props.deployableThing.label));
+            }
+            else if (isPacking)
+            {
+                inspectStrings.Add("ComplementaryOdyssey.Deployable.Gizmo.isPacking.Reason.Active".Translate(Props.deployableThing.label));
+            }
             return String.Join("\n", inspectStrings);
         }
     }
