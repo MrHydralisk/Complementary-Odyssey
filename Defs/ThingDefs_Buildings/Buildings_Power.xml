@@ -22,7 +22,7 @@
 		<passability>Standable</passability>
 		<pathCost>0</pathCost>
 		<fillPercent>0.5</fillPercent>
-		<canOverlapZones>false</canOverlapZones>
+		<canOverlapZones>true</canOverlapZones>
 		<statBases>
 			<MaxHitPoints>300</MaxHitPoints>
 			<WorkToBuild>2500</WorkToBuild>
@@ -48,6 +48,7 @@
 			<li Class="ComplementaryOdyssey.CompProperties_PowerPlantDeployable">
 				<compClass>ComplementaryOdyssey.CompPowerPlantSolarArray</compClass>
 				<basePowerConsumption>-1700</basePowerConsumption>
+				<ticksPerDeploy>100</ticksPerDeploy>
 				<powerOutputVacMult>1.4</powerOutputVacMult>
 				<transmitsPower>true</transmitsPower>
 				<zoneSize>(3,5)</zoneSize>
@@ -115,26 +116,9 @@
 		</statBases>
 		<tickerType>Never</tickerType>
 		<building>
-			<!-- <isEdifice>false</isEdifice> -->
-			<isAttachment>true</isAttachment>
 			<expandHomeArea>false</expandHomeArea>
 			<destroySound>BuildingDestroyed_Metal_Small</destroySound>
 		</building>
-		<comps>
-			<!-- <li Class="ComplementaryOdyssey.CompProperties_PowerPlantDeployable"> -->
-				<!-- <compClass>ComplementaryOdyssey.CompPowerPlantSolarArray</compClass> -->
-				<!-- <basePowerConsumption>-1700</basePowerConsumption> -->
-				<!-- <powerOutputVacMult>1.4</powerOutputVacMult> -->
-				<!-- <transmitsPower>true</transmitsPower> -->
-				<!-- <zoneSize>(3,5)</zoneSize> -->
-				<!-- <zoneOffset>(-1,0,-4)</zoneOffset> -->
-				<!-- <zoneAdditionalTiles> -->
-					<!-- <li>(0,0,-5)</li> -->
-				<!-- </zoneAdditionalTiles> -->
-				<!-- <graphicDataSub> -->
-				<!-- </graphicDataSub> -->
-			<!-- </li> -->
-		</comps>
 		<terrainAffordanceNeeded IsNull="True" />
 	</ThingDef>
 

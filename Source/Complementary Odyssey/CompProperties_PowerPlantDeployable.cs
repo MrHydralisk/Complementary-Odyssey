@@ -9,6 +9,7 @@ namespace ComplementaryOdyssey
     {
         public GraphicData graphicDataSub;
         public ThingDef deployableThing;
+        public int ticksPerDeploy = 0;
         public float powerOutputVacMult = 0;
         public IntVec2 zoneSize = IntVec2.One;
         public List<IntVec3> zoneAdditionalTiles = new List<IntVec3>();
