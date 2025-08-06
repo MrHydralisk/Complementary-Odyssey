@@ -20,6 +20,9 @@
 			<WorkToBuild>19600</WorkToBuild>
 			<Mass>65</Mass>
 		</statBases>
+		<building>
+			<uninstallWork>5000</uninstallWork>
+		</building>
 		<size>(3, 3)</size>
 		<constructionSkillPrerequisite>8</constructionSkillPrerequisite>
 		<costList>
