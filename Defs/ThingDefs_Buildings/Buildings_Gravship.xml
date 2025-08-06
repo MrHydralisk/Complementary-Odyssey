@@ -2,13 +2,13 @@
 <Defs>
 
 	<ThingDef ParentName="ThrusterBase">
-		<defName>CO_GiantThruster</defName>
-		<label>giant thruster</label>
-		<description>A high tech chemfuel thruster with a heat-resistant vacstone liner. It greatly increases the range of a gravship. Thrusters require an unobstructed area free of large buildings and gravship substructure.\n\nRequires vacstone blocks, which can be obtained from orbital asteroids.\n\nA gravship can support up to two giant thrusters.</description>
+		<defName>CO_TwinThruster</defName>
+		<label>twin thruster</label>
+		<description>An advanced chemfuel twin thruster with a heat-resistant vacstone liner. It greatly increases the range of a gravship. Thrusters require an unobstructed area free of large buildings and gravship substructure.\n\nRequires vacstone blocks, which can be obtained from orbital asteroids.\n\nA gravship can support up to two giant thrusters.</description>
 		<graphicData>
 			<graphicClass>Graphic_Multi</graphicClass>
-			<texPath>Things/Building/LateralThruster/LateralThruster</texPath>
-			<drawSize>(3.3, 3.3)</drawSize>
+			<texPath>Things/Building/CO_TwinThruster/CO_TwinThruster</texPath>
+			<drawSize>(3, 3)</drawSize>
 			<shadowData>
 				<volume>(2.8, 0.9, 2.8)</volume>
 			</shadowData>
