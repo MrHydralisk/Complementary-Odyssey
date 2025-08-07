@@ -1,10 +1,7 @@
 ﻿using RimWorld;
-using System;
 using System.Collections.Generic;
-using System.Reflection;
 using UnityEngine;
 using Verse;
-using static HarmonyLib.Code;
 
 namespace ComplementaryOdyssey
 {
@@ -53,9 +50,9 @@ namespace ComplementaryOdyssey
                     {
                         oreDict.Remove(index);
                         isFound = false;
-                    }                        
+                    }
                 }
-                if (!isFound) 
+                if (!isFound)
                 {
                     List<Thing> list = map.thingGrid.ThingsListAt(c);
                     for (int i = 0; i < list.Count; i++)
@@ -144,10 +141,10 @@ namespace ComplementaryOdyssey
                 GUI.color = Color.white;
                 Text.Font = GameFont.Small;
                 Text.Anchor = TextAnchor.MiddleLeft;
-                float num2 = (UI.CurUICellSize() - 27f) / 2f;
-                Rect rect = new Rect(vector.x + num2, vector.y - UI.CurUICellSize() + num2, 27f, 27f);
+                float num2 = (UI.CurUICellSize() - IconSize) / 2f;
+                Rect rect = new Rect(vector.x + num2, vector.y - UI.CurUICellSize() + num2, IconSize, IconSize);
                 Widgets.ThingIcon(rect, ore.def.building.mineableThing);
-                Widgets.Label(new Rect(rect.xMax + 4f, rect.y, 999f, 29f), $"{ore.def.building.mineableThing} { ore.def.building.EffectiveMineableYield}");
+                Widgets.Label(new Rect(rect.xMax + IconPaddingRight, rect.y, 999f, LineSpacing), $"{ore.def.building.mineableThing} {ore.def.building.EffectiveMineableYield}");
                 Text.Anchor = TextAnchor.UpperLeft;
             }
         }

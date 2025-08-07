@@ -1,5 +1,6 @@
 ﻿using RimWorld;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using Verse;
 
@@ -12,13 +13,15 @@ namespace ComplementaryOdyssey
         public MapComponent_CompOdyssey compOdysseyMapComponent => compOdysseyMapComponentCached ?? (compOdysseyMapComponentCached = parent.Map.GetComponent<MapComponent_CompOdyssey>() ?? null);
         private MapComponent_CompOdyssey compOdysseyMapComponentCached;
 
+        public int scannedTiles;
+
         public override AcceptanceReport CanUseNow
         {
             get
             {
-                if (!parent.Map.Biome.hasBedrock)
+                if (scannedTiles >= parent.Map.cellIndices.NumGridCells)
                 {
-                    return "CannotUseScannerNoBedrock".Translate();
+                    return "ComplementaryOdyssey.ShortRangeMineralScanner.CanUse.ScannedFully".Translate();
                 }
                 return base.CanUseNow;
             }
@@ -27,9 +30,9 @@ namespace ComplementaryOdyssey
         public override void PostSpawnSetup(bool respawningAfterLoad)
         {
             base.PostSpawnSetup(respawningAfterLoad);
-            if (!respawningAfterLoad && !parent.Map.Biome.hasBedrock)
+            if (!respawningAfterLoad)
             {
-                Messages.Message("MessageGroundPenetratingScannerNoBedrock".Translate(parent.Named("THING")), parent, MessageTypeDefOf.NegativeEvent, historical: false);
+                scannedTiles = 0;
             }
         }
 
@@ -50,25 +53,50 @@ namespace ComplementaryOdyssey
             return false;
         }
 
+        protected override bool TickDoesFind(float scanSpeed)
+        {
+            if (parent.IsHashIntervalTick(Props.ticksPerScan))
+            {
+                return true;
+            }
+            return false;
+        }
+
         protected override void DoFind(Pawn worker)
         {
             Map map = parent.Map;
-            if (!CellFinderLoose.TryFindRandomNotEdgeCellWith(10, (IntVec3 x) => CanScatterAt(x, map), map, out var result))
+            int canScanAmount = Mathf.Max(1, Mathf.RoundToInt(Props.tilesPerScan * worker.GetStatValue(Props.scanSpeedStat)));
+            int scanned = 0;
+            int iterations = 0;
+            while (scannedTiles < parent.Map.cellIndices.NumGridCells && iterations < canScanAmount && iterations < 1000)
             {
-                Log.Error("Could not find a center cell for deep scanning lump generation!");
-            }
-            ThingDef thingDef = ChooseLumpThingDef();
-            int numCells = Mathf.CeilToInt(thingDef.deepLumpSizeRange.RandomInRange);
-            foreach (IntVec3 item in GridShapeMaker.IrregularLump(result, map, numCells))
-            {
-                if (CanScatterAt(item, map) && !item.InNoBuildEdgeArea(map))
+                IntVec3 cell = map.cellIndices.IndexToCell(scannedTiles);
+                scannedTiles++;
+                iterations++;
+                Mineable mineable = cell.GetFirstMineable(map);
+                if (mineable != null)
                 {
-                    compOdysseyMapComponent.surfaceResourceGrid.SetAt(item);
-                    //remove fog over it?
+                    compOdysseyMapComponent.surfaceResourceGrid.SetAt(cell);
+                    scanned++;
+                    if (!(mineable.def.building.mineableThing?.thingCategories?.Contains(ThingCategoryDefOf.StoneChunks) ?? true))
+                    {
+                        bool isNewVein = true;
+                        foreach (IntVec3 adj in GenAdjFast.AdjacentCells8Way(cell))
+                        {
+                            if (adj.InBounds(map) && map.cellIndices.CellToIndex(adj) < scannedTiles && adj.GetFirstMineable(map)?.def == mineable.def)
+                            {
+                                isNewVein = false;
+                                break;
+                            }
+                        }
+                        if (isNewVein)
+                        {
+                            TargetInfo targetInfo = new TargetInfo(cell, map);
+                            Messages.Message($"ComplementaryOdyssey.ShortRangeMineralScanner.Message.FoundOre".Translate(mineable.def.label, parent.LabelCap).RawText, targetInfo, MessageTypeDefOf.PositiveEvent);
+                        }
+                    }
                 }
             }
-            string key = ("LetterDeepScannerFoundLump".CanTranslate() ? "LetterDeepScannerFoundLump" : ((!"DeepScannerFoundLump".CanTranslate()) ? "LetterDeepScannerFoundLump" : "DeepScannerFoundLump"));
-            Find.LetterStack.ReceiveLetter("LetterLabelDeepScannerFoundLump".Translate() + ": " + thingDef.LabelCap, key.Translate(thingDef.label, worker.Named("FINDER")), LetterDefOf.PositiveEvent, new LookTargets(result, map));
         }
 
         private bool CanScatterAt(IntVec3 pos, Map map)
@@ -85,6 +113,30 @@ namespace ComplementaryOdyssey
         protected ThingDef ChooseLumpThingDef()
         {
             return DefDatabase<ThingDef>.AllDefs.RandomElementByWeight((ThingDef def) => def.deepCommonality);
+        }
+
+        public override string CompInspectStringExtra()
+        {
+            List<string> inspectStrings = new List<string>();
+            if (lastScanTick > (float)(Find.TickManager.TicksGame - 30))
+            {
+                inspectStrings.Add("UserScanAbility".Translate() + ": " + lastUserSpeed.ToStringPercent());
+            }
+            if (scannedTiles >= parent.Map.cellIndices.NumGridCells)
+            {
+                inspectStrings.Add("ComplementaryOdyssey.ShortRangeMineralScanner.CanUse.ScannedFully".Translate());
+            }
+            else
+            {
+                inspectStrings.Add("ComplementaryOdyssey.ShortRangeMineralScanner.InspectString.Progress".Translate(((float)scannedTiles / parent.Map.cellIndices.NumGridCells).ToStringPercent()));
+            }
+            return String.Join("\n", inspectStrings);
+        }
+
+        public override void PostExposeData()
+        {
+            base.PostExposeData();
+            Scribe_Values.Look(ref scannedTiles, "scannedTiles", 0);
         }
     }
 }

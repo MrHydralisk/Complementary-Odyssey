@@ -34,8 +34,8 @@
 			<li Class="CompProperties_Flickable"/>
 			<li Class="ComplementaryOdyssey.CompProperties_ShortRangeMineralScanner">
 				<scanSpeedStat>ResearchSpeed</scanSpeedStat>
-				<scanFindMtbDays>3</scanFindMtbDays>
-				<scanFindGuaranteedDays>6</scanFindGuaranteedDays>
+				<ticksPerScan>60</ticksPerScan>
+				<tilesPerScan>40</tilesPerScan>
 				<soundWorking>ScannerGroundPenetrating_Ambience</soundWorking>
 			</li>
 		</comps>
