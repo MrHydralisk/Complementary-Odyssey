@@ -27,6 +27,7 @@ namespace ComplementaryOdyssey
 
         public int tickNextDeploy = -1;
         public int tickNextPacking = -1;
+        public int tickNextRecharging = -1;
         public bool isDeploying;
         public bool isPacking;
         public bool isAutoDeploying = true;
@@ -126,6 +127,7 @@ namespace ComplementaryOdyssey
                 if (isNotDeployed)
                 {
                     isDeploying = false;
+                    tickNextRecharging = Find.TickManager.TicksGame + Props.ticksPerRecharging;
                 }
                 checkedTiles.Clear();
             }
@@ -145,6 +147,7 @@ namespace ComplementaryOdyssey
                 if (isNotPacked)
                 {
                     isPacking = false;
+                    tickNextRecharging = Find.TickManager.TicksGame + Props.ticksPerRecharging;
                 }
             }
         }
@@ -203,8 +206,8 @@ namespace ComplementaryOdyssey
                 defaultDesc = "ComplementaryOdyssey.Deployable.Gizmo.isDeploying.Desc".Translate(Props.deployableThing.label),
                 icon = ContentFinder<Texture2D>.Get("UI/Commands/SelectNextTransporter"),
                 Order = 30,
-                Disabled = isDeploying || isPacking,
-                disabledReason = isDeploying ? "ComplementaryOdyssey.Deployable.Gizmo.isDeploying.Reason.Active".Translate(Props.deployableThing.label) : "ComplementaryOdyssey.Deployable.Gizmo.isPacking.Reason.Active".Translate(Props.deployableThing.label)
+                Disabled = isDeploying || isPacking || Find.TickManager.TicksGame < tickNextRecharging,
+                disabledReason = isDeploying ? "ComplementaryOdyssey.Deployable.Gizmo.isDeploying.Reason.Active".Translate(Props.deployableThing.label) : isPacking ? "ComplementaryOdyssey.Deployable.Gizmo.isPacking.Reason.Active".Translate(Props.deployableThing.label) : "ShieldOnCooldown".Translate() + " " + (tickNextRecharging - Find.TickManager.TicksGame).ToStringTicksToPeriod()
             };
             if (solarPanels.Count() > 0)
             {
@@ -219,8 +222,8 @@ namespace ComplementaryOdyssey
                     defaultDesc = "ComplementaryOdyssey.Deployable.Gizmo.isPacking.Desc".Translate(Props.deployableThing.label),
                     icon = ContentFinder<Texture2D>.Get("UI/Commands/SelectPreviousTransporter"),
                     Order = 30,
-                    Disabled = isDeploying || isPacking,
-                    disabledReason = isDeploying ? "ComplementaryOdyssey.Deployable.Gizmo.isDeploying.Reason.Active".Translate(Props.deployableThing.label) : "ComplementaryOdyssey.Deployable.Gizmo.isPacking.Reason.Active".Translate(Props.deployableThing.label)
+                    Disabled = isDeploying || isPacking || Find.TickManager.TicksGame < tickNextRecharging,
+                    disabledReason = isDeploying ? "ComplementaryOdyssey.Deployable.Gizmo.isDeploying.Reason.Active".Translate(Props.deployableThing.label) : isPacking ? "ComplementaryOdyssey.Deployable.Gizmo.isPacking.Reason.Active".Translate(Props.deployableThing.label) : "ShieldOnCooldown".Translate() + " " + (tickNextRecharging - Find.TickManager.TicksGame).ToStringTicksToPeriod()
                 };
             }
             Command_Toggle command_Toggle = new Command_Toggle();
@@ -244,6 +247,7 @@ namespace ComplementaryOdyssey
             Scribe_Collections.Look(ref solarPanels, "solarPanels", LookMode.Reference);
             Scribe_Values.Look(ref tickNextDeploy, "tickNextDeploy", -1);
             Scribe_Values.Look(ref tickNextPacking, "tickNextPacking", -1);
+            Scribe_Values.Look(ref tickNextRecharging, "tickNextRecharging", -1);
             Scribe_Values.Look(ref isDeploying, "isDeploying", false);
             Scribe_Values.Look(ref isPacking, "isPacking", false);
             Scribe_Values.Look(ref isAutoDeploying, "isAutoDeploying", true);
@@ -261,6 +265,10 @@ namespace ComplementaryOdyssey
             else if (isPacking)
             {
                 inspectStrings.Add("ComplementaryOdyssey.Deployable.Gizmo.isPacking.Reason.Active".Translate(Props.deployableThing.label));
+            }
+            else if (Find.TickManager.TicksGame < tickNextRecharging)
+            {
+                inspectStrings.Add("ShieldOnCooldown".Translate() + " " + (tickNextRecharging - Find.TickManager.TicksGame).ToStringTicksToPeriod());
             }
             return String.Join("\n", inspectStrings);
         }
