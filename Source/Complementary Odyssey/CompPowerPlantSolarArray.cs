@@ -192,7 +192,11 @@ namespace ComplementaryOdyssey
         {
             for (int i = solarPanels.Count() - 1; i >= 0; i--)
             {
-                solarPanels[i].Destroy();
+                Building_SolarArrayPanel solarPanel = solarPanels[i];
+                if (!solarPanel.Destroyed)
+                {
+                    solarPanel.Destroy();
+                }
             }
             base.PostDeSpawn(map, mode);
         }
