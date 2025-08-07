@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+	<ComplementaryOdyssey.TerrainScanner.Gizmo.Reset.Label>Сброс</ComplementaryOdyssey.TerrainScanner.Gizmo.Reset.Label>
+	<ComplementaryOdyssey.TerrainScanner.Gizmo.Reset.Desc>Сбросит прогресс и начнёт с 0%.</ComplementaryOdyssey.TerrainScanner.Gizmo.Reset.Desc>
+
+	<ComplementaryOdyssey.TerrainScanner.CanUse.ScannedFully>Регион был полностью просканирован.</ComplementaryOdyssey.TerrainScanner.CanUse.ScannedFully>
+	
+	<ComplementaryOdyssey.TerrainScanner.Message.FoundOre>Жила {0} была обнаружена через {1}.</ComplementaryOdyssey.TerrainScanner.Message.FoundOre>
+	
+	<ComplementaryOdyssey.TerrainScanner.InspectString.Progress>Прогресс до полного сканирования региона: {0}</ComplementaryOdyssey.TerrainScanner.InspectString.Progress>
+
+</LanguageData>

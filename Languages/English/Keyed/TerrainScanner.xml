@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+	<ComplementaryOdyssey.TerrainScanner.Gizmo.Reset.Label>Reset</ComplementaryOdyssey.TerrainScanner.Gizmo.Reset.Label>
+	<ComplementaryOdyssey.TerrainScanner.Gizmo.Reset.Desc>Will reset scan progress and start from 0%.</ComplementaryOdyssey.TerrainScanner.Gizmo.Reset.Desc>
+
+	<ComplementaryOdyssey.TerrainScanner.CanUse.ScannedFully>Region was fully scanned.</ComplementaryOdyssey.TerrainScanner.CanUse.ScannedFully>
+	
+	<ComplementaryOdyssey.TerrainScanner.Message.FoundOre>{0} vein was located by {1}.</ComplementaryOdyssey.TerrainScanner.Message.FoundOre>
+	
+	<ComplementaryOdyssey.TerrainScanner.InspectString.Progress>Progress till region scanned: {0}</ComplementaryOdyssey.TerrainScanner.InspectString.Progress>
+
+</LanguageData>

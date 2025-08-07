@@ -4,14 +4,14 @@ using Verse;
 
 namespace ComplementaryOdyssey
 {
-    public class CompProperties_ShortRangeMineralScanner : CompProperties_Scanner
+    public class CompProperties_TerrainScanner : CompProperties_Scanner
     {
         public int ticksPerScan = 60;
         public int tilesPerScan = 40;
 
-        public CompProperties_ShortRangeMineralScanner()
+        public CompProperties_TerrainScanner()
         {
-            compClass = typeof(CompShortRangeMineralScanner);
+            compClass = typeof(CompTerrainScanner);
         }
 
         public override IEnumerable<string> ConfigErrors(ThingDef parentDef)

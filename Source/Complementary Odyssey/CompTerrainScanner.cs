@@ -6,9 +6,9 @@ using Verse;
 
 namespace ComplementaryOdyssey
 {
-    public class CompShortRangeMineralScanner : CompScanner
+    public class CompTerrainScanner : CompScanner
     {
-        public new CompProperties_ShortRangeMineralScanner Props => props as CompProperties_ShortRangeMineralScanner;
+        public new CompProperties_TerrainScanner Props => props as CompProperties_TerrainScanner;
 
         public MapComponent_CompOdyssey compOdysseyMapComponent => compOdysseyMapComponentCached ?? (compOdysseyMapComponentCached = parent.Map.GetComponent<MapComponent_CompOdyssey>() ?? null);
         private MapComponent_CompOdyssey compOdysseyMapComponentCached;
@@ -21,7 +21,7 @@ namespace ComplementaryOdyssey
             {
                 if (scannedTiles >= parent.Map.cellIndices.NumGridCells)
                 {
-                    return "ComplementaryOdyssey.ShortRangeMineralScanner.CanUse.ScannedFully".Translate();
+                    return "ComplementaryOdyssey.TerrainScanner.CanUse.ScannedFully".Translate();
                 }
                 return base.CanUseNow;
             }
@@ -92,27 +92,30 @@ namespace ComplementaryOdyssey
                         if (isNewVein)
                         {
                             TargetInfo targetInfo = new TargetInfo(cell, map);
-                            Messages.Message($"ComplementaryOdyssey.ShortRangeMineralScanner.Message.FoundOre".Translate(mineable.def.label, parent.LabelCap).RawText, targetInfo, MessageTypeDefOf.PositiveEvent);
+                            Messages.Message($"ComplementaryOdyssey.TerrainScanner.Message.FoundOre".Translate(mineable.def.label, parent.LabelCap).RawText, targetInfo, MessageTypeDefOf.PositiveEvent);
                         }
                     }
                 }
             }
         }
 
-        private bool CanScatterAt(IntVec3 pos, Map map)
+        public override IEnumerable<Gizmo> CompGetGizmosExtra()
         {
-            int index = CellIndicesUtility.CellToIndex(pos, map.Size.x);
-            TerrainDef terrainDef = map.terrainGrid.BaseTerrainAt(pos);
-            if ((terrainDef != null && terrainDef.IsWater && terrainDef.passability == Traversability.Impassable) || !pos.GetAffordances(map).Contains(ThingDefOf.DeepDrill.terrainAffordanceNeeded))
+            foreach (Gizmo gizmo in base.CompGetGizmosExtra())
             {
-                return false;
+                yield return gizmo;
             }
-            return !compOdysseyMapComponent.surfaceResourceGrid.GetCellBool(index);
-        }
-
-        protected ThingDef ChooseLumpThingDef()
-        {
-            return DefDatabase<ThingDef>.AllDefs.RandomElementByWeight((ThingDef def) => def.deepCommonality);
+            yield return new Command_Action
+            {
+                action = delegate
+                {
+                    scannedTiles = 0;
+                },
+                defaultLabel = "ComplementaryOdyssey.TerrainScanner.Gizmo.Reset.Label".Translate(),
+                defaultDesc = "ComplementaryOdyssey.TerrainScanner.Gizmo.Reset.Desc".Translate(),
+                icon = ContentFinder<Texture2D>.Get("UI/Commands/LaunchReport"),
+                Order = 30,
+            };
         }
 
         public override string CompInspectStringExtra()
@@ -124,11 +127,11 @@ namespace ComplementaryOdyssey
             }
             if (scannedTiles >= parent.Map.cellIndices.NumGridCells)
             {
-                inspectStrings.Add("ComplementaryOdyssey.ShortRangeMineralScanner.CanUse.ScannedFully".Translate());
+                inspectStrings.Add("ComplementaryOdyssey.TerrainScanner.CanUse.ScannedFully".Translate());
             }
             else
             {
-                inspectStrings.Add("ComplementaryOdyssey.ShortRangeMineralScanner.InspectString.Progress".Translate(((float)scannedTiles / parent.Map.cellIndices.NumGridCells).ToStringPercent()));
+                inspectStrings.Add("ComplementaryOdyssey.TerrainScanner.InspectString.Progress".Translate(((float)scannedTiles / parent.Map.cellIndices.NumGridCells).ToStringPercent()));
             }
             return String.Join("\n", inspectStrings);
         }

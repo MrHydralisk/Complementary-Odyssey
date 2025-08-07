@@ -2,9 +2,9 @@
 <Defs>
 
 	<ThingDef ParentName="BuildingBase">
-		<defName>CO_ShortRangeMineralScanner</defName>
-		<label>short-range mineral scanner</label>
-		<description>An array of sensors used by researchers to detect to determine the location of minerals withing nearby rock formations. The time to scan entire region depends on the operator's research ability. If you find a resource, you'll need to mine through rocks to each it.</description>
+		<defName>CO_TerrainScanner</defName>
+		<label>terrain scanner</label>
+		<description>An array of sensors used by researchers to detect to determine the location of minerals withing nearby rock formations. The time to scan entire region depends on the operator's research ability. If you find a resource, you'll need to mine through rocks to reach it.</description>
 		<graphicData>
 			<texPath>Things/Building/Misc/GroundPenetratingScanner</texPath>
 			<graphicClass>Graphic_Single</graphicClass>
@@ -32,7 +32,7 @@
 			</li>
 			<li Class="CompProperties_Breakdownable"/>
 			<li Class="CompProperties_Flickable"/>
-			<li Class="ComplementaryOdyssey.CompProperties_ShortRangeMineralScanner">
+			<li Class="ComplementaryOdyssey.CompProperties_TerrainScanner">
 				<scanSpeedStat>ResearchSpeed</scanSpeedStat>
 				<ticksPerScan>60</ticksPerScan>
 				<tilesPerScan>40</tilesPerScan>
@@ -46,6 +46,7 @@
 			<WorkToBuild>8000</WorkToBuild>
 			<Flammability>0.5</Flammability>
 			<Beauty>-8</Beauty>
+			<Mass>75</Mass>
 		</statBases>
 		<hasInteractionCell>true</hasInteractionCell>
 		<interactionCellOffset>(0,0,2)</interactionCellOffset>
@@ -56,6 +57,10 @@
 		<passability>PassThroughOnly</passability>
 		<pathCost>50</pathCost>
 		<designationCategory>Misc</designationCategory>
+		<minifiedDef>MinifiedThing</minifiedDef>
+		<thingCategories>
+			<li>BuildingsMisc</li>
+		</thingCategories>
 		<rotatable>true</rotatable>
 		<canOverlapZones>false</canOverlapZones>
 		<size>(2,2)</size>
@@ -64,7 +69,7 @@
 			<li>PlaceWorker_NotUnderRoof</li>
 			<li>PlaceWorker_PreventInteractionSpotOverlap</li>
 		</placeWorkers>
-		<defaultPlacingRot>South</defaultPlacingRot><!-- to match long range mineral scanner -->
+		<defaultPlacingRot>South</defaultPlacingRot>
 		<researchPrerequisites>
 			<li>LongRangeMineralScanner</li>
 		</researchPrerequisites>

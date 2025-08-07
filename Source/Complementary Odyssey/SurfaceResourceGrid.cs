@@ -106,20 +106,20 @@ namespace ComplementaryOdyssey
             Thing singleSelectedThing = Find.Selector.SingleSelectedThing;
             if (singleSelectedThing != null)
             {
-                CompShortRangeMineralScanner compShortRangeMineralScanner = singleSelectedThing.TryGetComp<CompShortRangeMineralScanner>();
-                if ((compShortRangeMineralScanner != null) && AnyActiveShortRangeMineralScannersOnMap())
+                CompTerrainScanner compTerrainScanner = singleSelectedThing.TryGetComp<CompTerrainScanner>();
+                if ((compTerrainScanner != null) && AnyActiveTerrainScannersOnMap())
                 {
                     RenderMouseAttachments();
                 }
             }
         }
 
-        public bool AnyActiveShortRangeMineralScannersOnMap()
+        public bool AnyActiveTerrainScannersOnMap()
         {
             foreach (Building item in map.listerBuildings.allBuildingsColonist)
             {
-                CompShortRangeMineralScanner compShortRangeMineralScanner = item.TryGetComp<CompShortRangeMineralScanner>();
-                if (compShortRangeMineralScanner != null && compShortRangeMineralScanner.ShouldShowSurfaceResourceOverlay())
+                CompTerrainScanner compTerrainScanner = item.TryGetComp<CompTerrainScanner>();
+                if (compTerrainScanner != null && compTerrainScanner.ShouldShowSurfaceResourceOverlay())
                 {
                     return true;
                 }
