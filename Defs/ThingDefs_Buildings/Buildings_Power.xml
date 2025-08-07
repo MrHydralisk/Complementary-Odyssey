@@ -52,6 +52,12 @@
 				<ticksPerPacking>25</ticksPerPacking>
 				<powerOutputVacMult>1.4</powerOutputVacMult>
 				<transmitsPower>true</transmitsPower>
+				<powerBarOffsetNorth>(0,0.1,0.985)</powerBarOffsetNorth>
+				<powerBarOffsetEast>(0.815,0.1,0)</powerBarOffsetEast>
+				<powerBarOffsetSouth>(0,0.1,-0.615)</powerBarOffsetSouth>
+				<powerBarOffsetWest>(-0.815,0.1,0)</powerBarOffsetWest>
+				<powerBarSize>(0.45,0.05)</powerBarSize>
+				<powerBarMargin>0.05</powerBarMargin>
 				<zoneSize>(3,5)</zoneSize>
 				<zoneOffset>(-1,0,-4)</zoneOffset>
 				<zoneAdditionalTiles>

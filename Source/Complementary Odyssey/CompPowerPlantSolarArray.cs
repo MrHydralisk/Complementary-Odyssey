@@ -17,7 +17,7 @@ namespace ComplementaryOdyssey
         private static readonly Vector2 BarSize = new Vector2(0.77f, 0.046f);
 
         private static readonly Material PowerPlantSolarBarFilledMat = SolidColorMaterials.SimpleSolidColorMaterial(new Color(0.5f, 0.475f, 0.1f));
-
+        private static readonly Material PowerPlantSolarVacBarFilledMat = SolidColorMaterials.SimpleSolidColorMaterial(new Color(0.5f, 0.1f, 0.1f));
         private static readonly Material PowerPlantSolarBarUnfilledMat = SolidColorMaterials.SimpleSolidColorMaterial(new Color(0.15f, 0.15f, 0.15f));
 
         public List<IntVec3> solarTiles = new List<IntVec3>();
@@ -77,14 +77,21 @@ namespace ComplementaryOdyssey
         {
             base.PostDraw();
             GenDraw.FillableBarRequest r = default;
-            r.center = parent.DrawPos + Vector3.up * 0.1f;
-            r.size = BarSize;
-            r.fillPercent = base.PowerOutput / (0f - base.Props.PowerConsumption);
-            r.filledMat = PowerPlantSolarBarFilledMat;
+            r.center = parent.DrawPos + Props.PowerBarOffsetForRot(parent.Rotation);
+            r.size = Props.powerBarSize;
+            if (parent.Map.Biome.inVacuum)
+            {
+                r.fillPercent = base.PowerOutput / (0f - base.Props.PowerConsumption * Props.powerOutputVacMult);
+                r.filledMat = PowerPlantSolarVacBarFilledMat;
+            }
+            else
+            {
+                r.fillPercent = base.PowerOutput / (0f - base.Props.PowerConsumption);
+                r.filledMat = PowerPlantSolarBarFilledMat;
+            }
             r.unfilledMat = PowerPlantSolarBarUnfilledMat;
-            r.margin = 0.05f;
+            r.margin = Props.powerBarMargin;
             Rot4 rotation = parent.Rotation;
-            rotation.Rotate(RotationDirection.Clockwise);
             r.rotation = rotation;
             GenDraw.DrawFillableBar(r);
         }
