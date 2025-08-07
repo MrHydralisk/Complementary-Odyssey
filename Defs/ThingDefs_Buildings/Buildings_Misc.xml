@@ -6,14 +6,12 @@
 		<label>terrain scanner</label>
 		<description>An array of sensors used by researchers to detect to determine the location of minerals withing nearby rock formations. The time to scan entire region depends on the operator's research ability. If you find a resource, you'll need to mine through rocks to reach it.</description>
 		<graphicData>
-			<texPath>Things/Building/Misc/GroundPenetratingScanner</texPath>
+			<texPath>Things/Building/CO_TerrainScanner</texPath>
 			<graphicClass>Graphic_Single</graphicClass>
-			<drawSize>1.76</drawSize>
+			<drawSize>2</drawSize>
 			<drawRotated>false</drawRotated>
-			<drawOffset>(0,0,-0.03)</drawOffset>
 			<shadowData>
-				<volume>(1.6875, 0.375, 2.125)</volume>
-				<offset>(0,0,-0.12)</offset>
+				<volume>(1.32, 0.375, 1.74)</volume>
 			</shadowData>
 		</graphicData>
 		<costList>

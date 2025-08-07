@@ -144,7 +144,7 @@ namespace ComplementaryOdyssey
                 float num2 = (UI.CurUICellSize() - IconSize) / 2f;
                 Rect rect = new Rect(vector.x + num2, vector.y - UI.CurUICellSize() + num2, IconSize, IconSize);
                 Widgets.ThingIcon(rect, ore.def.building.mineableThing);
-                Widgets.Label(new Rect(rect.xMax + IconPaddingRight, rect.y, 999f, LineSpacing), $"{ore.def.building.mineableThing} {ore.def.building.EffectiveMineableYield}");
+                Widgets.Label(new Rect(rect.xMax + IconPaddingRight, rect.y, 999f, LineSpacing), $"{ore.def.building.mineableThing.label} x{ore.def.building.EffectiveMineableYield}");
                 Text.Anchor = TextAnchor.UpperLeft;
             }
         }
