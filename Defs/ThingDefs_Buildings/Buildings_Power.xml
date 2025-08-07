@@ -94,10 +94,14 @@
 		<thingClass>ComplementaryOdyssey.Building_SolarArrayPanel</thingClass>
 		<drawerType>MapMeshOnly</drawerType>
 		<graphicData>
-			<texPath>Things/Building/Power/SolarCollector</texPath>
+			<texPath>Things/Building/CO_SolarArrayGenerator/CO_SolarArrayPanel_Atlas</texPath>
 			<graphicClass>Graphic_Single</graphicClass>
 			<drawSize>(1,1)</drawSize>
 			<drawOffset>(0,0.03658537,0)</drawOffset>
+			<linkType>Basic</linkType>
+			<linkFlags>
+				<li>Custom1</li>
+			</linkFlags>
 			<shadowData>
 				<volume>(0.5,0.2,0.54)</volume>
 			</shadowData>
@@ -120,7 +124,7 @@
 			<expandHomeArea>false</expandHomeArea>
 			<destroySound>BuildingDestroyed_Metal_Small</destroySound>
 		</building>
-		<terrainAffordanceNeeded IsNull="True" />
+		<terrainAffordanceNeeded IsNull="True"/>
 	</ThingDef>
 
 </Defs>
