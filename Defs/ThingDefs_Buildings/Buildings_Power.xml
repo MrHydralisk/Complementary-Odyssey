@@ -74,7 +74,7 @@
 				</affectedDamageDefs>
 			</li>
 		</comps>
-		<terrainAffordanceNeeded>Medium</terrainAffordanceNeeded>
+		<terrainAffordanceNeeded IsNull="True"/>
 		<designationCategory>Power</designationCategory>
 		<drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
 		<building>
