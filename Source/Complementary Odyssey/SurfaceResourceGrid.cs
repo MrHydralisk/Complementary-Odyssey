@@ -46,7 +46,16 @@ namespace ComplementaryOdyssey
             int index = map.cellIndices.CellToIndex(c);
             if (oreGrid[index])
             {
-                if (!oreDict.TryGetValue(index, out ore))
+                bool isFound = oreDict.TryGetValue(index, out ore);
+                if (isFound)
+                {
+                    if (ore.DestroyedOrNull())
+                    {
+                        oreDict.Remove(index);
+                        isFound = false;
+                    }                        
+                }
+                if (!isFound) 
                 {
                     List<Thing> list = map.thingGrid.ThingsListAt(c);
                     for (int i = 0; i < list.Count; i++)
@@ -56,7 +65,7 @@ namespace ComplementaryOdyssey
                             if (mineable.def.building.mineableThing != null)
                             {
                                 ore = mineable;
-                                oreDict.Add(index, ore);
+                                oreDict.SetOrAdd(index, ore);
                             }
                             break;
                         }
@@ -64,8 +73,10 @@ namespace ComplementaryOdyssey
                     if (ore == null)
                     {
                         oreGrid[index] = false;
+                        drawer.SetDirty();
                     }
                 }
+
             }
             return ore;
         }
@@ -136,7 +147,7 @@ namespace ComplementaryOdyssey
                 float num2 = (UI.CurUICellSize() - 27f) / 2f;
                 Rect rect = new Rect(vector.x + num2, vector.y - UI.CurUICellSize() + num2, 27f, 27f);
                 Widgets.ThingIcon(rect, ore.def.building.mineableThing);
-                Widgets.Label(new Rect(rect.xMax + 4f, rect.y, 999f, 29f), $"{ore.def.building.EffectiveMineableYield} {ore.Label}" /*"DeepResourceRemaining".Translate(NamedArgumentUtility.Named(thingDef, "RESOURCE"), num.Named("COUNT"))*/);
+                Widgets.Label(new Rect(rect.xMax + 4f, rect.y, 999f, 29f), $"{ore.def.building.mineableThing} { ore.def.building.EffectiveMineableYield}");
                 Text.Anchor = TextAnchor.UpperLeft;
             }
         }
@@ -150,7 +161,17 @@ namespace ComplementaryOdyssey
         {
             IntVec3 c = map.cellIndices.IndexToCell(index);
             Mineable ore = OreAt(c);
-            return DebugMatsSpectrum.Mat(Mathf.RoundToInt((float)ore.HitPoints / ore.MaxHitPoints / 2f * 100f) % 100, transparent: true).color;
+            if (ore != null)
+            {
+                float transparencyValue = (float)ore.HitPoints / ore.MaxHitPoints * 0.5f;
+                Color colorOre = ore.DrawColorTwo;
+                if (colorOre == Color.white)
+                {
+                    colorOre = ore.DrawColor;
+                }
+                return colorOre.ToTransparent(transparencyValue);
+            }
+            return Color.white.ToTransparent(0);
         }
     }
 }
