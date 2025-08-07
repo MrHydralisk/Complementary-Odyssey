@@ -33,6 +33,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CompProperties_ShortRangeMineralScanner.cs" />
+    <Compile Include="SurfaceResourceGrid.cs" />
+    <Compile Include="MapComponent_CompOdyssey.cs" />
+    <Compile Include="CompShortRangeMineralScanner.cs" />
     <Compile Include="RitualOutcomeComp_GravshipFacilities.cs" />
     <Compile Include="Building_SolarArrayPanel.cs" />
     <Compile Include="PlaceWorker_PowerPlantDeployable.cs" />

@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+	<ThingDef ParentName="BuildingBase">
+		<defName>CO_ShortRangeMineralScanner</defName>
+		<label>short-range mineral scanner</label>
+		<description>An array of sensors used by researchers to detect to determine the location of minerals withing nearby rock formations. The time to scan entire region depends on the operator's research ability. If you find a resource, you'll need to mine through rocks to each it.</description>
+		<graphicData>
+			<texPath>Things/Building/Misc/GroundPenetratingScanner</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<drawSize>1.76</drawSize>
+			<drawRotated>false</drawRotated>
+			<drawOffset>(0,0,-0.03)</drawOffset>
+			<shadowData>
+				<volume>(1.6875, 0.375, 2.125)</volume>
+				<offset>(0,0,-0.12)</offset>
+			</shadowData>
+		</graphicData>
+		<costList>
+			<Steel>100</Steel>
+			<ComponentIndustrial>3</ComponentIndustrial>
+			<ComponentSpacer>1</ComponentSpacer>
+		</costList>
+		<building>
+			<destroySound>BuildingDestroyed_Metal_Big</destroySound>
+		</building>
+		<comps>
+			<li Class="CompProperties_Forbiddable"/>
+			<li Class="CompProperties_Power">
+				<compClass>CompPowerTrader</compClass>
+				<basePowerConsumption>300</basePowerConsumption>
+			</li>
+			<li Class="CompProperties_Breakdownable"/>
+			<li Class="CompProperties_Flickable"/>
+			<li Class="ComplementaryOdyssey.CompProperties_ShortRangeMineralScanner">
+				<scanSpeedStat>ResearchSpeed</scanSpeedStat>
+				<scanFindMtbDays>3</scanFindMtbDays>
+				<scanFindGuaranteedDays>6</scanFindGuaranteedDays>
+				<soundWorking>ScannerGroundPenetrating_Ambience</soundWorking>
+			</li>
+		</comps>
+		<altitudeLayer>Building</altitudeLayer>
+		<canBeUsedUnderRoof>false</canBeUsedUnderRoof>
+		<statBases>
+			<MaxHitPoints>150</MaxHitPoints>
+			<WorkToBuild>8000</WorkToBuild>
+			<Flammability>0.5</Flammability>
+			<Beauty>-8</Beauty>
+		</statBases>
+		<hasInteractionCell>true</hasInteractionCell>
+		<interactionCellOffset>(0,0,2)</interactionCellOffset>
+		<interactionCellIcon>DiningChair</interactionCellIcon>
+		<interactionCellIconReverse>true</interactionCellIconReverse>
+		<fillPercent>0.40</fillPercent>
+		<leaveResourcesWhenKilled>false</leaveResourcesWhenKilled>
+		<passability>PassThroughOnly</passability>
+		<pathCost>50</pathCost>
+		<designationCategory>Misc</designationCategory>
+		<rotatable>true</rotatable>
+		<canOverlapZones>false</canOverlapZones>
+		<size>(2,2)</size>
+		<terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
+		<placeWorkers>
+			<li>PlaceWorker_NotUnderRoof</li>
+			<li>PlaceWorker_PreventInteractionSpotOverlap</li>
+		</placeWorkers>
+		<defaultPlacingRot>South</defaultPlacingRot><!-- to match long range mineral scanner -->
+		<researchPrerequisites>
+			<li>LongRangeMineralScanner</li>
+		</researchPrerequisites>
+		<constructionSkillPrerequisite>8</constructionSkillPrerequisite>
+	</ThingDef>
+	
+</Defs>

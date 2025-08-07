@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+	<WorkGiverDef>
+		<defName>CO_ShortRangeScan</defName>
+		<label>operate short range scanner</label>
+		<giverClass>WorkGiver_OperateScanner</giverClass>
+		<workType>Research</workType>
+		<priorityInType>50</priorityInType>
+		<verb>scan at</verb>
+		<gerund>scanning at</gerund>
+		<scannerDef>CO_ShortRangeMineralScanner</scannerDef>
+		<requiredCapacities>
+			<li>Manipulation</li>
+		</requiredCapacities>
+		<canBeDoneByMechs>false</canBeDoneByMechs>
+	</WorkGiverDef>
+
+</Defs>
