@@ -63,7 +63,8 @@ namespace ComplementaryOdyssey
             {
                 if (CanScatterAt(item, map) && !item.InNoBuildEdgeArea(map))
                 {
-                    compOdysseyMapComponent.surfaceResourceGrid.SetAt(item, thingDef, thingDef.deepCountPerCell);
+                    compOdysseyMapComponent.surfaceResourceGrid.SetAt(item);
+                    //remove fog over it?
                 }
             }
             string key = ("LetterDeepScannerFoundLump".CanTranslate() ? "LetterDeepScannerFoundLump" : ((!"DeepScannerFoundLump".CanTranslate()) ? "LetterDeepScannerFoundLump" : "DeepScannerFoundLump"));

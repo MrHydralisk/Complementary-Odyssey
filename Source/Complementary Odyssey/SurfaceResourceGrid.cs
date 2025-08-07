@@ -1,6 +1,10 @@
 ﻿using RimWorld;
+using System;
+using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 using Verse;
+using static HarmonyLib.Code;
 
 namespace ComplementaryOdyssey
 {
@@ -16,65 +20,62 @@ namespace ComplementaryOdyssey
 
         private CellBoolDrawer drawer;
 
-        private ushort[] defGrid;
-
-        private ushort[] countGrid;
+        private bool[] oreGrid;
+        private Dictionary<int, Mineable> oreDict = new Dictionary<int, Mineable>();
 
         public Color Color => Color.white;
 
         public SurfaceResourceGrid(Map map)
         {
             this.map = map;
-            defGrid = new ushort[map.cellIndices.NumGridCells];
-            countGrid = new ushort[map.cellIndices.NumGridCells];
+            oreGrid = new bool[map.cellIndices.NumGridCells];
             drawer = new CellBoolDrawer(this, map.Size.x, map.Size.z, 3640, 1f);
         }
 
         public void ExposeData()
         {
-            MapExposeUtility.ExposeUshort(map, (IntVec3 c) => defGrid[map.cellIndices.CellToIndex(c)], delegate (IntVec3 c, ushort val)
+            MapExposeUtility.ExposeUshort(map, (IntVec3 c) => (oreGrid[map.cellIndices.CellToIndex(c)] ? (ushort)1 : (ushort)0), delegate (IntVec3 c, ushort val)
             {
-                defGrid[map.cellIndices.CellToIndex(c)] = val;
-            }, "defGrid");
-            MapExposeUtility.ExposeUshort(map, (IntVec3 c) => countGrid[map.cellIndices.CellToIndex(c)], delegate (IntVec3 c, ushort val)
-            {
-                countGrid[map.cellIndices.CellToIndex(c)] = val;
-            }, "countGrid");
+                oreGrid[map.cellIndices.CellToIndex(c)] = val == 1;
+            }, "oreGrid");
         }
 
-        public ThingDef ThingDefAt(IntVec3 c)
+        public Mineable OreAt(IntVec3 c)
         {
-            return DefDatabase<ThingDef>.GetByShortHash(defGrid[map.cellIndices.CellToIndex(c)]);
+            Mineable ore = null;
+            int index = map.cellIndices.CellToIndex(c);
+            if (oreGrid[index])
+            {
+                if (!oreDict.TryGetValue(index, out ore))
+                {
+                    List<Thing> list = map.thingGrid.ThingsListAt(c);
+                    for (int i = 0; i < list.Count; i++)
+                    {
+                        if (list[i] is Mineable mineable)
+                        {
+                            if (mineable.def.building.mineableThing != null)
+                            {
+                                ore = mineable;
+                                oreDict.Add(index, ore);
+                            }
+                            break;
+                        }
+                    }
+                    if (ore == null)
+                    {
+                        oreGrid[index] = false;
+                    }
+                }
+            }
+            return ore;
         }
 
-        public int CountAt(IntVec3 c)
+        public void SetAt(IntVec3 c)
         {
-            return countGrid[map.cellIndices.CellToIndex(c)];
-        }
-
-        public void SetAt(IntVec3 c, ThingDef def, int count)
-        {
-            if (count == 0)
+            int index = map.cellIndices.CellToIndex(c);
+            if (!oreGrid[index])
             {
-                def = null;
-            }
-            ushort num = def?.shortHash ?? 0;
-            ushort num2 = (ushort)count;
-            if (count > 65535)
-            {
-                Log.Error("Cannot store count " + count + " in SurfaceResourceGrid: out of ushort range.");
-                num2 = ushort.MaxValue;
-            }
-            if (count < 0)
-            {
-                Log.Error("Cannot store count " + count + " in SurfaceResourceGrid: out of ushort range.");
-                num2 = 0;
-            }
-            int num3 = map.cellIndices.CellToIndex(c);
-            if (defGrid[num3] != num || countGrid[num3] != num2)
-            {
-                defGrid[num3] = num;
-                countGrid[num3] = num2;
+                oreGrid[index] = true;
                 drawer.SetDirty();
             }
         }
@@ -125,36 +126,31 @@ namespace ComplementaryOdyssey
             {
                 return;
             }
-            ThingDef thingDef = ThingDefAt(c);
-            if (thingDef != null)
+            Mineable ore = OreAt(c);
+            if (ore != null)
             {
-                int num = CountAt(c);
-                if (num > 0)
-                {
-                    Vector2 vector = c.ToVector3().MapToUIPosition();
-                    GUI.color = Color.white;
-                    Text.Font = GameFont.Small;
-                    Text.Anchor = TextAnchor.MiddleLeft;
-                    float num2 = (UI.CurUICellSize() - 27f) / 2f;
-                    Rect rect = new Rect(vector.x + num2, vector.y - UI.CurUICellSize() + num2, 27f, 27f);
-                    Widgets.ThingIcon(rect, thingDef);
-                    Widgets.Label(new Rect(rect.xMax + 4f, rect.y, 999f, 29f), "DeepResourceRemaining".Translate(NamedArgumentUtility.Named(thingDef, "RESOURCE"), num.Named("COUNT")));
-                    Text.Anchor = TextAnchor.UpperLeft;
-                }
+                Vector2 vector = c.ToVector3().MapToUIPosition();
+                GUI.color = Color.white;
+                Text.Font = GameFont.Small;
+                Text.Anchor = TextAnchor.MiddleLeft;
+                float num2 = (UI.CurUICellSize() - 27f) / 2f;
+                Rect rect = new Rect(vector.x + num2, vector.y - UI.CurUICellSize() + num2, 27f, 27f);
+                Widgets.ThingIcon(rect, ore.def.building.mineableThing);
+                Widgets.Label(new Rect(rect.xMax + 4f, rect.y, 999f, 29f), $"{ore.def.building.EffectiveMineableYield} {ore.Label}" /*"DeepResourceRemaining".Translate(NamedArgumentUtility.Named(thingDef, "RESOURCE"), num.Named("COUNT"))*/);
+                Text.Anchor = TextAnchor.UpperLeft;
             }
         }
 
         public bool GetCellBool(int index)
         {
-            return CountAt(map.cellIndices.IndexToCell(index)) > 0;
+            return OreAt(map.cellIndices.IndexToCell(index)) != null;
         }
 
         public Color GetCellExtraColor(int index)
         {
             IntVec3 c = map.cellIndices.IndexToCell(index);
-            int num = CountAt(c);
-            ThingDef thingDef = ThingDefAt(c);
-            return DebugMatsSpectrum.Mat(Mathf.RoundToInt((float)num / (float)thingDef.deepCountPerCell / 2f * 100f) % 100, transparent: true).color;
+            Mineable ore = OreAt(c);
+            return DebugMatsSpectrum.Mat(Mathf.RoundToInt((float)ore.HitPoints / ore.MaxHitPoints / 2f * 100f) % 100, transparent: true).color;
         }
     }
 }
