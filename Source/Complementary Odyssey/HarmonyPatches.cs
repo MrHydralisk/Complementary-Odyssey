@@ -19,6 +19,7 @@ namespace ComplementaryOdyssey
             Harmony val = new Harmony("rimworld.mrhydralisk.ComplementaryOdyssey");
             val.Patch(AccessTools.Method(typeof(MapInterface), "MapInterfaceOnGUI_AfterMainTabs"), transpiler: new HarmonyMethod(patchType, "MI_AfterMainTabs_Transpiler"));
         }
+
         public static IEnumerable<CodeInstruction> MI_AfterMainTabs_Transpiler(IEnumerable<CodeInstruction> instructions)
         {
             List<CodeInstruction> codes = new List<CodeInstruction>(instructions);

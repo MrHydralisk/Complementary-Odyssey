@@ -33,6 +33,7 @@ namespace ComplementaryOdyssey
             if (!respawningAfterLoad)
             {
                 scannedTiles = 0;
+                compOdysseyMapComponentCached = null;
             }
         }
 
@@ -64,11 +65,16 @@ namespace ComplementaryOdyssey
 
         protected override void DoFind(Pawn worker)
         {
+            Scan(Mathf.Max(1, Mathf.RoundToInt(Props.tilesPerScan * worker.GetStatValue(Props.scanSpeedStat))));
+
+        }
+
+        public void Scan(int canScanAmount, int iterationsMax = 1000)
+        {
             Map map = parent.Map;
-            int canScanAmount = Mathf.Max(1, Mathf.RoundToInt(Props.tilesPerScan * worker.GetStatValue(Props.scanSpeedStat)));
             int scanned = 0;
             int iterations = 0;
-            while (scannedTiles < parent.Map.cellIndices.NumGridCells && iterations < canScanAmount && iterations < 1000)
+            while (scannedTiles < parent.Map.cellIndices.NumGridCells && iterations < canScanAmount && iterations < iterationsMax)
             {
                 IntVec3 cell = map.cellIndices.IndexToCell(scannedTiles);
                 scannedTiles++;
@@ -116,6 +122,18 @@ namespace ComplementaryOdyssey
                 icon = ContentFinder<Texture2D>.Get("UI/Commands/LaunchReport"),
                 Order = 30,
             };
+            if (DebugSettings.ShowDevGizmos)
+            {
+                yield return new Command_Action
+                {
+                    action = delegate
+                    {
+                        Scan(parent.Map.cellIndices.NumGridCells, 60000);
+                    },
+                    defaultLabel = "Dev: Scan all",
+                    defaultDesc = "Scan whole map"
+                };
+            }
         }
 
         public override string CompInspectStringExtra()
