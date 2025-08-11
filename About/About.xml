@@ -9,7 +9,7 @@
 	<supportedVersions>
 		<li>1.6</li>
 	</supportedVersions>
-	<modIconPath IgnoreIfNoMatchingField="True">Things/Building/CO_VacDoor/CO_VacDoor_MenuIcon</modIconPath>
+	<modIconPath IgnoreIfNoMatchingField="True">Things/Building/CO_VacDoor/CO_VacDoor_MenuIcon_south</modIconPath>
 	<description>Adding new content to Odyssey DLC. Includes compact combination of vac barrier with autodoor, twin trhusters, roll out solar arrays and terrain scanner.</description>
 	<modDependencies>
 		<li>
