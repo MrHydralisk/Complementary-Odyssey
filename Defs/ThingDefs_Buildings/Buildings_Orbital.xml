@@ -75,7 +75,7 @@
 				<drawSize>1.5</drawSize>
 			</doorTopGraphic>
 			<blueprintGraphicData>
-				<texPath>Things/Building/CO_VacDoor/CO_VacDoor_Top_south</texPath>
+				<texPath>Things/Building/CO_VacDoor/CO_VacDoor_MenuIcon</texPath>
 				<graphicClass>Graphic_Multi</graphicClass>
 				<shaderType>EdgeDetect</shaderType>
 				<drawSize>1.5</drawSize>
@@ -138,7 +138,7 @@
 				<drawSize>(2.5, 1.5)</drawSize>
 			</doorTopGraphic>
 			<blueprintGraphicData>
-				<texPath>Things/Building/CO_VacDoor/CO_VacDoorDouble_Top_south</texPath>
+				<texPath>Things/Building/CO_VacDoor/CO_VacDoorDouble_MenuIcon</texPath>
 				<graphicClass>Graphic_Multi</graphicClass>
 				<shaderType>EdgeDetect</shaderType>
 				<drawSize>(2.5, 1.5)</drawSize>
@@ -201,7 +201,7 @@
 				<drawSize>(3.5, 1.5)</drawSize>
 			</doorTopGraphic>
 			<blueprintGraphicData>
-				<texPath>Things/Building/CO_VacDoor/CO_VacDoorTriple_Top_south</texPath>
+				<texPath>Things/Building/CO_VacDoor/CO_VacDoorTriple_MenuIcon</texPath>
 				<graphicClass>Graphic_Multi</graphicClass>
 				<shaderType>EdgeDetect</shaderType>
 				<drawSize>(3.5, 1.5)</drawSize>
