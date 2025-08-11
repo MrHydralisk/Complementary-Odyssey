@@ -1,15 +1,45 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Defs>
 
-	<ThingDef ParentName="DoorBase">
+	<ThingDef Name="COVacDoor" ParentName="DoorBase" Abstract="True">
+		<thingClass>ComplementaryOdyssey.Building_VacDoor</thingClass>
+		<statBases>
+			<Flammability>0</Flammability>
+		</statBases>
+		<defaultStuff>Steel</defaultStuff>
+		<useStuffTerrainAffordance>false</useStuffTerrainAffordance>
+		<terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
+		<useBlueprintGraphicAsGhost>true</useBlueprintGraphicAsGhost>
+		<designationCategory>Odyssey</designationCategory>
+		<building>
+			<isAirtight>true</isAirtight>
+			<isSupportDoor>true</isSupportDoor>
+			<doorTopHorizontalOffset>(0,0,0)</doorTopHorizontalOffset>
+			<blueprintClass>Blueprint_Door</blueprintClass>
+		</building>
+		<researchPrerequisites>
+			<li>Autodoors</li>
+			<li>OrbitalTech</li>
+			<li>AdvancedGravtech</li>
+		</researchPrerequisites>
+		<constructionSkillPrerequisite>8</constructionSkillPrerequisite>
+		<comps>
+			<li Class="CompProperties_Flickable"/>
+			<li Class="CompProperties_Breakdownable"/>
+		</comps>
+		<uiOrder>2015</uiOrder>
+		<building>
+			<isStuffableAirtight>true</isStuffableAirtight>
+		</building>
+	</ThingDef>
+
+	<ThingDef ParentName="COVacDoor">
 		<defName>CO_VacDoor</defName>
 		<label>vac door</label>
 		<description>A strong, airtight door that prevents oxygen leaks in the vacuum of space. It's equipped with an ultrasonic barrier that prevents depressurization. The field compresses air molecules near the threshold, preventing gases from escaping while allowing people to freely travel through it.\n\nThe door must be powered to prevent depressurization when it's open. Powered operation also allows people to move through the door without slowing down.</description>
-		<thingClass>ComplementaryOdyssey.Building_VacDoor</thingClass>
 		<statBases>
 			<WorkToBuild>3500</WorkToBuild>
 			<MaxHitPoints>230</MaxHitPoints>
-			<Flammability>0</Flammability>
 		</statBases>
 		<graphicData>
 			<texPath>Things/Building/CO_VacDoor/CO_VacDoor_Mover</texPath>
@@ -38,20 +68,12 @@
 			<GravlitePanel>2</GravlitePanel>
 		</costList>
 		<costStuffCount>35</costStuffCount>
-		<useStuffTerrainAffordance>false</useStuffTerrainAffordance>
-		<terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
-		<useBlueprintGraphicAsGhost>true</useBlueprintGraphicAsGhost>
-		<designationCategory>Odyssey</designationCategory>
 		<building>
-			<isAirtight>true</isAirtight>
-			<isSupportDoor>true</isSupportDoor>
-			<doorTopHorizontalOffset>(0,0,0)</doorTopHorizontalOffset>
 			<doorTopGraphic>
 				<texPath>Things/Building/CO_VacDoor/CO_VacDoor_Top</texPath>
 				<graphicClass>Graphic_Multi</graphicClass>
 				<drawSize>1.5</drawSize>
 			</doorTopGraphic>
-			<blueprintClass>Blueprint_Door</blueprintClass>
 			<blueprintGraphicData>
 				<texPath>Things/Building/CO_VacDoor/CO_VacDoor_Top_south</texPath>
 				<graphicClass>Graphic_Multi</graphicClass>
@@ -59,14 +81,7 @@
 				<drawSize>1.5</drawSize>
 			</blueprintGraphicData>
 		</building>
-		<researchPrerequisites>
-			<li>Autodoors</li>
-			<li>OrbitalTech</li>
-			<li>AdvancedGravtech</li>
-		</researchPrerequisites>
-		<constructionSkillPrerequisite>8</constructionSkillPrerequisite>
 		<comps>
-			<li Class="CompProperties_Flickable"/>
 			<li Class="CompProperties_Power">
 				<compClass>CompPowerTrader</compClass>
 				<basePowerConsumption>100</basePowerConsumption>
@@ -75,12 +90,133 @@
 				<lowPowerConsumptionFactor>0.55</lowPowerConsumptionFactor>
 				<checkRoomVacuum>false</checkRoomVacuum>
 			</li>
-			<li Class="CompProperties_Breakdownable"/>
 		</comps>
-		<uiOrder>2015</uiOrder>
+	</ThingDef>
+
+	<ThingDef ParentName="COVacDoor">
+		<defName>CO_VacDoorDouble</defName>
+		<label>vac double door</label>
+		<description>A strong, airtight door that prevents oxygen leaks in the vacuum of space. It's equipped with an ultrasonic barrier that prevents depressurization. The field compresses air molecules near the threshold, preventing gases from escaping while allowing people to freely travel through it.\n\nThe door must be powered to prevent depressurization when it's open. Powered operation also allows people to move through the door without slowing down.</description>
+		<statBases>
+			<WorkToBuild>7000</WorkToBuild>
+			<MaxHitPoints>460</MaxHitPoints>
+		</statBases>
+		<graphicData>
+			<texPath>Things/Building/CO_VacDoor/CO_VacDoorDouble_Mover</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<drawSize>(2, 1)</drawSize>
+			<damageData>
+				<enabled>false</enabled>
+			</damageData>
+			<attachments>
+				<li>
+					<texPath>Things/Building/CO_VacDoor/CO_VacDoorDouble_Barrier</texPath>
+					<graphicClass>Graphic_Multi</graphicClass>
+					<drawSize>(2.5, 1.5)</drawSize>
+					<drawOffset>(0,-0.03658537,0)</drawOffset>
+					<shaderType>TransparentPostLight</shaderType>
+					<damageData>
+						<enabled>false</enabled>
+					</damageData>
+					<color>(0,185,252)</color>
+				</li>
+			</attachments>
+		</graphicData>
+		<rotatable>true</rotatable>
+		<uiIconPath>Things/Building/CO_VacDoor/CO_VacDoorDouble_MenuIcon</uiIconPath>
+		<size>(2, 1)</size>
+		<costList>
+			<Steel>160</Steel>
+			<ComponentIndustrial>8</ComponentIndustrial>
+			<GravlitePanel>4</GravlitePanel>
+		</costList>
+		<costStuffCount>70</costStuffCount>
 		<building>
-			<isStuffableAirtight>true</isStuffableAirtight>
+			<doorTopGraphic>
+				<texPath>Things/Building/CO_VacDoor/CO_VacDoorDouble_Top</texPath>
+				<graphicClass>Graphic_Multi</graphicClass>
+				<drawSize>(2.5, 1.5)</drawSize>
+			</doorTopGraphic>
+			<blueprintGraphicData>
+				<texPath>Things/Building/CO_VacDoor/CO_VacDoorDouble_Top_south</texPath>
+				<graphicClass>Graphic_Multi</graphicClass>
+				<shaderType>EdgeDetect</shaderType>
+				<drawSize>(2.5, 1.5)</drawSize>
+			</blueprintGraphicData>
 		</building>
+		<comps>
+			<li Class="CompProperties_Power">
+				<compClass>CompPowerTrader</compClass>
+				<basePowerConsumption>200</basePowerConsumption>
+			</li>
+			<li Class="CompProperties_LowPowerUnlessVacuum">
+				<lowPowerConsumptionFactor>0.55</lowPowerConsumptionFactor>
+				<checkRoomVacuum>false</checkRoomVacuum>
+			</li>
+		</comps>
+	</ThingDef>
+
+	<ThingDef ParentName="COVacDoor">
+		<defName>CO_VacDoorTriple</defName>
+		<label>vac triple door</label>
+		<description>A strong, airtight door that prevents oxygen leaks in the vacuum of space. It's equipped with an ultrasonic barrier that prevents depressurization. The field compresses air molecules near the threshold, preventing gases from escaping while allowing people to freely travel through it.\n\nThe door must be powered to prevent depressurization when it's open. Powered operation also allows people to move through the door without slowing down.</description>
+		<statBases>
+			<WorkToBuild>10500</WorkToBuild>
+			<MaxHitPoints>690</MaxHitPoints>
+		</statBases>
+		<graphicData>
+			<texPath>Things/Building/CO_VacDoor/CO_VacDoorTriple_Mover</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<drawSize>(3, 1)</drawSize>
+			<damageData>
+				<enabled>false</enabled>
+			</damageData>
+			<attachments>
+				<li>
+					<texPath>Things/Building/CO_VacDoor/CO_VacDoorTriple_Barrier</texPath>
+					<graphicClass>Graphic_Multi</graphicClass>
+					<drawSize>(3.5, 1.5)</drawSize>
+					<drawOffset>(0,-0.03658537,0)</drawOffset>
+					<shaderType>TransparentPostLight</shaderType>
+					<damageData>
+						<enabled>false</enabled>
+					</damageData>
+					<color>(0,185,252)</color>
+				</li>
+			</attachments>
+		</graphicData>
+		<rotatable>true</rotatable>
+		<uiIconPath>Things/Building/CO_VacDoor/CO_VacDoorTriple_MenuIcon</uiIconPath>
+		<size>(3, 1)</size>
+		<costList>
+			<Steel>240</Steel>
+			<ComponentIndustrial>12</ComponentIndustrial>
+			<GravlitePanel>6</GravlitePanel>
+		</costList>
+		<costStuffCount>105</costStuffCount>
+		<building>
+			<doorTopGraphic>
+				<texPath>Things/Building/CO_VacDoor/CO_VacDoorTriple_Top</texPath>
+				<graphicClass>Graphic_Multi</graphicClass>
+				<drawSize>(3.5, 1.5)</drawSize>
+			</doorTopGraphic>
+			<blueprintGraphicData>
+				<texPath>Things/Building/CO_VacDoor/CO_VacDoorTriple_Top_south</texPath>
+				<graphicClass>Graphic_Multi</graphicClass>
+				<shaderType>EdgeDetect</shaderType>
+				<drawSize>(3.5, 1.5)</drawSize>
+			</blueprintGraphicData>
+		</building>
+		<comps>
+			<li Class="CompProperties_Power">
+				<compClass>CompPowerTrader</compClass>
+				<basePowerConsumption>300</basePowerConsumption>
+			</li>
+			<li Class="CompProperties_LowPowerUnlessVacuum">
+				<lowPowerConsumptionFactor>0.55</lowPowerConsumptionFactor>
+				<checkRoomVacuum>false</checkRoomVacuum>
+			</li>
+		</comps>
 	</ThingDef>
 	
 </Defs>

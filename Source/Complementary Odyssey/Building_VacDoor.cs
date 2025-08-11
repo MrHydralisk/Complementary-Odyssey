@@ -25,7 +25,19 @@ namespace ComplementaryOdyssey
                 return graphicSubCached;
             }
         }
-        private Graphic graphicSubCached;
+        private Graphic graphicSubCached; 
+        
+        public bool BarrierOn
+        {
+            get
+            {
+                if (PowerTrader.PowerOn)
+                {
+                    return base.Map.Biome.inVacuum;
+                }
+                return false;
+            }
+        }
 
         public override bool ExchangeVacuum => !IsAirtight || (Open && !PowerTrader.PowerOn);
 
@@ -51,7 +63,10 @@ namespace ComplementaryOdyssey
 
         protected override void DrawAt(Vector3 drawLoc, bool flip = false)
         {
-            graphicSub?.Draw(drawLoc, flip ? base.Rotation.Opposite : base.Rotation, this);
+            if (BarrierOn)
+            {
+                graphicSub?.Draw(drawLoc, flip ? base.Rotation.Opposite : base.Rotation, this);
+            }
             base.DrawAt(drawLoc, flip);
         }
     }
