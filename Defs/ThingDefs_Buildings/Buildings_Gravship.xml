@@ -4,7 +4,7 @@
 	<ThingDef ParentName="ThrusterBase">
 		<defName>CO_TwinThruster</defName>
 		<label>twin thruster</label>
-		<description>An advanced chemfuel twin thruster with a heat-resistant vacstone liner. It greatly increases the range of a gravship. Thrusters require an unobstructed area free of large buildings and gravship substructure.\n\nRequires vacstone blocks, which can be obtained from orbital asteroids.\n\nA gravship can support up to two giant thrusters.</description>
+		<description>An advanced chemfuel twin thruster with a heat-resistant vacstone liner. It significantly increases the range of a gravship. Thrusters require an unobstructed area free of large buildings and gravship substructure.\n\nRequires vacstone blocks, which can be obtained from orbital asteroids.\n\nA gravship can support up to two twin thrusters.</description>
 		<graphicData>
 			<graphicClass>Graphic_Multi</graphicClass>
 			<texPath>Things/Building/CO_TwinThruster/CO_TwinThruster</texPath>

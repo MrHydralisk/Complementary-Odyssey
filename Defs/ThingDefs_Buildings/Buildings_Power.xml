@@ -3,8 +3,8 @@
 
 	<ThingDef ParentName="BuildingBase">
 		<defName>CO_SolarArrayGenerator</defName>
-		<label>roll out solar array box</label>
-		<description>Produces electricity from sunlight. Can deploy roll out solar array panels and packed them back, when needed. Does not work in the dark or under artificial light. Have higher efficiency in orbit.</description>
+		<label>roll out solar array</label>
+		<description>A small wall-mounted device that produces electricity from sunlight. Can deploy roll out solar array panels and pack them back, when needed. Does not work in the dark or under artificial light. Have higher efficiency in orbit.</description>
 		<thingClass>Building</thingClass>
 		<drawerType>MapMeshAndRealTime</drawerType>
 		<graphicData>
@@ -24,8 +24,8 @@
 		<fillPercent>0.5</fillPercent>
 		<canOverlapZones>true</canOverlapZones>
 		<statBases>
-			<MaxHitPoints>300</MaxHitPoints>
-			<WorkToBuild>2500</WorkToBuild>
+			<MaxHitPoints>180</MaxHitPoints>
+			<WorkToBuild>4500</WorkToBuild>
 			<Flammability>0.7</Flammability>
 			<Mass>15</Mass>
 		</statBases>
@@ -79,6 +79,7 @@
 		<drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
 		<building>
 			<canPlaceOverWall>true</canPlaceOverWall>
+			<uninstallWork>5000</uninstallWork>
 		</building>
 		<placeWorkers>
 			<li>Placeworker_AttachedToWall</li>
@@ -88,15 +89,15 @@
 		<constructEffect>ConstructMetal</constructEffect>
 		<researchPrerequisites>
 			<li>SolarPanels</li>
-			<li>AdvancedGravtech</li>
+			<li>StandardGravtech</li>
 		</researchPrerequisites>
 		<constructionSkillPrerequisite>8</constructionSkillPrerequisite>
 	</ThingDef>
 
 	<ThingDef ParentName="BuildingBase">
 		<defName>CO_SolarArrayPanel</defName>
-		<label>roll out solar array panel</label>
-		<description>Produces electricity from sunlight. Can be deployed from roll out solar array box. Does not work in the dark or under artificial light. Have higher efficiency in orbit.</description>
+		<label>roll out solar panel</label>
+		<description>Produces electricity from sunlight. It can be deployed from roll out solar array. Does not work in the dark or under artificial light. It have higher efficiency in orbit.</description>
 		<thingClass>ComplementaryOdyssey.Building_SolarArrayPanel</thingClass>
 		<drawerType>MapMeshOnly</drawerType>
 		<graphicData>
@@ -109,10 +110,10 @@
 				<li>Custom1</li>
 			</linkFlags>
 			<shadowData>
-				<volume>(0.5,0.2,0.54)</volume>
+				<volume>(0.78,0.2,0.78)</volume>
 			</shadowData>
 			<damageData>
-				<rect>(0,0.6,4,2.8)</rect>
+				<rect>(0.11,0.11,0.78,0.78)</rect>
 			</damageData>
 		</graphicData>
 		<altitudeLayer>BuildingOnTop</altitudeLayer>
@@ -122,7 +123,7 @@
 		<canOverlapZones>true</canOverlapZones>
 		<statBases>
 			<MaxHitPoints>20</MaxHitPoints>
-			<WorkToBuild>2500</WorkToBuild>
+			<WorkToBuild>500</WorkToBuild>
 			<Flammability>0.7</Flammability>
 		</statBases>
 		<tickerType>Never</tickerType>

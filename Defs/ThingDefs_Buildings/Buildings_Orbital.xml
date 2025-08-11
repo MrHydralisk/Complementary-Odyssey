@@ -4,10 +4,10 @@
 	<ThingDef ParentName="DoorBase">
 		<defName>CO_VacDoor</defName>
 		<label>vac door</label>
-		<description>A strong airtight door that prevents oxygen leaks in the vacuum of space. Installed ultrasonic barrier prevents depressurization in space. The field compresses air molecules near the threshold, preventing gases from escaping while allowing people to freely travel through it.\n\nMust be powered to prevent depressurization, when vac door is open. Powered operation allows people to move through the door without slowing down.</description>
+		<description>A strong, airtight door that prevents oxygen leaks in the vacuum of space. It's equipped with an ultrasonic barrier that prevents depressurization. The field compresses air molecules near the threshold, preventing gases from escaping while allowing people to freely travel through it.\n\nThe door must be powered to prevent depressurization when it's open. Powered operation also allows people to move through the door without slowing down.</description>
 		<thingClass>ComplementaryOdyssey.Building_VacDoor</thingClass>
 		<statBases>
-			<WorkToBuild>2000</WorkToBuild>
+			<WorkToBuild>3500</WorkToBuild>
 			<MaxHitPoints>230</MaxHitPoints>
 			<Flammability>0</Flammability>
 		</statBases>

@@ -3,7 +3,7 @@
 
 	<WorkGiverDef>
 		<defName>CO_TerrainScan</defName>
-		<label>operate short range scanner</label>
+		<label>operate terrain scanner</label>
 		<giverClass>WorkGiver_OperateScanner</giverClass>
 		<workType>Research</workType>
 		<priorityInType>50</priorityInType>

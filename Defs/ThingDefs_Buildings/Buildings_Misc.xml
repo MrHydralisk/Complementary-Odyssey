@@ -4,7 +4,7 @@
 	<ThingDef ParentName="BuildingBase">
 		<defName>CO_TerrainScanner</defName>
 		<label>terrain scanner</label>
-		<description>An array of sensors used by researchers to detect to determine the location of minerals withing nearby rock formations. The time to scan entire region depends on the operator's research ability. If you find a resource, you'll need to mine through rocks to reach it.</description>
+		<description>An array of sensors used by researchers to detect to determine the location of minerals within nearby rock formations. The time to scan entire region depends on the operator's research ability. If you find a resource, you'll need to mine through rocks to reach it.</description>
 		<graphicData>
 			<texPath>Things/Building/CO_TerrainScanner</texPath>
 			<graphicClass>Graphic_Single</graphicClass>
@@ -69,7 +69,9 @@
 		</placeWorkers>
 		<defaultPlacingRot>South</defaultPlacingRot>
 		<researchPrerequisites>
+			<li>GroundPenetratingScanner</li>
 			<li>LongRangeMineralScanner</li>
+			<li>StandardGravtech</li>
 		</researchPrerequisites>
 		<constructionSkillPrerequisite>8</constructionSkillPrerequisite>
 	</ThingDef>
