@@ -28,7 +28,7 @@ Allowing to scan current map rock formation to find ore veins inside. Which can 
 
 ## Links
 
-[Steam Workshop Page](https://steamcommunity.com/sharedfiles/filedetails/?id=3530651481)
+[Steam Workshop Page](https://steamcommunity.com/sharedfiles/filedetails/?id=3546612303)
 
 [Discord](https://discord.gg/tKsBgzzTsG)
 
