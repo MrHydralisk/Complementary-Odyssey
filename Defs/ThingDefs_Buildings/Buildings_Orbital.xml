@@ -61,7 +61,7 @@
 				</li>
 			</attachments>
 		</graphicData>
-		<uiIconPath>Things/Building/CO_VacDoor/CO_VacDoor_MenuIcon</uiIconPath>
+		<uiIconPath>Things/Building/CO_VacDoor/CO_VacDoor_MenuIcon_south</uiIconPath>
 		<costList>
 			<Steel>80</Steel>
 			<ComponentIndustrial>4</ComponentIndustrial>
@@ -123,7 +123,7 @@
 			</attachments>
 		</graphicData>
 		<rotatable>true</rotatable>
-		<uiIconPath>Things/Building/CO_VacDoor/CO_VacDoorDouble_MenuIcon</uiIconPath>
+		<uiIconPath>Things/Building/CO_VacDoor/CO_VacDoorDouble_MenuIcon_south</uiIconPath>
 		<size>(2, 1)</size>
 		<costList>
 			<Steel>160</Steel>
@@ -186,7 +186,7 @@
 			</attachments>
 		</graphicData>
 		<rotatable>true</rotatable>
-		<uiIconPath>Things/Building/CO_VacDoor/CO_VacDoorTriple_MenuIcon</uiIconPath>
+		<uiIconPath>Things/Building/CO_VacDoor/CO_VacDoorTriple_MenuIcon_south</uiIconPath>
 		<size>(3, 1)</size>
 		<costList>
 			<Steel>240</Steel>
