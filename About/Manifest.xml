@@ -4,6 +4,13 @@
 	<version>1.0.0.0</version>
 	<dependencies>
 		<li>Ludeon.Odyssey</li>
+		<li>>brrainz.harmony</li>
 	</dependencies>
+	<suggests>
+		<li>MrHydralisk.AnomaliesExpected</li>
+		<li>MrHydralisk.VOEAdditionalOutposts</li>
+		<li>MrHydralisk.UndergroundVault</li>
+		<li>MrHydralisk.VNPEReimaginedProgression</li>
+	</suggests>
 	<showCrossPromotions>true</showCrossPromotions>
 </Manifest>
