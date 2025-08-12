@@ -25,8 +25,8 @@ namespace ComplementaryOdyssey
                 return graphicSubCached;
             }
         }
-        private Graphic graphicSubCached; 
-        
+        private Graphic graphicSubCached;
+
         public bool BarrierOn
         {
             get

@@ -10,16 +10,24 @@ namespace ComplementaryOdyssey
 
         public override void DrawGhost(ThingDef def, IntVec3 center, Rot4 rot, Color ghostCol, Thing thing = null)
         {
+            ThingDef thingDef = def.entityDefToBuild as ThingDef;
+            if (thingDef == null)
+            {
+                thingDef = def;
+            }
             if (propsCached == null)
             {
-                propsCached = def.GetCompProperties<CompProperties_PowerPlantDeployable>();
+                propsCached = thingDef.GetCompProperties<CompProperties_PowerPlantDeployable>();
             }
-            List<IntVec3> tiles = new List<IntVec3>();
-            foreach (IntVec3 tile in propsCached.zoneTiles())
+            if (propsCached != null)
             {
-                tiles.Add(center + tile.RotatedBy(rot));
+                List<IntVec3> tiles = new List<IntVec3>();
+                foreach (IntVec3 tile in propsCached.zoneTiles())
+                {
+                    tiles.Add(center + tile.RotatedBy(rot));
+                }
+                GenDraw.DrawFieldEdges(tiles);
             }
-            GenDraw.DrawFieldEdges(tiles);
         }
     }
 }
