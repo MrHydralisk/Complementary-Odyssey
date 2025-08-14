@@ -10,7 +10,7 @@ namespace ComplementaryOdyssey
     {
         public new CompProperties_TerrainScanner Props => props as CompProperties_TerrainScanner;
 
-        public MapComponent_CompOdyssey compOdysseyMapComponent => compOdysseyMapComponentCached ?? (compOdysseyMapComponentCached = parent.Map.GetComponent<MapComponent_CompOdyssey>() ?? null);
+        public MapComponent_CompOdyssey compOdysseyMapComponent => compOdysseyMapComponentCached ?? (compOdysseyMapComponentCached = parent.MapHeld.GetComponent<MapComponent_CompOdyssey>() ?? null);
         private MapComponent_CompOdyssey compOdysseyMapComponentCached;
 
         public int scannedTiles;
@@ -19,11 +19,27 @@ namespace ComplementaryOdyssey
         {
             get
             {
+                if (!parent.Spawned)
+                {
+                    return false;
+                }
+                if (powerComp != null && !powerComp.PowerOn)
+                {
+                    return false;
+                }
+                if (forbiddable != null && forbiddable.Forbidden)
+                {
+                    return false;
+                }
                 if (scannedTiles >= parent.Map.cellIndices.NumGridCells)
                 {
                     return "ComplementaryOdyssey.TerrainScanner.CanUse.ScannedFully".Translate();
                 }
-                return base.CanUseNow;
+                if (parent.Faction != Faction.OfPlayer)
+                {
+                    return false;
+                }
+                return true;
             }
         }
 
@@ -143,13 +159,13 @@ namespace ComplementaryOdyssey
             {
                 inspectStrings.Add("UserScanAbility".Translate() + ": " + lastUserSpeed.ToStringPercent());
             }
-            if (scannedTiles >= parent.Map.cellIndices.NumGridCells)
+            if (scannedTiles >= parent.MapHeld.cellIndices.NumGridCells)
             {
                 inspectStrings.Add("ComplementaryOdyssey.TerrainScanner.CanUse.ScannedFully".Translate());
             }
             else
             {
-                inspectStrings.Add("ComplementaryOdyssey.TerrainScanner.InspectString.Progress".Translate(((float)scannedTiles / parent.Map.cellIndices.NumGridCells).ToStringPercent()));
+                inspectStrings.Add("ComplementaryOdyssey.TerrainScanner.InspectString.Progress".Translate(((float)scannedTiles / parent.MapHeld.cellIndices.NumGridCells).ToStringPercent()));
             }
             return String.Join("\n", inspectStrings);
         }

@@ -38,7 +38,6 @@
 			</li>
 		</comps>
 		<altitudeLayer>Building</altitudeLayer>
-		<canBeUsedUnderRoof>false</canBeUsedUnderRoof>
 		<statBases>
 			<MaxHitPoints>150</MaxHitPoints>
 			<WorkToBuild>8000</WorkToBuild>
@@ -64,7 +63,6 @@
 		<size>(2,2)</size>
 		<terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
 		<placeWorkers>
-			<li>PlaceWorker_NotUnderRoof</li>
 			<li>PlaceWorker_PreventInteractionSpotOverlap</li>
 		</placeWorkers>
 		<defaultPlacingRot>South</defaultPlacingRot>

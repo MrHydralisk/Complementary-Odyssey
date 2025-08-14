@@ -25,7 +25,11 @@ Compact on-wall solar panel. Can be extended and retracted, when needed. Have hi
 
 ### Terrain scanner
 
-Allowing to scan current map rock formation to find ore veins inside. Which can speedup process of searching for ore within asteroids and mountainous maps. Combines digital ore map of ground-penetrating scanner and full surface mineral analysis of long-range mineral scanner. Can be minified.
+Allowing to scan current map rock formation to find ore veins inside. Which can speedup process of searching for ore within asteroids and mountainous maps. Combines digital ore map of ground-penetrating scanner and full surface mineral analysis of long-range mineral scanner. Can be minified and used on surface, underground and in space.
+
+### Order open
+
+Allowing to drag select all over all containers in ruins, instead of searching for each on map and clicking one by one.
 
 ## Links
 
@@ -39,7 +43,8 @@ Should have no compatibility issues with other mods.
 
 Supported languages:
 * English,
-* Russian
+* Russian,
+* Chinese (available on workshop by 恰似宛然一笑生花)
 
 ## Add/Remove
 
