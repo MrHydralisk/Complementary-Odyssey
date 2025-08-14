@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Manifest>
 	<identifier>MrHydralisk.ComplementaryOdyssey</identifier>
-	<version>1.1.0.1</version>
-	<dependencies>
-		<li>Ludeon.Odyssey</li>
-		<li>>brrainz.harmony</li>
-	</dependencies>
+	<version>1.2.0.0</version>
 	<suggests>
 		<li>MrHydralisk.AnomaliesExpected</li>
 		<li>MrHydralisk.VOEAdditionalOutposts</li>

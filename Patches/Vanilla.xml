@@ -43,6 +43,13 @@
 					</li>
 				</value>
 			</li>
+			<li Class="PatchOperationAdd">
+				<xpath>Defs/DesignationCategoryDef[defName ="Orders"]/specialDesignatorClasses</xpath>
+				<order>Append</order>
+				<value>
+					<li>Designator_Open</li>
+				</value>
+			</li>
 		</operations>
 	</Operation>
 
