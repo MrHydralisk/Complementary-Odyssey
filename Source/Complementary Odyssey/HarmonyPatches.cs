@@ -21,10 +21,16 @@ namespace ComplementaryOdyssey
             val.Patch(AccessTools.Method(typeof(MapInterface), "MapInterfaceOnGUI_AfterMainTabs"), transpiler: new HarmonyMethod(patchType, "MI_AfterMainTabs_Transpiler"));
             val.Patch(AccessTools.Method(typeof(Mineable), "DestroyMined"), prefix: new HarmonyMethod(patchType, "M_DestroyMined_Prefix"));
 
-            val.Patch(AccessTools.Method(typeof(ShipLandingArea), "RecalculateBlockingThing"), transpiler: new HarmonyMethod(patchType, "SLA_RecalculateBlockingThing_Transpiler"));
-            val.Patch(AccessTools.Property(typeof(CompLaunchable), "AnyInGroupIsUnderRoof").GetGetMethod(true), transpiler: new HarmonyMethod(patchType, "SLA_RecalculateBlockingThing_Transpiler"));
+            val.Patch(AccessTools.Method(typeof(ShipLandingArea), "RecalculateBlockingThing"), transpiler: new HarmonyMethod(patchType, "ReplaceRoofed_Transpiler"));
+            val.Patch(AccessTools.Property(typeof(CompLaunchable), "AnyInGroupIsUnderRoof").GetGetMethod(true), transpiler: new HarmonyMethod(patchType, "ReplaceRoofed_Transpiler"));
             val.Patch(AccessTools.Method(typeof(RoofGrid), "GetCellExtraColor"), postfix: new HarmonyMethod(patchType, "RG_GetCellExtraColor_Postfix"));
-            val.Patch(AccessTools.Method(typeof(Skyfaller).GetNestedTypes(AccessTools.all).First((Type t) => t.Name.Contains("c__DisplayClass57_0")), "<HitRoof>b__0"), transpiler: new HarmonyMethod(patchType, "SLA_RecalculateBlockingThing_Transpiler"));
+            val.Patch(AccessTools.Method(typeof(Skyfaller).GetNestedTypes(AccessTools.all).First((Type t) => t.Name.Contains("c__DisplayClass57_0")), "<HitRoof>b__0"), transpiler: new HarmonyMethod(patchType, "ReplaceRoofed_Transpiler"));
+            val.Patch(AccessTools.Method(typeof(DropCellFinder), "CanPhysicallyDropInto"), transpiler: new HarmonyMethod(patchType, "ReplaceGetRoof_Transpiler"));
+
+            val.Patch(AccessTools.Method(typeof(Building_TurretGun), "TryStartShootSomething"), transpiler: new HarmonyMethod(patchType, "BTG_TryStartShootSomething_Transpiler"));
+            val.Patch(AccessTools.Method(typeof(Building_TurretGun), "GetInspectString"), transpiler: new HarmonyMethod(patchType, "ReplaceRoofed_Transpiler"));
+            val.Patch(AccessTools.Method(typeof(Building_TurretGun).GetNestedTypes(AccessTools.all).First((Type t) => t.Name.Contains("<GetGizmos>d__71")), "MoveNext"), transpiler: new HarmonyMethod(patchType, "ReplaceRoofed_Transpiler"));
+            val.Patch(AccessTools.Method(typeof(PlaceWorker_NotUnderRoof), "AllowsPlacing"), transpiler: new HarmonyMethod(patchType, "ReplaceGridRoofed_Transpiler"));
         }
 
         public static IEnumerable<CodeInstruction> MI_AfterMainTabs_Transpiler(IEnumerable<CodeInstruction> instructions)
@@ -54,7 +60,7 @@ namespace ComplementaryOdyssey
 
 
 
-        public static IEnumerable<CodeInstruction> SLA_RecalculateBlockingThing_Transpiler(IEnumerable<CodeInstruction> instructions)
+        public static IEnumerable<CodeInstruction> ReplaceRoofed_Transpiler(IEnumerable<CodeInstruction> instructions)
         {
             List<CodeInstruction> codes = new List<CodeInstruction>(instructions);
             for (int i = 0; i < codes.Count; i++)
@@ -69,11 +75,9 @@ namespace ComplementaryOdyssey
 
         public static bool Roofed(IntVec3 c, Map map)
         {
-            Log.Message($"{c} {c.Roofed(map)}");
             if (c.Roofed(map))
             {
                 RoofDef roofDef = c.GetRoof(map);
-                Log.Message($"{roofDef.label} {roofDef.IsVacRoof(out _)}");
                 if (roofDef.IsVacRoof(out _))
                 {
                     return false;
@@ -93,6 +97,65 @@ namespace ComplementaryOdyssey
                     __result = defModExtension.color;
                 }
             }
+        }
+
+        public static IEnumerable<CodeInstruction> ReplaceGetRoof_Transpiler(IEnumerable<CodeInstruction> instructions)
+        {
+            List<CodeInstruction> codes = new List<CodeInstruction>(instructions);
+            for (int i = 0; i < codes.Count; i++)
+            {
+                if (codes[i].opcode == OpCodes.Call && (codes[i].operand?.ToString().Contains("GetRoof") ?? false))
+                {
+                    codes[i] = new CodeInstruction(OpCodes.Call, AccessTools.Method(typeof(HarmonyPatches), "GetRoof"));
+                }
+            }
+            return codes.AsEnumerable();
+        }
+
+        public static RoofDef GetRoof(IntVec3 c, Map map)
+        {
+            RoofDef roofDef = map.roofGrid.RoofAt(c);
+            if (roofDef?.IsVacRoof(out _) ?? false)
+            {
+                return null;
+            }
+            return roofDef;
+        }
+
+        public static IEnumerable<CodeInstruction> BTG_TryStartShootSomething_Transpiler(IEnumerable<CodeInstruction> instructions)
+        {
+            List<CodeInstruction> codes = new List<CodeInstruction>(instructions);
+            for (int i = 0; i < codes.Count; i++)
+            {
+                if (codes[i].opcode == OpCodes.Callvirt && (codes[i].operand?.ToString().Contains("Roofed") ?? false))
+                {
+                    CodeInstruction codeInstruction = codes[i - 4];
+                    codes[i - 4] = codes[i - 1];
+                    codes[i - 1] = codeInstruction;
+                    codes[i] = new CodeInstruction(OpCodes.Call, AccessTools.Method(typeof(HarmonyPatches), "Roofed"));
+                    codes.RemoveAt(i - 3);
+                }
+            }
+            return codes.AsEnumerable();
+        }
+        public static IEnumerable<CodeInstruction> ReplaceGridRoofed_Transpiler(IEnumerable<CodeInstruction> instructions)
+        {
+            List<CodeInstruction> codes = new List<CodeInstruction>(instructions);
+            for (int i = 0; i < codes.Count; i++)
+            {
+                if (codes[i].opcode == OpCodes.Callvirt && (codes[i].operand?.ToString().Contains("Roofed") ?? false))
+                {
+                    codes[i] = new CodeInstruction(OpCodes.Call, AccessTools.Method(typeof(HarmonyPatches), "GridRoofed"));
+                }
+            }
+            return codes.AsEnumerable();
+        }
+
+        public static bool GridRoofed(RoofGrid roofGrid, IntVec3 c)
+        {
+            RoofDef[] roofDefGrid = AccessTools.Field(typeof(RoofGrid), "roofGrid").GetValue(roofGrid) as RoofDef[];
+            Map map = AccessTools.Field(typeof(RoofGrid), "map").GetValue(roofGrid) as Map;
+            return !(roofDefGrid[map.cellIndices.CellToIndex(c)]?.IsVacRoof(out _) ?? true);
         }
     }
 }
