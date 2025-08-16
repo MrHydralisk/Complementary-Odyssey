@@ -99,6 +99,10 @@ namespace ComplementaryOdyssey
         public override void CompTick()
         {
             base.CompTick();
+            if (!parent.Spawned)
+            {
+                return;
+            }
             if (isDeploying && Find.TickManager.TicksGame >= tickNextDeploy)
             {
                 List<IntVec3> checkTiles = new List<IntVec3>() { parent.Position };
@@ -115,16 +119,11 @@ namespace ComplementaryOdyssey
                         break;
                     }
                     Building building = tile.GetFirstBuilding(parent.Map);
-                    if (building != null && (building == parent || building.def == Props.deployableThing))
+                    if (parent.Map.thingGrid.ThingsListAt(tile).Any((Thing t) => t?.def == Props.deployableThing))
                     {
                         foreach (IntVec3 adjTile in GenAdjFast.AdjacentCellsCardinal(tile))
                         {
-                            if (checkedTiles.Contains(adjTile) || !solarTiles.Contains(adjTile))
-                            {
-                                continue;
-                            }
-                            Building buildingAdj = adjTile.GetFirstBuilding(parent.Map);
-                            if ((buildingAdj == null || buildingAdj.def == Props.deployableThing))
+                            if (!checkedTiles.Contains(adjTile) && solarTiles.Contains(adjTile))
                             {
                                 checkTiles.AddDistinct(adjTile);
                             }
@@ -161,16 +160,7 @@ namespace ComplementaryOdyssey
 
         public bool TryDeploySolarPanel(IntVec3 tile)
         {
-            List<Thing> list = parent.Map.thingGrid.ThingsListAt(tile);
-            bool isCanDeploy = true;
-            for (int i = 0; i < list.Count; i++)
-            {
-                if (list[i] is Building building)
-                {
-                    isCanDeploy = isCanDeploy && ((building == null) || (building == parent) || (building.def != Props.deployableThing));
-                }
-            }
-            if (isCanDeploy)
+            if (CanDeploy(tile))
             {
                 Building_SolarArrayPanel solarPanel = ThingMaker.MakeThing(Props.deployableThing) as Building_SolarArrayPanel;
                 solarPanel.solarArray = parent;
@@ -181,6 +171,28 @@ namespace ComplementaryOdyssey
                 return true;
             }
             return false;
+        }
+
+        public bool CanDeploy(IntVec3 tile)
+        {
+            List<Thing> list = parent.Map.thingGrid.ThingsListAt(tile);
+            bool isCanDeploy = true;
+            for (int i = 0; i < list.Count; i++)
+            {
+                if (list[i] is Building building)
+                {
+                    isCanDeploy = isCanDeploy && ((building == null) || (building == parent) || ((building.def != Props.deployableThing) && !building.def.IsEdifice()));
+                }
+                if (list[i].def.category == ThingCategory.Plant && list[i].def.blockWind)
+                {
+                    isCanDeploy = false;
+                }
+                if (!isCanDeploy)
+                {
+                    break;
+                }
+            }
+            return isCanDeploy;
         }
 
         public void Notify_SolarPanelDestroyed(Building_SolarArrayPanel solarPanel)
