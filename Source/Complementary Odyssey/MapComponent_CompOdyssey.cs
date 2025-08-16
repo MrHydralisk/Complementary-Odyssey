@@ -5,6 +5,7 @@ namespace ComplementaryOdyssey
     public class MapComponent_CompOdyssey : MapComponent
     {
         public SurfaceResourceGrid surfaceResourceGrid;
+        public VacRoofGrid vacRoofGrid;
 
         private static MapComponent_CompOdyssey currentInstance;
 
