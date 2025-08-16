@@ -18,6 +18,7 @@ namespace ComplementaryOdyssey
             patchType = typeof(HarmonyPatches);
             Harmony val = new Harmony("rimworld.mrhydralisk.ComplementaryOdyssey");
             val.Patch(AccessTools.Method(typeof(MapInterface), "MapInterfaceOnGUI_AfterMainTabs"), transpiler: new HarmonyMethod(patchType, "MI_AfterMainTabs_Transpiler"));
+            val.Patch(AccessTools.Method(typeof(Mineable), "DestroyMined"), prefix: new HarmonyMethod(patchType, "M_DestroyMined_Prefix"));
         }
 
         public static IEnumerable<CodeInstruction> MI_AfterMainTabs_Transpiler(IEnumerable<CodeInstruction> instructions)
@@ -37,6 +38,12 @@ namespace ComplementaryOdyssey
         public static void SurfaceResourcesOnGUI()
         {
             MapComponent_CompOdyssey.CachedInstance(Find.CurrentMap)?.surfaceResourceGrid.SurfaceResourcesOnGUI();
+        }
+
+        public static bool M_DestroyMined_Prefix(Mineable __instance)
+        {
+            MapComponent_CompOdyssey.CachedInstance(__instance.Map).surfaceResourceGrid.SetDirty();
+            return true;
         }
     }
 }

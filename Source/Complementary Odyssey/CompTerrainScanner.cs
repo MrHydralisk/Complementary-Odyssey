@@ -53,14 +53,6 @@ namespace ComplementaryOdyssey
             }
         }
 
-        public override void PostDrawExtraSelectionOverlays()
-        {
-            if (ShouldShowSurfaceResourceOverlay())
-            {
-                compOdysseyMapComponent.surfaceResourceGrid.MarkForDraw();
-            }
-        }
-
         public bool ShouldShowSurfaceResourceOverlay()
         {
             if (powerComp != null)
@@ -82,7 +74,6 @@ namespace ComplementaryOdyssey
         protected override void DoFind(Pawn worker)
         {
             Scan(Mathf.Max(1, Mathf.RoundToInt(Props.tilesPerScan * worker.GetStatValue(Props.scanSpeedStat))));
-
         }
 
         public void Scan(int canScanAmount, int iterationsMax = 1000)

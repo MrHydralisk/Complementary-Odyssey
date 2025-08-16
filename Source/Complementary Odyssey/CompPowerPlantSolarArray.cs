@@ -36,8 +36,8 @@ namespace ComplementaryOdyssey
         {
             get
             {
-                float po = Mathf.Lerp(0f, 0f - base.Props.PowerConsumption, parent.Map.skyManager.CurSkyGlow);
-                if (parent.Map.Biome.inVacuum)
+                float po = Mathf.Lerp(0f, 0f - base.Props.PowerConsumption, parent.MapHeld.skyManager.CurSkyGlow);
+                if (parent.MapHeld.Biome.inVacuum)
                 {
                     po *= Props.powerOutputVacMult;
                 }

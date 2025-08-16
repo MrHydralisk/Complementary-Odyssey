@@ -70,7 +70,7 @@ namespace ComplementaryOdyssey
                     if (ore == null)
                     {
                         oreGrid[index] = false;
-                        drawer.SetDirty();
+                        SetDirty();
                     }
                 }
 
@@ -84,8 +84,13 @@ namespace ComplementaryOdyssey
             if (!oreGrid[index])
             {
                 oreGrid[index] = true;
-                drawer.SetDirty();
+                SetDirty();
             }
+        }
+
+        public void SetDirty()
+        {
+            drawer.SetDirty();
         }
 
         public void SurfaceResourceGridUpdate()
@@ -103,14 +108,24 @@ namespace ComplementaryOdyssey
 
         public void SurfaceResourcesOnGUI()
         {
+            bool isRender = false;
             Thing singleSelectedThing = Find.Selector.SingleSelectedThing;
             if (singleSelectedThing != null)
             {
                 CompTerrainScanner compTerrainScanner = singleSelectedThing.TryGetComp<CompTerrainScanner>();
-                if ((compTerrainScanner != null) && AnyActiveTerrainScannersOnMap())
+                if ((compTerrainScanner != null))
                 {
-                    RenderMouseAttachments();
+                    isRender = true;
                 }
+            }
+            if (!isRender && Find.DesignatorManager.SelectedDesignator is Designator_Mine)
+            {
+                isRender = true;
+            }
+            if (isRender && AnyActiveTerrainScannersOnMap())
+            {
+                MarkForDraw();
+                RenderMouseAttachments();
             }
         }
 
