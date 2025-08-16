@@ -24,6 +24,7 @@ namespace ComplementaryOdyssey
             val.Patch(AccessTools.Method(typeof(ShipLandingArea), "RecalculateBlockingThing"), transpiler: new HarmonyMethod(patchType, "SLA_RecalculateBlockingThing_Transpiler"));
             val.Patch(AccessTools.Property(typeof(CompLaunchable), "AnyInGroupIsUnderRoof").GetGetMethod(true), transpiler: new HarmonyMethod(patchType, "SLA_RecalculateBlockingThing_Transpiler"));
             val.Patch(AccessTools.Method(typeof(RoofGrid), "GetCellExtraColor"), postfix: new HarmonyMethod(patchType, "RG_GetCellExtraColor_Postfix"));
+            val.Patch(AccessTools.Method(typeof(Skyfaller).GetNestedTypes(AccessTools.all).First((Type t) => t.Name.Contains("c__DisplayClass57_0")), "<HitRoof>b__0"), transpiler: new HarmonyMethod(patchType, "SLA_RecalculateBlockingThing_Transpiler"));
         }
 
         public static IEnumerable<CodeInstruction> MI_AfterMainTabs_Transpiler(IEnumerable<CodeInstruction> instructions)
@@ -61,7 +62,6 @@ namespace ComplementaryOdyssey
                 if (codes[i].opcode == OpCodes.Call && (codes[i].operand?.ToString().Contains("Roofed") ?? false))
                 {
                     codes[i] = new CodeInstruction(OpCodes.Call, AccessTools.Method(typeof(HarmonyPatches), "Roofed"));
-                    break;
                 }
             }
             return codes.AsEnumerable();
@@ -73,6 +73,7 @@ namespace ComplementaryOdyssey
             if (c.Roofed(map))
             {
                 RoofDef roofDef = c.GetRoof(map);
+                Log.Message($"{roofDef.label} {roofDef.IsVacRoof(out _)}");
                 if (roofDef.IsVacRoof(out _))
                 {
                     return false;
