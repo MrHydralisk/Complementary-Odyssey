@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+	<ComplementaryOdyssey.Settings.Title>Complementary Odyssey</ComplementaryOdyssey.Settings.Title>
+	
+	<ComplementaryOdyssey.Settings.VacRoofPatches>Enable Vac Barrier Roof patches. (Can be disabled in case of compatability issues with other roof mod, but it will make Vac Barrier Roof act as normal roof. Require game restart.)</ComplementaryOdyssey.Settings.VacRoofPatches>
+	
+</LanguageData>

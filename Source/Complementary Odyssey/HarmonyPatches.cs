@@ -21,27 +21,30 @@ namespace ComplementaryOdyssey
             val.Patch(AccessTools.Method(typeof(MapInterface), "MapInterfaceOnGUI_AfterMainTabs"), transpiler: new HarmonyMethod(patchType, "MI_AfterMainTabs_Transpiler"));
             val.Patch(AccessTools.Method(typeof(Mineable), "DestroyMined"), prefix: new HarmonyMethod(patchType, "M_DestroyMined_Prefix"));
 
-            val.Patch(AccessTools.Method(typeof(ShipLandingArea), "RecalculateBlockingThing"), transpiler: new HarmonyMethod(patchType, "ReplaceRoofed_Transpiler"));
-            val.Patch(AccessTools.Property(typeof(CompLaunchable), "AnyInGroupIsUnderRoof").GetGetMethod(true), transpiler: new HarmonyMethod(patchType, "ReplaceRoofed_Transpiler"));
-            val.Patch(AccessTools.Method(typeof(RoofGrid), "GetCellExtraColor"), postfix: new HarmonyMethod(patchType, "RG_GetCellExtraColor_Postfix"));
-            val.Patch(AccessTools.Method(typeof(Skyfaller).GetNestedTypes(AccessTools.all).First((Type t) => t.Name.Contains("c__DisplayClass57_0")), "<HitRoof>b__0"), transpiler: new HarmonyMethod(patchType, "ReplaceRoofed_Transpiler"));
-            val.Patch(AccessTools.Method(typeof(DropCellFinder), "CanPhysicallyDropInto"), transpiler: new HarmonyMethod(patchType, "ReplaceGetRoof_Transpiler"));
-            val.Patch(AccessTools.Method(typeof(RoyalTitlePermitWorker_CallShuttle), "GetReportFromCell"), transpiler: new HarmonyMethod(patchType, "ReplaceGetRoof_Transpiler"));
+            if (COMod.Settings.VacRoofPatches)
+            {
+                val.Patch(AccessTools.Method(typeof(ShipLandingArea), "RecalculateBlockingThing"), transpiler: new HarmonyMethod(patchType, "ReplaceRoofed_Transpiler"));
+                val.Patch(AccessTools.Property(typeof(CompLaunchable), "AnyInGroupIsUnderRoof").GetGetMethod(true), transpiler: new HarmonyMethod(patchType, "ReplaceRoofed_Transpiler"));
+                val.Patch(AccessTools.Method(typeof(RoofGrid), "GetCellExtraColor"), postfix: new HarmonyMethod(patchType, "RG_GetCellExtraColor_Postfix"));
+                val.Patch(AccessTools.Method(typeof(Skyfaller).GetNestedTypes(AccessTools.all).First((Type t) => t.Name.Contains("c__DisplayClass57_0")), "<HitRoof>b__0"), transpiler: new HarmonyMethod(patchType, "ReplaceRoofed_Transpiler"));
+                val.Patch(AccessTools.Method(typeof(DropCellFinder), "CanPhysicallyDropInto"), transpiler: new HarmonyMethod(patchType, "ReplaceGetRoof_Transpiler"));
+                val.Patch(AccessTools.Method(typeof(RoyalTitlePermitWorker_CallShuttle), "GetReportFromCell"), transpiler: new HarmonyMethod(patchType, "ReplaceGetRoof_Transpiler"));
 
-            val.Patch(AccessTools.Method(typeof(Building_TurretGun), "TryStartShootSomething"), transpiler: new HarmonyMethod(patchType, "BTG_TryStartShootSomething_Transpiler"));
-            val.Patch(AccessTools.Method(typeof(Building_TurretGun), "GetInspectString"), transpiler: new HarmonyMethod(patchType, "ReplaceRoofed_Transpiler"));
-            val.Patch(AccessTools.Method(typeof(Building_TurretGun).GetNestedTypes(AccessTools.all).First((Type t) => t.Name.Contains("<GetGizmos>d__71")), "MoveNext"), transpiler: new HarmonyMethod(patchType, "ReplaceRoofed_Transpiler"));
-            val.Patch(AccessTools.Method(typeof(PlaceWorker_NotUnderRoof), "AllowsPlacing"), transpiler: new HarmonyMethod(patchType, "ReplaceGridRoofed_Transpiler"));
+                val.Patch(AccessTools.Method(typeof(Building_TurretGun), "TryStartShootSomething"), transpiler: new HarmonyMethod(patchType, "BTG_TryStartShootSomething_Transpiler"));
+                val.Patch(AccessTools.Method(typeof(Building_TurretGun), "GetInspectString"), transpiler: new HarmonyMethod(patchType, "ReplaceRoofed_Transpiler"));
+                val.Patch(AccessTools.Method(typeof(Building_TurretGun).GetNestedTypes(AccessTools.all).First((Type t) => t.Name.Contains("<GetGizmos>d__71")), "MoveNext"), transpiler: new HarmonyMethod(patchType, "ReplaceRoofed_Transpiler"));
+                val.Patch(AccessTools.Method(typeof(PlaceWorker_NotUnderRoof), "AllowsPlacing"), transpiler: new HarmonyMethod(patchType, "ReplaceGridRoofed_Transpiler"));
 
-            val.Patch(AccessTools.Property(typeof(CompPowerPlantSolar), "RoofedPowerOutputFactor").GetGetMethod(true), transpiler: new HarmonyMethod(patchType, "ReplaceGridRoofed_Transpiler"));
-            val.Patch(AccessTools.Method(typeof(GlowGrid), "GroundGlowAt"), transpiler: new HarmonyMethod(patchType, "ReplaceGridRoofed_Transpiler"));
-            val.Patch(AccessTools.Method(typeof(ThoughtWorker_Aurora), "CurrentStateInternal"), transpiler: new HarmonyMethod(patchType, "ReplaceRoofed_Transpiler"));
-            val.Patch(AccessTools.Method(typeof(SectionLayer_LightingOverlay), "GenerateLightingOverlay"), transpiler: new HarmonyMethod(patchType, "ReplaceGridRoofed_Transpiler"));
-            val.Patch(AccessTools.Method(typeof(SectionLayer_LightingOverlay), "GenerateLightingOverlay"), transpiler: new HarmonyMethod(patchType, "ReplaceGridRoofAt_Transpiler"));
-            val.Patch(AccessTools.Method(typeof(RoofUtility), "IsAnyCellUnderRoof"), transpiler: new HarmonyMethod(patchType, "ReplaceGridRoofed_Transpiler"));
+                val.Patch(AccessTools.Property(typeof(CompPowerPlantSolar), "RoofedPowerOutputFactor").GetGetMethod(true), transpiler: new HarmonyMethod(patchType, "ReplaceGridRoofed_Transpiler"));
+                val.Patch(AccessTools.Method(typeof(GlowGrid), "GroundGlowAt"), transpiler: new HarmonyMethod(patchType, "ReplaceGridRoofed_Transpiler"));
+                val.Patch(AccessTools.Method(typeof(ThoughtWorker_Aurora), "CurrentStateInternal"), transpiler: new HarmonyMethod(patchType, "ReplaceRoofed_Transpiler"));
+                val.Patch(AccessTools.Method(typeof(SectionLayer_LightingOverlay), "GenerateLightingOverlay"), transpiler: new HarmonyMethod(patchType, "ReplaceGridRoofed_Transpiler"));
+                val.Patch(AccessTools.Method(typeof(SectionLayer_LightingOverlay), "GenerateLightingOverlay"), transpiler: new HarmonyMethod(patchType, "ReplaceGridRoofAt_Transpiler"));
+                val.Patch(AccessTools.Method(typeof(RoofUtility), "IsAnyCellUnderRoof"), transpiler: new HarmonyMethod(patchType, "ReplaceGridRoofed_Transpiler"));
 
-            val.Patch(AccessTools.Method(typeof(InfestationCellFinder), "GetScoreAt"), transpiler: new HarmonyMethod(patchType, "ReplaceRoofed_Transpiler"));
-            val.Patch(AccessTools.Method(typeof(Need_Outdoors), "NeedInterval"), transpiler: new HarmonyMethod(patchType, "ReplaceGetRoof_Transpiler"));
+                val.Patch(AccessTools.Method(typeof(InfestationCellFinder), "GetScoreAt"), transpiler: new HarmonyMethod(patchType, "ReplaceRoofed_Transpiler"));
+                val.Patch(AccessTools.Method(typeof(Need_Outdoors), "NeedInterval"), transpiler: new HarmonyMethod(patchType, "ReplaceGetRoof_Transpiler"));
+            }
         }
 
         public static IEnumerable<CodeInstruction> MI_AfterMainTabs_Transpiler(IEnumerable<CodeInstruction> instructions)
