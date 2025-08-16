@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+	<RoofDef>
+		<defName>CO_VacBarrierRoof</defName>
+		<label>vac barrier roof</label>
+		<canCollapse>false</canCollapse>
+		<soundPunchThrough>EnergyShield_Broken</soundPunchThrough>
+		<modExtensions>
+			<li Class="ComplementaryOdyssey.ComplementaryOdysseyDefModExtension">
+				<color>(0,185,252)</color>
+			</li>
+		</modExtensions>
+	</RoofDef>
+
+</Defs>

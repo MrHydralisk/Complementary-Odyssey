@@ -12,6 +12,7 @@ namespace ComplementaryOdyssey
         public MapComponent_CompOdyssey(Map map) : base(map)
         {
             surfaceResourceGrid = new SurfaceResourceGrid(map);
+            vacRoofGrid = new VacRoofGrid(map);
         }
 
         public static MapComponent_CompOdyssey CachedInstance(Map map)

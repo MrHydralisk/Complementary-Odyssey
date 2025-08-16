@@ -7,9 +7,10 @@ namespace ComplementaryOdyssey
 {
     public static class ComplementaryOdysseyUtility
     {
-        public static bool IsVacRoof(this RoofDef roofDef)
+        public static bool IsVacRoof(this RoofDef roofDef, out ComplementaryOdysseyDefModExtension defModExtension)
         {
-            return roofDef.HasModExtension<ComplementaryOdysseyDefModExtension>();
+            defModExtension = roofDef.GetModExtension<ComplementaryOdysseyDefModExtension>();
+            return defModExtension != null;
         }
 
         public static bool CanPassRoof(this IntVec3 loc, Map map)

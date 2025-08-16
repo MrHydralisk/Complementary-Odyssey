@@ -37,8 +37,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ComplementaryOdysseyDefModExtension.cs" />
     <Compile Include="CompProperties_TerrainScanner.cs" />
     <Compile Include="HarmonyPatches.cs" />
+    <Compile Include="ComplementaryOdysseyUtility.cs" />
+    <Compile Include="VacRoofStatus.cs" />
+    <Compile Include="VacRoofGrid.cs" />
     <Compile Include="SurfaceResourceGrid.cs" />
     <Compile Include="MapComponent_CompOdyssey.cs" />
     <Compile Include="CompTerrainScanner.cs" />

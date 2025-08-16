@@ -7,5 +7,6 @@ namespace ComplementaryOdyssey
 {
     public class ComplementaryOdysseyDefModExtension : DefModExtension
     {
+        public Color color = Color.blue;
     }
 }
