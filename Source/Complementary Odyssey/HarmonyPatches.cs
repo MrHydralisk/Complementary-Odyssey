@@ -38,6 +38,10 @@ namespace ComplementaryOdyssey
             val.Patch(AccessTools.Method(typeof(ThoughtWorker_Aurora), "CurrentStateInternal"), transpiler: new HarmonyMethod(patchType, "ReplaceRoofed_Transpiler"));
             val.Patch(AccessTools.Method(typeof(SectionLayer_LightingOverlay), "GenerateLightingOverlay"), transpiler: new HarmonyMethod(patchType, "ReplaceGridRoofed_Transpiler"));
             val.Patch(AccessTools.Method(typeof(SectionLayer_LightingOverlay), "GenerateLightingOverlay"), transpiler: new HarmonyMethod(patchType, "ReplaceGridRoofAt_Transpiler"));
+            val.Patch(AccessTools.Method(typeof(RoofUtility), "IsAnyCellUnderRoof"), transpiler: new HarmonyMethod(patchType, "ReplaceGridRoofed_Transpiler"));
+
+            val.Patch(AccessTools.Method(typeof(InfestationCellFinder), "GetScoreAt"), transpiler: new HarmonyMethod(patchType, "ReplaceRoofed_Transpiler"));
+            val.Patch(AccessTools.Method(typeof(Need_Outdoors), "NeedInterval"), transpiler: new HarmonyMethod(patchType, "ReplaceGetRoof_Transpiler"));
         }
 
         public static IEnumerable<CodeInstruction> MI_AfterMainTabs_Transpiler(IEnumerable<CodeInstruction> instructions)
