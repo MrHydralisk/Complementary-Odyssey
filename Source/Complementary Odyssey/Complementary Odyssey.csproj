@@ -37,21 +37,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="COMod.cs" />
+    <Compile Include="CompProperties\CompProperties_VacBarrierRoofPojector.cs" />
+    <Compile Include="Comps\CompVacBarrierRoofPojector.cs" />
+    <Compile Include="COSettings.cs" />
     <Compile Include="ComplementaryOdysseyDefModExtension.cs" />
-    <Compile Include="CompProperties_TerrainScanner.cs" />
+    <Compile Include="CompProperties\CompProperties_TerrainScanner.cs" />
     <Compile Include="HarmonyPatches.cs" />
     <Compile Include="ComplementaryOdysseyUtility.cs" />
+    <Compile Include="PlaceWorkers\PlaceWorker_VacBarrierRoofPojector.cs" />
     <Compile Include="VacRoofStatus.cs" />
-    <Compile Include="VacRoofGrid.cs" />
-    <Compile Include="SurfaceResourceGrid.cs" />
+    <Compile Include="Grids\VacRoofGrid.cs" />
+    <Compile Include="Grids\SurfaceResourceGrid.cs" />
     <Compile Include="MapComponent_CompOdyssey.cs" />
-    <Compile Include="CompTerrainScanner.cs" />
+    <Compile Include="Comps\CompTerrainScanner.cs" />
     <Compile Include="RitualOutcomeComp_GravshipFacilities.cs" />
-    <Compile Include="Building_SolarArrayPanel.cs" />
-    <Compile Include="PlaceWorker_PowerPlantDeployable.cs" />
-    <Compile Include="CompProperties_PowerPlantDeployable.cs" />
-    <Compile Include="CompPowerPlantSolarArray.cs" />
-    <Compile Include="Building_VacDoor.cs" />
+    <Compile Include="Things\Building_SolarArrayPanel.cs" />
+    <Compile Include="PlaceWorkers\PlaceWorker_PowerPlantDeployable.cs" />
+    <Compile Include="CompProperties\CompProperties_PowerPlantDeployable.cs" />
+    <Compile Include="Comps\CompPowerPlantSolarArray.cs" />
+    <Compile Include="Things\Building_VacDoor.cs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Krafs.Rimworld.Ref">

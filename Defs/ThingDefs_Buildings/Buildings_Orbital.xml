@@ -219,4 +219,68 @@
 		</comps>
 	</ThingDef>
 	
+	
+
+	<ThingDef ParentName="BuildingBase">
+		<defName>CO_VacBarrierRoofPojector</defName>
+		<label>vac barrier roof projector</label>
+		<description>A column capable of holding a roof. Does not block sight or movement and looks quite nice.</description>
+		<graphicData>
+			<drawSize>(0.5,1.25)</drawSize>
+			<drawOffset>(0,0,0.2)</drawOffset>
+			<texPath>Things/Building/Furniture/Column</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<shadowData>
+				<volume>(0.3, 0.5, 0.3)</volume>
+				<offset>(0,0,-0.23)</offset>
+			</shadowData>
+			<damageData>
+				<rect>(0.2,0.2,0.6,0.6)</rect>
+			</damageData>
+		</graphicData>
+		<designationCategory>Odyssey</designationCategory>
+		<uiOrder>2016</uiOrder>
+		<altitudeLayer>Building</altitudeLayer>
+		<passability>PassThroughOnly</passability>
+		<fillPercent>0.25</fillPercent>
+		<pathCost>0</pathCost>
+		<uiIconScale>1.2</uiIconScale>
+		<statBases>
+			<MaxHitPoints>250</MaxHitPoints>
+			<WorkToBuild>7200</WorkToBuild>
+			<Flammability>0</Flammability>
+		</statBases>
+		<costList>
+			<Steel>90</Steel>
+			<BlocksVacstone>20</BlocksVacstone>
+			<ComponentSpacer>1</ComponentSpacer>
+			<GravlitePanel>30</GravlitePanel>
+		</costList>
+		<holdsRoof>true</holdsRoof>
+		<canOverlapZones>false</canOverlapZones>
+		<rotatable>true</rotatable>
+		<building>
+			<isInert>true</isInert>
+			<ai_chillDestination>false</ai_chillDestination>
+		</building>
+		<drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
+		<placeWorkers>
+			<li>ComplementaryOdyssey.PlaceWorker_VacBarrierRoofPojector</li>
+		</placeWorkers>
+		<comps>
+			<li Class="ComplementaryOdyssey.CompProperties_VacBarrierRoofPojector">
+				<basePowerConsumption>-50</basePowerConsumption>
+				<!-- <transmitsPower>true</transmitsPower> -->
+			</li>
+			<li Class="CompProperties_Breakdownable"/>
+			<li Class="CompProperties_Stunnable">
+				<useLargeEMPEffecter>true</useLargeEMPEffecter>
+				<empChancePerTick>0.03</empChancePerTick>
+				<affectedDamageDefs>
+					<li>EMP</li>
+				</affectedDamageDefs>
+			</li>
+		</comps>
+	</ThingDef>
+	
 </Defs>
