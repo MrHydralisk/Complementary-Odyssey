@@ -43,12 +43,15 @@
 					</li>
 				</value>
 			</li>
-			<li Class="PatchOperationAdd">
-				<xpath>Defs/DesignationCategoryDef[defName ="Orders"]/specialDesignatorClasses</xpath>
-				<order>Append</order>
-				<value>
-					<li>Designator_Open</li>
-				</value>
+			<li Class="PatchOperationConditional">
+				<xpath>Defs/DesignationCategoryDef[defName ="Orders"]/specialDesignatorClasses/li[.="Designator_Open"]</xpath>
+				<nomatch Class="PatchOperationAdd">
+					<xpath>Defs/DesignationCategoryDef[defName ="Orders"]/specialDesignatorClasses</xpath>
+					<order>Append</order>
+					<value>
+						<li>Designator_Open</li>
+					</value>
+				</nomatch>
 			</li>
 		</operations>
 	</Operation>
