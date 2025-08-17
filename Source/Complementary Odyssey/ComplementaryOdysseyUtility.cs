@@ -1,6 +1,8 @@
 ﻿using HarmonyLib;
 using RimWorld;
+using System;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 using Verse;
 
@@ -14,19 +16,13 @@ namespace ComplementaryOdyssey
             return defModExtension != null;
         }
 
-        public static bool CanPassRoof(this IntVec3 loc, Map map)
-        {
-            MapComponent_CompOdyssey compOdysseyMapComponent = MapComponent_CompOdyssey.CachedInstance(map);
-            return compOdysseyMapComponent.vacRoofGrid.GetCellBool(loc);
-        }
-
 
 
         public static bool Roofed(IntVec3 c, Map map)
         {
-            if (c.Roofed(map))
+            RoofDef roofDef = c.GetRoof(map);
+            if (roofDef != null)
             {
-                RoofDef roofDef = c.GetRoof(map);
                 if (roofDef.IsVacRoof(out _))
                 {
                     return false;
@@ -71,6 +67,28 @@ namespace ComplementaryOdyssey
                 return null;
             }
             return roofDef;
+        }
+
+        public static bool PoweredGridRoofed(RoofGrid roofGrid, IntVec3 c)
+        {
+            Map map = AccessTools.Field(typeof(RoofGrid), "map").GetValue(roofGrid) as Map;
+            return PoweredGridRoofed(roofGrid, map.cellIndices.CellToIndex(c));
+        }
+
+        public static bool PoweredGridRoofed(RoofGrid roofGrid, int index)
+        {
+            Map map = AccessTools.Field(typeof(RoofGrid), "map").GetValue(roofGrid) as Map;
+            RoofDef roofDef = roofGrid.RoofAt(index);
+            if (roofDef != null)
+            {
+                if (roofDef.IsVacRoof(out _))
+                {
+                    MapComponent_CompOdyssey compOdysseyMapComponent = MapComponent_CompOdyssey.CachedInstance(map);
+                    return compOdysseyMapComponent.vacRoofGrid.GetPoweredCellBool(index);
+                }
+                return true;
+            }
+            return false;
         }
     }
 }

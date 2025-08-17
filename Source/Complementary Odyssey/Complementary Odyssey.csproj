@@ -38,14 +38,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="COMod.cs" />
-    <Compile Include="CompProperties\CompProperties_VacBarrierRoofPojector.cs" />
-    <Compile Include="Comps\CompVacBarrierRoofPojector.cs" />
+    <Compile Include="CompProperties\CompProperties_VacBarrierRoofProjector.cs" />
+    <Compile Include="Comps\CompVacBarrierRoofProjector.cs" />
     <Compile Include="COSettings.cs" />
     <Compile Include="ComplementaryOdysseyDefModExtension.cs" />
     <Compile Include="CompProperties\CompProperties_TerrainScanner.cs" />
     <Compile Include="HarmonyPatches.cs" />
     <Compile Include="ComplementaryOdysseyUtility.cs" />
-    <Compile Include="PlaceWorkers\PlaceWorker_VacBarrierRoofPojector.cs" />
+    <Compile Include="PlaceWorkers\PlaceWorker_VacBarrierRoofProjector.cs" />
     <Compile Include="Grids\VacRoofGrid.cs" />
     <Compile Include="Grids\SurfaceResourceGrid.cs" />
     <Compile Include="MapComponent_CompOdyssey.cs" />

@@ -26,6 +26,7 @@ namespace ComplementaryOdyssey
                 val.Patch(AccessTools.Method(typeof(ShipLandingArea), "RecalculateBlockingThing"), transpiler: new HarmonyMethod(patchType, "ReplaceRoofed_Transpiler"));
                 val.Patch(AccessTools.Property(typeof(CompLaunchable), "AnyInGroupIsUnderRoof").GetGetMethod(true), transpiler: new HarmonyMethod(patchType, "ReplaceRoofed_Transpiler"));
                 val.Patch(AccessTools.Method(typeof(RoofGrid), "GetCellExtraColor"), postfix: new HarmonyMethod(patchType, "RG_GetCellExtraColor_Postfix"));
+                //val.Patch(AccessTools.Method(typeof(RoofGrid), "SetRoof"), postfix: new HarmonyMethod(patchType, "RG_SetRoof_Postfix"));
                 val.Patch(AccessTools.Method(typeof(Skyfaller).GetNestedTypes(AccessTools.all).First((Type t) => t.Name.Contains("c__DisplayClass57_0")), "<HitRoof>b__0"), transpiler: new HarmonyMethod(patchType, "ReplaceRoofed_Transpiler"));
                 val.Patch(AccessTools.Method(typeof(DropCellFinder), "CanPhysicallyDropInto"), transpiler: new HarmonyMethod(patchType, "ReplaceGetRoof_Transpiler"));
                 val.Patch(AccessTools.Method(typeof(RoyalTitlePermitWorker_CallShuttle), "GetReportFromCell"), transpiler: new HarmonyMethod(patchType, "ReplaceGetRoof_Transpiler"));
@@ -44,6 +45,9 @@ namespace ComplementaryOdyssey
 
                 val.Patch(AccessTools.Method(typeof(InfestationCellFinder), "GetScoreAt"), transpiler: new HarmonyMethod(patchType, "ReplaceRoofed_Transpiler"));
                 val.Patch(AccessTools.Method(typeof(Need_Outdoors), "NeedInterval"), transpiler: new HarmonyMethod(patchType, "ReplaceGetRoof_Transpiler"));
+                
+                val.Patch(AccessTools.Method(typeof(District), "OpenRoofCountStopAt"), transpiler: new HarmonyMethod(patchType, "ReplacePoweredGridRoofed_Transpiler"));
+                val.Patch(AccessTools.Method(typeof(District), "ExposedVacuumCount"), transpiler: new HarmonyMethod(patchType, "ReplacePoweredGridRoofed_Transpiler"));
             }
         }
 
@@ -102,6 +106,12 @@ namespace ComplementaryOdyssey
                     __result = defModExtension.color;
                 }
             }
+        }
+
+        public static void RG_SetRoof_Postfix(RoofGrid __instance, IntVec3 c, RoofDef def)
+        {
+            Map map = AccessTools.Field(typeof(RoofGrid), "map").GetValue(__instance) as Map;
+            MapComponent_CompOdyssey.CachedInstance(map).vacRoofGrid.SetDirty();
         }
 
         public static IEnumerable<CodeInstruction> ReplaceGetRoof_Transpiler(IEnumerable<CodeInstruction> instructions)
@@ -167,6 +177,26 @@ namespace ComplementaryOdyssey
                     else if (codes[i].operand?.ToString().Contains("RoofAt(Int32)") ?? false)
                     {
                         codes[i] = new CodeInstruction(OpCodes.Call, AccessTools.Method(typeof(ComplementaryOdysseyUtility), "GridRoofAt", new Type[] { typeof(RoofGrid), typeof(int) }));
+                    }
+                }
+            }
+            return codes.AsEnumerable();
+        }
+
+        public static IEnumerable<CodeInstruction> ReplacePoweredGridRoofed_Transpiler(IEnumerable<CodeInstruction> instructions)
+        {
+            List<CodeInstruction> codes = new List<CodeInstruction>(instructions);
+            for (int i = 0; i < codes.Count; i++)
+            {
+                if (codes[i].opcode == OpCodes.Callvirt)
+                {
+                    if (codes[i].operand?.ToString().Contains("Roofed(Verse.IntVec3)") ?? false)
+                    {
+                        codes[i] = new CodeInstruction(OpCodes.Call, AccessTools.Method(typeof(ComplementaryOdysseyUtility), "PoweredGridRoofed", new Type[] { typeof(RoofGrid), typeof(IntVec3) }));
+                    }
+                    else if (codes[i].operand?.ToString().Contains("Roofed(Int32)") ?? false)
+                    {
+                        codes[i] = new CodeInstruction(OpCodes.Call, AccessTools.Method(typeof(ComplementaryOdysseyUtility), "PoweredGridRoofed", new Type[] { typeof(RoofGrid), typeof(int) }));
                     }
                 }
             }

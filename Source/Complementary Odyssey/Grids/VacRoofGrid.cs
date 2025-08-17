@@ -31,6 +31,7 @@ namespace ComplementaryOdyssey
             {
                 int index = map.cellIndices.CellToIndex(cell);
                 powerGrid[index] = (short)Mathf.Max(powerGrid[index] + offset, 0);
+                map.regionGrid.GetValidRegionAt_NoRebuild(cell)?.District.Notify_RoofChanged();
             }
             SetDirty();
         }
@@ -75,7 +76,7 @@ namespace ComplementaryOdyssey
                 return;
             }
             RoofDef roofDef = c.GetRoof(map);
-            if (roofDef != null && ComplementaryOdysseyUtility.IsVacRoof(roofDef, out _) && GetCellBool(c))
+            if (roofDef != null && ComplementaryOdysseyUtility.IsVacRoof(roofDef, out _) && !GetPoweredCellBool(c))
             {
                 Vector2 vector = c.ToVector3().MapToUIPosition();
                 GUI.color = Color.white;
@@ -94,7 +95,17 @@ namespace ComplementaryOdyssey
         public bool GetCellBool(int index)
         {
             RoofDef roofDef = map.roofGrid.RoofAt(index);
-            return (roofDef != null && ComplementaryOdysseyUtility.IsVacRoof(roofDef, out _)) || ((ushort)powerGrid[index] > 0);
+            return (roofDef != null && ComplementaryOdysseyUtility.IsVacRoof(roofDef, out _)) || GetPoweredCellBool(index);
+        }
+
+        public bool GetPoweredCellBool(IntVec3 cell)
+        {
+            return GetPoweredCellBool(map.cellIndices.CellToIndex(cell));
+        }
+
+        public bool GetPoweredCellBool(int index)
+        {
+            return (ushort)powerGrid[index] > 0;
         }
 
         public Color GetCellExtraColor(int index)

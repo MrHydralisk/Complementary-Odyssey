@@ -13,7 +13,7 @@ namespace ComplementaryOdyssey
             List<IntVec3> tiles = new List<IntVec3>();
             if (thing != null)
             {
-                tiles = thing.TryGetComp<CompVacBarrierRoofProjector>()?.barrierTilesRotated() ?? new List<IntVec3>();
+                tiles = thing.TryGetComp<CompVacBarrierRoofProjector>()?.barrierTiles ?? new List<IntVec3>();
             }
             else
             {

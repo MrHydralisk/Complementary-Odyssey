@@ -39,7 +39,6 @@ namespace ComplementaryOdyssey
         {
             base.ExposeData();
             Scribe_Deep.Look(ref surfaceResourceGrid, "surfaceResourceGrid", map);
-            Scribe_Deep.Look(ref vacRoofGrid, "vacRoofGrid", map);
             if (Scribe.mode == LoadSaveMode.PostLoadInit)
             {
                 if (surfaceResourceGrid == null)

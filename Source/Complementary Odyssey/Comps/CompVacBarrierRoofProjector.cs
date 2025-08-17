@@ -15,6 +15,19 @@ namespace ComplementaryOdyssey
         public MapComponent_CompOdyssey compOdysseyMapComponent => compOdysseyMapComponentCached ?? (compOdysseyMapComponentCached = parent.MapHeld.GetComponent<MapComponent_CompOdyssey>() ?? null);
         private MapComponent_CompOdyssey compOdysseyMapComponentCached;
 
+        public List<IntVec3> barrierTiles
+        {
+            get
+            {
+                if (barrierTilesCached.NullOrEmpty())
+                {
+                    barrierTilesCached = BarrierTilesRotated();
+                }
+                return barrierTilesCached;
+            }
+        }
+        public List<IntVec3> barrierTilesCached;
+
         public IntVec2 barrierSize;
         public IntVec2 barrierOffset;
 
@@ -34,6 +47,7 @@ namespace ComplementaryOdyssey
             {
                 compOdysseyMapComponentCached = null;
             }
+            barrierTilesCached = null;
             isWasPowered = PowerOn;
             Notify_ChangedPowerState(PowerOn);
         }
@@ -44,15 +58,15 @@ namespace ComplementaryOdyssey
             base.PostDeSpawn(map, mode);
         }
 
-        public List<IntVec3> barrierTiles()
+        public List<IntVec3> BarrierTiles()
         {
             return new CellRect(barrierOffset.x - barrierSize.x / 2, barrierOffset.z - barrierSize.z / 2, barrierSize.x, barrierSize.z).Cells.ToList();
         }
 
-        public List<IntVec3> barrierTilesRotated()
+        public List<IntVec3> BarrierTilesRotated()
         {
             List<IntVec3> tiles = new List<IntVec3>();
-            foreach (IntVec3 tile in barrierTiles())
+            foreach (IntVec3 tile in BarrierTiles())
             {
                 tiles.Add(parent.Position + tile.RotatedBy(parent.Rotation));
             }
@@ -76,7 +90,7 @@ namespace ComplementaryOdyssey
         public void UpdatePowerOutput()
         {
             int num = 1;
-            foreach (IntVec3 tile in barrierTilesRotated())
+            foreach (IntVec3 tile in barrierTiles)
             {
                 RoofDef roofDef = parent.Map.roofGrid.RoofAt(tile);
                 if (roofDef != null && ComplementaryOdysseyUtility.IsVacRoof(roofDef, out _))
@@ -89,7 +103,7 @@ namespace ComplementaryOdyssey
 
         public void Notify_ChangedPowerState(bool newState)
         {
-            compOdysseyMapComponent.vacRoofGrid.UpdatePowerGrid(barrierTilesRotated(), newState);
+            compOdysseyMapComponent.vacRoofGrid.UpdatePowerGrid(barrierTiles, newState);
         }
 
         public override IEnumerable<Gizmo> CompGetGizmosExtra()
