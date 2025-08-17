@@ -3,19 +3,22 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Analytics;
 using Verse;
 
 namespace ComplementaryOdyssey
 {
-    public class CompVacBarrierRoofPojector : CompPowerTrader
+    public class CompVacBarrierRoofProjector : CompPowerTrader
     {
-        public new CompProperties_VacBarrierRoofPojector Props => props as CompProperties_VacBarrierRoofPojector;
+        public new CompProperties_VacBarrierRoofProjector Props => props as CompProperties_VacBarrierRoofProjector;
 
         public MapComponent_CompOdyssey compOdysseyMapComponent => compOdysseyMapComponentCached ?? (compOdysseyMapComponentCached = parent.MapHeld.GetComponent<MapComponent_CompOdyssey>() ?? null);
         private MapComponent_CompOdyssey compOdysseyMapComponentCached;
 
         public IntVec2 barrierSize;
         public IntVec2 barrierOffset;
+
+        public bool isWasPowered;
 
         public override void PostPostMake()
         {
@@ -31,10 +34,13 @@ namespace ComplementaryOdyssey
             {
                 compOdysseyMapComponentCached = null;
             }
+            isWasPowered = PowerOn;
+            Notify_ChangedPowerState(PowerOn);
         }
 
         public override void PostDeSpawn(Map map, DestroyMode mode = DestroyMode.Vanish)
         {
+            Notify_ChangedPowerState(false);
             base.PostDeSpawn(map, mode);
         }
 
@@ -43,14 +49,48 @@ namespace ComplementaryOdyssey
             return new CellRect(barrierOffset.x - barrierSize.x / 2, barrierOffset.z - barrierSize.z / 2, barrierSize.x, barrierSize.z).Cells.ToList();
         }
 
-        //public bool ShouldShowSurfaceResourceOverlay()
-        //{
-        //    if (powerComp != null)
-        //    {
-        //        return powerComp.PowerOn;
-        //    }
-        //    return false;
-        //}
+        public List<IntVec3> barrierTilesRotated()
+        {
+            List<IntVec3> tiles = new List<IntVec3>();
+            foreach (IntVec3 tile in barrierTiles())
+            {
+                tiles.Add(parent.Position + tile.RotatedBy(parent.Rotation));
+            }
+            return tiles;
+        }
+
+        public override void CompTick()
+        {
+            base.CompTick();
+            if (Find.TickManager.TicksGame % 250 == 0)
+            {
+                UpdatePowerOutput();
+                if (isWasPowered != PowerOn)
+                {
+                    isWasPowered = PowerOn;
+                    Notify_ChangedPowerState(PowerOn);
+                }
+            }
+        }
+
+        public void UpdatePowerOutput()
+        {
+            int num = 1;
+            foreach (IntVec3 tile in barrierTilesRotated())
+            {
+                RoofDef roofDef = parent.Map.roofGrid.RoofAt(tile);
+                if (roofDef != null && ComplementaryOdysseyUtility.IsVacRoof(roofDef, out _))
+                {
+                    num++;
+                }
+            }
+            PowerOutput = Props.PowerConsumption * num;
+        }
+
+        public void Notify_ChangedPowerState(bool newState)
+        {
+            compOdysseyMapComponent.vacRoofGrid.UpdatePowerGrid(barrierTilesRotated(), newState);
+        }
 
         public override IEnumerable<Gizmo> CompGetGizmosExtra()
         {

@@ -5,16 +5,16 @@ using Verse;
 
 namespace ComplementaryOdyssey
 {
-    public class CompProperties_VacBarrierRoofPojector : CompProperties_Power
+    public class CompProperties_VacBarrierRoofProjector : CompProperties_Power
     {
         public IntVec2 maxBarrierSize = new IntVec2(5, 3);
         public IntVec3 maxBarrierOffset = new IntVec3(2, -2, 3);
         public IntVec2 initialBarrierSize = new IntVec2(5, 3);
         public IntVec2 initialBarrierOffset = new IntVec2(0, 2);
 
-        public CompProperties_VacBarrierRoofPojector()
+        public CompProperties_VacBarrierRoofProjector()
         {
-            compClass = typeof(CompVacBarrierRoofPojector);
+            compClass = typeof(CompVacBarrierRoofProjector);
         }
 
         public List<IntVec3> barrierTiles()

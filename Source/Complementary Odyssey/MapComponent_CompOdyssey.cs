@@ -1,4 +1,5 @@
-﻿using Verse;
+﻿using System.Collections.Generic;
+using Verse;
 
 namespace ComplementaryOdyssey
 {
@@ -29,7 +30,8 @@ namespace ComplementaryOdyssey
             base.MapComponentDraw();
             if (map == Find.CurrentMap)
             {
-                surfaceResourceGrid.SurfaceResourceGridUpdate();
+                surfaceResourceGrid.GridUpdate();
+                vacRoofGrid.GridUpdate();
             }
         }
 
@@ -37,6 +39,18 @@ namespace ComplementaryOdyssey
         {
             base.ExposeData();
             Scribe_Deep.Look(ref surfaceResourceGrid, "surfaceResourceGrid", map);
+            Scribe_Deep.Look(ref vacRoofGrid, "vacRoofGrid", map);
+            if (Scribe.mode == LoadSaveMode.PostLoadInit)
+            {
+                if (surfaceResourceGrid == null)
+                {
+                    surfaceResourceGrid = new SurfaceResourceGrid(map);
+                }
+                if (vacRoofGrid == null)
+                {
+                    vacRoofGrid = new VacRoofGrid(map);
+                }
+            }
         }
     }
 }

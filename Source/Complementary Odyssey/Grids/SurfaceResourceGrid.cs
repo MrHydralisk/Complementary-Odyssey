@@ -93,7 +93,7 @@ namespace ComplementaryOdyssey
             drawer.SetDirty();
         }
 
-        public void SurfaceResourceGridUpdate()
+        public void GridUpdate()
         {
             drawer.CellBoolDrawerUpdate();
         }
@@ -106,7 +106,7 @@ namespace ComplementaryOdyssey
             }
         }
 
-        public void SurfaceResourcesOnGUI()
+        public void GridOnGUI()
         {
             bool isRender = false;
             Thing singleSelectedThing = Find.Selector.SingleSelectedThing;

@@ -5,46 +5,107 @@ using Verse;
 
 namespace ComplementaryOdyssey
 {
-    public class VacRoofGrid : ICellBoolGiver, IExposable
+    public class VacRoofGrid : ICellBoolGiver
     {
+        private const float LineSpacing = 29f;
+
         private Map map;
 
-        private VacRoofStatus[] statusGrid;
+        private CellBoolDrawer drawer;
+
+        private short[] powerGrid;
 
         public Color Color => Color.white;
 
         public VacRoofGrid(Map map)
         {
             this.map = map;
-            statusGrid = new VacRoofStatus[map.cellIndices.NumGridCells];
+            powerGrid = new short[map.cellIndices.NumGridCells];
+            drawer = new CellBoolDrawer(this, map.Size.x, map.Size.z, 3640, 1f);
         }
 
-        public void ExposeData()
+        public void UpdatePowerGrid(List<IntVec3> cells, bool isPowerOn = true)
         {
-            MapExposeUtility.ExposeUshort(map, (IntVec3 c) => (ushort)statusGrid[map.cellIndices.CellToIndex(c)], delegate (IntVec3 c, ushort val)
+            int offset = (isPowerOn ? +1 : -1);
+            foreach (IntVec3 cell in cells)
             {
-                statusGrid[map.cellIndices.CellToIndex(c)] = (VacRoofStatus)val;
-            }, "statusGrid");
+                int index = map.cellIndices.CellToIndex(cell);
+                powerGrid[index] = (short)Mathf.Max(powerGrid[index] + offset, 0);
+            }
+            SetDirty();
         }
 
-        public VacRoofStatus GetCellStatus(int index)
+        public void SetDirty()
         {
-            return statusGrid[index];
+            drawer.SetDirty();
+        }
+
+        public void GridUpdate()
+        {
+            drawer.CellBoolDrawerUpdate();
+        }
+
+        public void MarkForDraw()
+        {
+            if (map == Find.CurrentMap && !Find.ScreenshotModeHandler.Active)
+            {
+                drawer.MarkForDraw();
+            }
+        }
+
+        public void GridOnGUI()
+        {
+            Thing singleSelectedThing = Find.Selector.SingleSelectedThing;
+            if (singleSelectedThing != null)
+            {
+                CompVacBarrierRoofProjector compVacBarrierRoofPojector = singleSelectedThing.TryGetComp<CompVacBarrierRoofProjector>();
+                if ((compVacBarrierRoofPojector != null))
+                {
+                    MarkForDraw();
+                    RenderMouseAttachments();
+                }
+            }
+        }
+
+        private void RenderMouseAttachments()
+        {
+            IntVec3 c = UI.MouseCell();
+            if (!c.InBounds(map))
+            {
+                return;
+            }
+            RoofDef roofDef = c.GetRoof(map);
+            if (roofDef != null && ComplementaryOdysseyUtility.IsVacRoof(roofDef, out _) && GetCellBool(c))
+            {
+                Vector2 vector = c.ToVector3().MapToUIPosition();
+                GUI.color = Color.white;
+                Text.Font = GameFont.Small;
+                Text.Anchor = TextAnchor.MiddleLeft;
+                Widgets.Label(new Rect(vector.x, vector.y, 999f, LineSpacing), "NoPower".Translate());
+                Text.Anchor = TextAnchor.UpperLeft;
+            }
         }
 
         public bool GetCellBool(IntVec3 cell)
         {
-            return (ushort)statusGrid[map.cellIndices.CellToIndex(cell)] > 0;
+            return GetCellBool(map.cellIndices.CellToIndex(cell));
         }
 
         public bool GetCellBool(int index)
         {
-            return (ushort)statusGrid[index] > 0;
+            RoofDef roofDef = map.roofGrid.RoofAt(index);
+            return (roofDef != null && ComplementaryOdysseyUtility.IsVacRoof(roofDef, out _)) || ((ushort)powerGrid[index] > 0);
         }
 
         public Color GetCellExtraColor(int index)
         {
-            return Color.blue.ToTransparent((ushort)statusGrid[index] / 2);
+            Color color = Color.white;
+            RoofDef roofDef = map.roofGrid.RoofAt(index);
+            if (roofDef != null && ComplementaryOdysseyUtility.IsVacRoof(roofDef, out ComplementaryOdysseyDefModExtension modExtension))
+            {
+                color = modExtension.color;
+            }
+            return color.ToTransparent(powerGrid[index] > 0 ? 0.5f : 0.25f);
         }
     }
 }

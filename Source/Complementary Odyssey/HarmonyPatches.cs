@@ -63,7 +63,12 @@ namespace ComplementaryOdyssey
 
         public static void SurfaceResourcesOnGUI()
         {
-            MapComponent_CompOdyssey.CachedInstance(Find.CurrentMap)?.surfaceResourceGrid.SurfaceResourcesOnGUI();
+            MapComponent_CompOdyssey mapComponent_CompOdyssey = MapComponent_CompOdyssey.CachedInstance(Find.CurrentMap);
+            if (mapComponent_CompOdyssey != null)
+            {
+                mapComponent_CompOdyssey.surfaceResourceGrid.GridOnGUI();
+                mapComponent_CompOdyssey.vacRoofGrid.GridOnGUI();
+            }
         }
 
         public static bool M_DestroyMined_Prefix(Mineable __instance)
@@ -91,8 +96,8 @@ namespace ComplementaryOdyssey
         {
             if (__result == Color.white)
             {
-                RoofDef[] roofGrid = AccessTools.Field(typeof(RoofGrid), "roofGrid").GetValue(__instance) as RoofDef[];
-                if (roofGrid[index].IsVacRoof(out ComplementaryOdysseyDefModExtension defModExtension))
+                RoofDef roofDef = __instance.RoofAt(index);
+                if (roofDef.IsVacRoof(out ComplementaryOdysseyDefModExtension defModExtension))
                 {
                     __result = defModExtension.color;
                 }

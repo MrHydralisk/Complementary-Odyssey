@@ -46,7 +46,6 @@
     <Compile Include="HarmonyPatches.cs" />
     <Compile Include="ComplementaryOdysseyUtility.cs" />
     <Compile Include="PlaceWorkers\PlaceWorker_VacBarrierRoofPojector.cs" />
-    <Compile Include="VacRoofStatus.cs" />
     <Compile Include="Grids\VacRoofGrid.cs" />
     <Compile Include="Grids\SurfaceResourceGrid.cs" />
     <Compile Include="MapComponent_CompOdyssey.cs" />
