@@ -70,7 +70,7 @@ namespace ComplementaryOdyssey
 
         public void GridOnGUI()
         {
-            Thing singleSelectedThing = Find.Selector.SingleSelectedThing;
+            Thing singleSelectedThing = Find.Selector.FirstSelectedObject as Thing;
             if (singleSelectedThing != null)
             {
                 CompVacBarrierRoofProjector compVacBarrierRoofPojector = singleSelectedThing.TryGetComp<CompVacBarrierRoofProjector>();

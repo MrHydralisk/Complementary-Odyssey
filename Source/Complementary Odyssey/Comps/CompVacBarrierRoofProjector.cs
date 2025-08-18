@@ -74,7 +74,15 @@ namespace ComplementaryOdyssey
 
         public void UpdateBarrierTiles()
         {
+            if (!barrierTilesCached.NullOrEmpty() && PowerOn)
+            {
+                Notify_ChangedPowerState(false);
+            }
             barrierTilesCached = BarrierTilesRotated();
+            if (PowerOn)
+            {
+                Notify_ChangedPowerState(true);
+            }
         }
 
         public override void CompTick()
@@ -279,7 +287,7 @@ namespace ComplementaryOdyssey
                 },
                 defaultLabel = "ComplementaryOdyssey.VacBarrierRoofPojector.Gizmo.Offset.Label".Translate(),
                 defaultDesc = "ComplementaryOdyssey.VacBarrierRoofPojector.Gizmo.Offset.Desc".Translate(),
-                icon = ContentFinder<Texture2D>.Get("UI/Commands/LaunchReport"),
+                icon = ContentFinder<Texture2D>.Get("UI/Designators/ZoneCreate_Stockpile"),
                 Order = 30,
             };
             yield return new Command_Action
@@ -331,9 +339,13 @@ namespace ComplementaryOdyssey
                 },
                 defaultLabel = "ComplementaryOdyssey.VacBarrierRoofPojector.Gizmo.Size.Label".Translate(),
                 defaultDesc = "ComplementaryOdyssey.VacBarrierRoofPojector.Gizmo.Size.Desc".Translate(),
-                icon = ContentFinder<Texture2D>.Get("UI/Commands/LaunchReport"),
+                icon = ContentFinder<Texture2D>.Get("UI/Designators/AreaAllowedExpand"),
                 Order = 30,
             };
+            foreach (Gizmo item in VacBarrierRoofProjectorSettingsClipboard.CopyPasteGizmosFor(this))
+            {
+                yield return item;
+            }
         }
 
         public override string CompInspectStringExtra()

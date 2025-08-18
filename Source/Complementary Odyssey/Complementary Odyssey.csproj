@@ -38,6 +38,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="COMod.cs" />
+    <Compile Include="VacBarrierRoofProjectorSettingsClipboard.cs" />
     <Compile Include="CompProperties\CompProperties_VacBarrierRoofProjector.cs" />
     <Compile Include="Comps\CompVacBarrierRoofProjector.cs" />
     <Compile Include="COSettings.cs" />
