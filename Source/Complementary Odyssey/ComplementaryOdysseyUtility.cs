@@ -12,7 +12,7 @@ namespace ComplementaryOdyssey
     {
         public static bool IsVacRoof(this RoofDef roofDef, out ComplementaryOdysseyDefModExtension defModExtension)
         {
-            defModExtension = roofDef.GetModExtension<ComplementaryOdysseyDefModExtension>();
+            defModExtension = roofDef?.GetModExtension<ComplementaryOdysseyDefModExtension>();
             return defModExtension != null;
         }
 

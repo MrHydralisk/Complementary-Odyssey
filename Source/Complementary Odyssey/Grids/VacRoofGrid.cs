@@ -70,15 +70,24 @@ namespace ComplementaryOdyssey
 
         public void GridOnGUI()
         {
-            Thing singleSelectedThing = Find.Selector.FirstSelectedObject as Thing;
+            bool isRender = false;
+            Thing singleSelectedThing = Find.Selector.SingleSelectedThing;
             if (singleSelectedThing != null)
             {
                 CompVacBarrierRoofProjector compVacBarrierRoofPojector = singleSelectedThing.TryGetComp<CompVacBarrierRoofProjector>();
                 if ((compVacBarrierRoofPojector != null))
                 {
-                    MarkForDraw();
-                    RenderMouseAttachments();
+                    isRender = true;
                 }
+            }
+            if (!isRender && Find.DesignatorManager.SelectedDesignator is Designator_BuildVacBarrierRoof)
+            {
+                isRender = true;
+            }
+            if (isRender)
+            {
+                MarkForDraw();
+                RenderMouseAttachments();
             }
         }
 

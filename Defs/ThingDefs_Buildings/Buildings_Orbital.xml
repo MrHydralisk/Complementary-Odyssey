@@ -224,7 +224,7 @@
 	<ThingDef ParentName="BuildingBase">
 		<defName>CO_VacBarrierRoofProjector</defName>
 		<label>vac barrier roof projector</label>
-		<description>A column capable of holding a roof. Does not block sight or movement and looks quite nice.</description>
+		<description>This device projects an ultrasonic barrier onto a special vacuum barrier roof. This prevents depressurization and protects against weather and temperature changes while still allowing light and objects to pass through.</description>
 		<graphicData>
 			<drawSize>(0.5,1.25)</drawSize>
 			<drawOffset>(0,0,0.2)</drawOffset>

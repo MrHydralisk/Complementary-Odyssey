@@ -4,7 +4,7 @@
 	<RoofDef>
 		<defName>CO_VacBarrierRoof</defName>
 		<label>vac barrier roof</label>
-		<canCollapse>false</canCollapse>
+		<collapseLeavingThingDef>GravlitePanel</collapseLeavingThingDef>
 		<modExtensions>
 			<li Class="ComplementaryOdyssey.ComplementaryOdysseyDefModExtension">
 				<color>(0,185,252)</color>

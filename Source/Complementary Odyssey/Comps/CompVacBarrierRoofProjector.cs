@@ -342,6 +342,7 @@ namespace ComplementaryOdyssey
                 icon = ContentFinder<Texture2D>.Get("UI/Designators/AreaAllowedExpand"),
                 Order = 30,
             };
+            yield return DesignatorUtility.FindAllowedDesignator<Designator_BuildVacBarrierRoof>();
             foreach (Gizmo item in VacBarrierRoofProjectorSettingsClipboard.CopyPasteGizmosFor(this))
             {
                 yield return item;

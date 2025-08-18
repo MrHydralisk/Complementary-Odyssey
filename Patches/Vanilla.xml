@@ -53,6 +53,12 @@
 					</value>
 				</nomatch>
 			</li>
+			<li Class="PatchOperationAdd">
+				<xpath>/Defs/DesignationCategoryDef[defName = "Odyssey"]/specialDesignatorClasses</xpath>
+				<value>
+					<li>ComplementaryOdyssey.Designator_BuildVacBarrierRoof</li>
+				</value>
+			</li>
 		</operations>
 	</Operation>
 

@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+	<ThingDef ParentName="BuildingBase">
+		<defName>CO_VacBarrierRoofFraming</defName>
+		<label>vac barrier roof</label>
+		<description>Roofing with a frame for supporting a ultrasonic barrier. When the vac barrier is projected, it prevents oxygen from leaking into the vacuum of space. Without the projection, it's equivalent to having no roof.\n\nThe roof must be projected with a powered vac barrier roof projector to prevent depressurization. This also allows light and objects to move through while preventing weather effects and temperature changes.</description>
+		<graphicData>
+			<graphicClass>Graphic_Single</graphicClass>
+			<texPath>Things/Building/CO_VacBarrierRoof/CO_VacBarrierRoofFrame</texPath>
+			<damageData>
+				<enabled>false</enabled>
+			</damageData>
+		</graphicData>
+		<uiIconPath>Things/Building/CO_VacBarrierRoof/CO_VacBarrierRoof</uiIconPath>
+		<uiIconScale>0.7</uiIconScale>
+		<uiOrder>2016</uiOrder>
+		<staticSunShadowHeight>1.0</staticSunShadowHeight>
+		<blockLight>false</blockLight>
+		<rotatable>false</rotatable>
+		<altitudeLayer>Blueprint</altitudeLayer>
+		<drawStyleCategory>Floors</drawStyleCategory>
+		<passability>Standable</passability>
+		<blockWind>false</blockWind>
+		<fillPercent>0</fillPercent>
+		<coversFloor>false</coversFloor>
+		<statBases>
+			<WorkToBuild>1250</WorkToBuild>
+		</statBases>
+		<costList>
+			<GravlitePanel>1</GravlitePanel>
+            <Plasteel>4</Plasteel>
+			<BlocksVacstone>10</BlocksVacstone>
+		</costList>
+		<building>
+			<ai_chillDestination>false</ai_chillDestination>
+			<isInert>true</isInert>
+			<canPlaceOverWall>true</canPlaceOverWall>
+			<isEdifice>false</isEdifice>
+			<blueprintGraphicData>
+				<texPath>Things/Building/CO_VacBarrierRoof/CO_VacBarrierRoofFrame</texPath>
+			</blueprintGraphicData>
+		</building>
+		<resourcesFractionWhenDeconstructed>1</resourcesFractionWhenDeconstructed>
+		<tickerType>Normal</tickerType>
+		<leaveResourcesWhenKilled>false</leaveResourcesWhenKilled>
+		<clearBuildingArea>false</clearBuildingArea>
+		<canOverlapZones>true</canOverlapZones>
+		<comps>
+			<li Class="CompProperties_Forbiddable"/>
+			<li Class="ComplementaryOdyssey.CompProperties_VacBarrierRoofBlueprint">
+				<roofDef>CO_VacBarrierRoof</roofDef>
+			</li>
+		</comps>
+		<constructionSkillPrerequisite>8</constructionSkillPrerequisite>
+		<researchPrerequisites>
+			<li>OrbitalTech</li>
+			<li>AdvancedGravtech</li>
+		</researchPrerequisites>
+	</ThingDef>
+	
+</Defs>

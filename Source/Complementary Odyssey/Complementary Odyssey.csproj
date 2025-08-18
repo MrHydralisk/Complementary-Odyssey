@@ -38,6 +38,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="COMod.cs" />
+    <Compile Include="CompProperties\CompProperties_VacBarrierRoofBlueprint.cs" />
+    <Compile Include="Comps\CompVacBarrierRoofBlueprint.cs" />
+    <Compile Include="DefOfLocal.cs" />
+    <Compile Include="Designator_BuildVacBarrierRoof.cs" />
     <Compile Include="VacBarrierRoofProjectorSettingsClipboard.cs" />
     <Compile Include="CompProperties\CompProperties_VacBarrierRoofProjector.cs" />
     <Compile Include="Comps\CompVacBarrierRoofProjector.cs" />

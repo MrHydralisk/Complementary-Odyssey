@@ -4,8 +4,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection.Emit;
+using System.Security.Cryptography;
 using UnityEngine;
 using Verse;
+using Verse.Noise;
 
 namespace ComplementaryOdyssey
 {
@@ -18,6 +20,10 @@ namespace ComplementaryOdyssey
         {
             patchType = typeof(HarmonyPatches);
             Harmony val = new Harmony("rimworld.mrhydralisk.ComplementaryOdyssey");
+
+            AccessTools.Method(typeof(ThingDefGenerator_Buildings), "NewBlueprintDef_Thing").Invoke(null, new object[] { DefOfLocal.CO_VacBarrierRoofFraming, false, null, true });
+            AccessTools.Method(typeof(ThingDefGenerator_Buildings), "NewFrameDef_Thing").Invoke(null, new object[] { DefOfLocal.CO_VacBarrierRoofFraming, true });
+
             val.Patch(AccessTools.Method(typeof(MapInterface), "MapInterfaceOnGUI_AfterMainTabs"), transpiler: new HarmonyMethod(patchType, "MI_AfterMainTabs_Transpiler"));
             val.Patch(AccessTools.Method(typeof(Mineable), "DestroyMined"), prefix: new HarmonyMethod(patchType, "M_DestroyMined_Prefix"));
 
@@ -26,6 +32,7 @@ namespace ComplementaryOdyssey
                 val.Patch(AccessTools.Method(typeof(ShipLandingArea), "RecalculateBlockingThing"), transpiler: new HarmonyMethod(patchType, "ReplaceRoofed_Transpiler"));
                 val.Patch(AccessTools.Property(typeof(CompLaunchable), "AnyInGroupIsUnderRoof").GetGetMethod(true), transpiler: new HarmonyMethod(patchType, "ReplaceRoofed_Transpiler"));
                 val.Patch(AccessTools.Method(typeof(RoofGrid), "GetCellExtraColor"), postfix: new HarmonyMethod(patchType, "RG_GetCellExtraColor_Postfix"));
+                val.Patch(AccessTools.Method(typeof(RoofGrid), "SetRoof"), prefix: new HarmonyMethod(patchType, "RG_SetRoof_Prefix"));
                 val.Patch(AccessTools.Method(typeof(Skyfaller).GetNestedTypes(AccessTools.all).First((Type t) => t.Name.Contains("c__DisplayClass57_0")), "<HitRoof>b__0"), transpiler: new HarmonyMethod(patchType, "ReplaceRoofed_Transpiler"));
                 val.Patch(AccessTools.Method(typeof(DropCellFinder), "CanPhysicallyDropInto"), transpiler: new HarmonyMethod(patchType, "ReplaceGetRoof_Transpiler"));
                 val.Patch(AccessTools.Method(typeof(RoyalTitlePermitWorker_CallShuttle), "GetReportFromCell"), transpiler: new HarmonyMethod(patchType, "ReplaceGetRoof_Transpiler"));
@@ -109,6 +116,16 @@ namespace ComplementaryOdyssey
                     __result = defModExtension.color;
                 }
             }
+        }
+
+        public static bool RG_SetRoof_Prefix(RoofGrid __instance, IntVec3 c, RoofDef def, Map ___map)
+        {
+            RoofDef roofDef = __instance.RoofAt(c);
+            if (roofDef.IsVacRoof(out _) && def != roofDef && roofDef.collapseLeavingThingDef != null)
+            {
+                GenSpawn.Spawn(roofDef.collapseLeavingThingDef, c, ___map);
+            }
+            return true;
         }
 
         public static IEnumerable<CodeInstruction> ReplaceGetRoof_Transpiler(IEnumerable<CodeInstruction> instructions)
