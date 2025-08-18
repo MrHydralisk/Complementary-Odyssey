@@ -14,6 +14,7 @@ namespace ComplementaryOdyssey
         private CellBoolDrawer drawer;
 
         private short[] powerGrid;
+        private bool[] roofGrid;
 
         public Color Color => Color.white;
 
@@ -21,6 +22,7 @@ namespace ComplementaryOdyssey
         {
             this.map = map;
             powerGrid = new short[map.cellIndices.NumGridCells];
+            roofGrid = new bool[map.cellIndices.NumGridCells];
             drawer = new CellBoolDrawer(this, map.Size.x, map.Size.z, 3640, 1f);
         }
 
@@ -34,6 +36,18 @@ namespace ComplementaryOdyssey
                 map.regionGrid.GetValidRegionAt_NoRebuild(cell)?.District.Notify_RoofChanged();
             }
             SetDirty();
+        }
+
+        public bool VacRoofAt(int index, out RoofDef roofDef)
+        {
+            roofDef = map.roofGrid.RoofAt(index);
+            bool isVacRoof = roofDef?.IsVacRoof(out _) ?? false;
+            if (isVacRoof && !roofGrid[index])
+            {
+                roofGrid[index] = isVacRoof;
+                drawer.SetDirty();
+            }
+            return isVacRoof;
         }
 
         public void SetDirty()
@@ -75,8 +89,7 @@ namespace ComplementaryOdyssey
             {
                 return;
             }
-            RoofDef roofDef = c.GetRoof(map);
-            if (roofDef != null && ComplementaryOdysseyUtility.IsVacRoof(roofDef, out _) && !GetPoweredCellBool(c))
+            if (VacRoofAt(map.cellIndices.CellToIndex(c), out RoofDef roofDef) && !GetPoweredCellBool(c))
             {
                 Vector2 vector = c.ToVector3().MapToUIPosition();
                 GUI.color = Color.white;
@@ -94,8 +107,7 @@ namespace ComplementaryOdyssey
 
         public bool GetCellBool(int index)
         {
-            RoofDef roofDef = map.roofGrid.RoofAt(index);
-            return (roofDef != null && ComplementaryOdysseyUtility.IsVacRoof(roofDef, out _)) || GetPoweredCellBool(index);
+            return VacRoofAt(index, out _) || GetPoweredCellBool(index);
         }
 
         public bool GetPoweredCellBool(IntVec3 cell)

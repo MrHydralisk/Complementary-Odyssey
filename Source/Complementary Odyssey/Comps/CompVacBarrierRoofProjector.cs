@@ -21,7 +21,7 @@ namespace ComplementaryOdyssey
             {
                 if (barrierTilesCached.NullOrEmpty())
                 {
-                    barrierTilesCached = BarrierTilesRotated();
+                    UpdateBarrierTiles();
                 }
                 return barrierTilesCached;
             }
@@ -60,7 +60,7 @@ namespace ComplementaryOdyssey
 
         public List<IntVec3> BarrierTiles()
         {
-            return new CellRect(barrierOffset.x - barrierSize.x / 2, barrierOffset.z - barrierSize.z / 2, barrierSize.x, barrierSize.z).Cells.ToList();
+            return new CellRect(barrierOffset.x, barrierOffset.z, barrierSize.x, barrierSize.z).Cells.ToList();
         }
 
         public List<IntVec3> BarrierTilesRotated()
@@ -71,6 +71,11 @@ namespace ComplementaryOdyssey
                 tiles.Add(parent.Position + tile.RotatedBy(parent.Rotation));
             }
             return tiles;
+        }
+
+        public void UpdateBarrierTiles()
+        {
+            barrierTilesCached = BarrierTilesRotated();
         }
 
         public override void CompTick()
