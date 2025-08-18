@@ -15,6 +15,7 @@ namespace ComplementaryOdyssey
 
         private short[] powerGrid;
         private bool[] roofGrid;
+        private int initializedTick = -1;
 
         public Color Color => Color.white;
 
@@ -98,13 +99,18 @@ namespace ComplementaryOdyssey
             {
                 return;
             }
-            if (VacRoofAt(map.cellIndices.CellToIndex(c), out RoofDef roofDef) && !GetPoweredCellBool(c))
+            if (VacRoofAt(map.cellIndices.CellToIndex(c), out RoofDef roofDef) && !GetPoweredCellBool(c) || DebugSettings.ShowDevGizmos)
             {
                 Vector2 vector = c.ToVector3().MapToUIPosition();
                 GUI.color = Color.white;
                 Text.Font = GameFont.Small;
                 Text.Anchor = TextAnchor.MiddleLeft;
-                Widgets.Label(new Rect(vector.x, vector.y, 999f, LineSpacing), "NoPower".Translate());
+                string label = "NoPower".Translate();
+                if (DebugSettings.ShowDevGizmos)
+                {
+                    label = powerGrid[map.cellIndices.CellToIndex(c)].ToString();
+                }
+                Widgets.Label(new Rect(vector.x, vector.y, 999f, LineSpacing), label);
                 Text.Anchor = TextAnchor.UpperLeft;
             }
         }
@@ -138,6 +144,42 @@ namespace ComplementaryOdyssey
                 color = modExtension.color;
             }
             return color.ToTransparent(powerGrid[index] > 0 ? 0.5f : 0.25f);
+        }
+
+        public void InitialPowered(bool PowerUp = true)
+        {
+            if (PowerUp)
+            {
+                for (int i = 0; i < powerGrid.Length; i++)
+                {
+                    powerGrid[i] = (short)(powerGrid[i] + 5);
+                }
+                initializedTick = Find.TickManager.TicksGame;
+            }
+            else
+            {
+                for (int i = 0; i < powerGrid.Length; i++)
+                {
+                    powerGrid[i] = (short)Mathf.Max(powerGrid[i] - 5, 0);
+                }
+                initializedTick = -2;
+            }
+        }
+
+        public void Tick()
+        {
+            if (initializedTick == -1)
+            {
+                InitialPowered();
+            }
+            else if (initializedTick > -1 && Find.TickManager.TicksGame - initializedTick > COMod.Settings.VacRoofPoweredAfterLanding)
+            {
+                InitialPowered(false);
+            }
+            if (Find.TickManager.TicksGame % 2500 == 0)
+            {
+                SetDirty();
+            }
         }
     }
 }

@@ -34,6 +34,12 @@ namespace ComplementaryOdyssey
             }
         }
 
+        public override void MapComponentTick()
+        {
+            base.MapComponentTick();
+            vacRoofGrid.Tick();
+        }
+
         public override void ExposeData()
         {
             base.ExposeData();

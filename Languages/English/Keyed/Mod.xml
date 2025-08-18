@@ -4,5 +4,6 @@
 	<ComplementaryOdyssey.Settings.Title>Complementary Odyssey</ComplementaryOdyssey.Settings.Title>
 	
 	<ComplementaryOdyssey.Settings.VacRoofPatches>Enable Vac Barrier Roof patches. (Can be disabled in case of compatability issues with other roof mod, but it will make Vac Barrier Roof act as normal roof. Require game restart.)</ComplementaryOdyssey.Settings.VacRoofPatches>
+	<ComplementaryOdyssey.Settings.VacRoofPoweredAfterLanding>All Vac Barrier Roof will be force powered for {0} after gravship landing. (Needed to avoid loosing oxygen upon landing.)</ComplementaryOdyssey.Settings.VacRoofPoweredAfterLanding>
 	
 </LanguageData>

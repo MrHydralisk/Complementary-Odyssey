@@ -4,5 +4,6 @@
 	<ComplementaryOdyssey.Settings.Title>Complementary Odyssey</ComplementaryOdyssey.Settings.Title>
 	
 	<ComplementaryOdyssey.Settings.VacRoofPatches>Включает патчи для крыши с вакуумным барьером. (Можно отключить в случае проблем с совместимостью с другим модом на крыши, но это превратит крышу с вакуумным барьером в обычную крышу. Требуется перезагрузка игры.)</ComplementaryOdyssey.Settings.VacRoofPatches>
+	<ComplementaryOdyssey.Settings.VacRoofPoweredAfterLanding>Все крыши с вакуумным барьером будут принудительно запитаны энергией на {0} после приземления гравикорабля. (Это необходимо, чтобы избежать потери кислорода при посадке.)</ComplementaryOdyssey.Settings.VacRoofPoweredAfterLanding>
 	
 </LanguageData>

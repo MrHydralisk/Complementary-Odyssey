@@ -1,5 +1,6 @@
 ﻿using HarmonyLib;
 using RimWorld;
+using RimWorld.Planet;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -56,6 +57,8 @@ namespace ComplementaryOdyssey
                 val.Patch(AccessTools.Method(typeof(JobDriver_Skygaze), "<MakeNewToils>b__1_2"), transpiler: new HarmonyMethod(patchType, "ReplaceRoofed_Transpiler"));
                 val.Patch(AccessTools.Method(typeof(JobDriver_Skydreaming), "<MakeNewToils>b__1_2"), transpiler: new HarmonyMethod(patchType, "ReplaceRoofed_Transpiler"));
                 val.Patch(AccessTools.Method(typeof(ThoughtWorker_IsOutdoorsForUndergrounder), "CurrentStateInternal"), transpiler: new HarmonyMethod(patchType, "ReplaceRoofed_Transpiler"));
+
+                val.Patch(AccessTools.Method(typeof(WorldComponent_GravshipController), "InitiateLanding"), postfix: new HarmonyMethod(patchType, "WCGC_InitiateLanding_Postfix"));
             }
         }
 
@@ -213,6 +216,18 @@ namespace ComplementaryOdyssey
                 }
             }
             return codes.AsEnumerable();
+        }
+
+        public static void WCGC_InitiateLanding_Postfix(WorldComponent_GravshipController __instance, Gravship gravship, Map map, IntVec3 landingPos, Rot4 landingRot)
+        {
+            if (map != null)
+            {
+                MapComponent_CompOdyssey mapComponent_CompOdyssey = MapComponent_CompOdyssey.CachedInstance(map);
+                if (mapComponent_CompOdyssey != null)
+                {
+                    mapComponent_CompOdyssey.vacRoofGrid.InitialPowered();
+                }
+            }
         }
     }
 }

@@ -47,8 +47,10 @@ namespace ComplementaryOdyssey
                 compOdysseyMapComponentCached = null;
             }
             barrierTilesCached = null;
-            isWasPowered = PowerOn;
-            Notify_ChangedPowerState(PowerOn);
+            if (PowerOn)
+            {
+                Notify_ChangedPowerState(PowerOn);
+            }
         }
 
         public override void PostDeSpawn(Map map, DestroyMode mode = DestroyMode.Vanish)
@@ -93,7 +95,6 @@ namespace ComplementaryOdyssey
                 UpdatePowerOutput();
                 if (isWasPowered != PowerOn)
                 {
-                    isWasPowered = PowerOn;
                     Notify_ChangedPowerState(PowerOn);
                 }
             }
@@ -115,7 +116,11 @@ namespace ComplementaryOdyssey
 
         public void Notify_ChangedPowerState(bool newState)
         {
-            compOdysseyMapComponent.vacRoofGrid.UpdatePowerGrid(barrierTiles, newState);
+            if (isWasPowered != newState)
+            {
+                isWasPowered = newState;
+                compOdysseyMapComponent.vacRoofGrid.UpdatePowerGrid(barrierTiles, newState);
+            }
         }
 
         public void ChangeBarrier(IntVec2 offset, IntVec2 size)

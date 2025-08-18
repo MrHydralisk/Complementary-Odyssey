@@ -19,6 +19,8 @@ namespace ComplementaryOdyssey
             Listing_Standard options = new Listing_Standard();
             options.Begin(inRect);
             options.CheckboxLabeled("ComplementaryOdyssey.Settings.VacRoofPatches".Translate().RawText, ref Settings.VacRoofPatches);
+            options.Label("ComplementaryOdyssey.Settings.VacRoofPoweredAfterLanding".Translate(Settings.VacRoofPoweredAfterLanding.ToStringTicksToPeriod()));
+            Settings.VacRoofPoweredAfterLanding = (int)options.Slider(Settings.VacRoofPoweredAfterLanding, 0, 7500);
             options.End();
         }
 
