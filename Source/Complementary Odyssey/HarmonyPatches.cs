@@ -4,10 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection.Emit;
-using System.Security.Cryptography;
 using UnityEngine;
 using Verse;
-using Verse.Noise;
 
 namespace ComplementaryOdyssey
 {
@@ -51,7 +49,7 @@ namespace ComplementaryOdyssey
 
                 val.Patch(AccessTools.Method(typeof(InfestationCellFinder), "GetScoreAt"), transpiler: new HarmonyMethod(patchType, "ReplaceRoofed_Transpiler"));
                 val.Patch(AccessTools.Method(typeof(Need_Outdoors), "NeedInterval"), transpiler: new HarmonyMethod(patchType, "ReplaceGetRoof_Transpiler"));
-                
+
                 val.Patch(AccessTools.Method(typeof(District), "OpenRoofCountStopAt"), transpiler: new HarmonyMethod(patchType, "ReplacePoweredGridRoofed_Transpiler"));
                 val.Patch(AccessTools.Method(typeof(District), "ExposedVacuumCount"), transpiler: new HarmonyMethod(patchType, "ReplacePoweredGridRoofed_Transpiler"));
 

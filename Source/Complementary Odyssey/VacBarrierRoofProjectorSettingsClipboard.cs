@@ -1,8 +1,5 @@
-﻿using HarmonyLib;
-using RimWorld;
-using System;
+﻿using RimWorld;
 using System.Collections.Generic;
-using System.Threading;
 using UnityEngine;
 using Verse;
 using Verse.Sound;
