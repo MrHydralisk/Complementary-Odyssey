@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.Analytics;
 using Verse;
 
 namespace ComplementaryOdyssey
@@ -111,6 +110,140 @@ namespace ComplementaryOdyssey
             compOdysseyMapComponent.vacRoofGrid.UpdatePowerGrid(barrierTiles, newState);
         }
 
+        public void ChangeBarrier(IntVec2 offset, IntVec2 size)
+        {
+            if (offset != IntVec2.Invalid)
+            {
+                barrierOffset = new IntVec2(Mathf.Max(Mathf.Min(barrierOffset.x + offset.x, Props.maxBarrierOffset.x), Props.maxBarrierOffset.y), Mathf.Max(Mathf.Min(barrierOffset.z + offset.z, Props.maxBarrierOffset.z), 1));
+            }
+            if (size != IntVec2.Invalid)
+            {
+                barrierSize = new IntVec2(Mathf.Max(Mathf.Min(barrierSize.x + size.x, Props.maxBarrierSize.x), 1), Mathf.Max(Mathf.Min(barrierSize.z + size.z, Props.maxBarrierSize.z), 1));
+            }
+            UpdateBarrierTiles();
+        }
+
+        public bool CanChangeBarrier(IntVec2 offset, IntVec2 size)
+        {
+            IntVec2 rectOffset;
+            IntVec2 rectSize;
+            if (offset == IntVec2.Invalid)
+            {
+                rectOffset = barrierOffset;
+            }
+            else
+            {
+                rectOffset = new IntVec2(Mathf.Max(Mathf.Min(barrierOffset.x + offset.x, Props.maxBarrierOffset.x), Props.maxBarrierOffset.y), Mathf.Max(Mathf.Min(barrierOffset.z + offset.z, Props.maxBarrierOffset.z), 1));
+            }
+            if (size == IntVec2.Invalid)
+            {
+                rectSize = barrierSize;
+            }
+            else
+            {
+                rectSize = new IntVec2(barrierSize.x + size.x, barrierSize.z + size.z);
+                if (rectSize.x > Props.maxBarrierSize.x && rectSize.z > Props.maxBarrierSize.z && rectSize.x < 1 && rectSize.z < 1)
+                {
+                    return false;
+                }
+            }
+            CellRect rect = new CellRect(rectOffset.x, rectOffset.z, rectSize.x, rectSize.z);
+            return rect.minX <= 0 && rect.maxX >= 0 && rect.minZ > 0 && rect.Count() <= Props.maxArea;
+        }
+
+        public Rot4 DirectionRotated(Rot4 direction)
+        {
+            switch (parent.Rotation.AsInt)
+            {
+                case 0:
+                    {
+                        break;
+                    }
+                case 1:
+                    {
+                        switch (direction.AsInt)
+                        {
+                            case 0:
+                                {
+                                    direction = Rot4.East;
+                                    break;
+                                }
+                            case 1:
+                                {
+                                    direction = Rot4.South;
+                                    break;
+                                }
+                            case 2:
+                                {
+                                    direction = Rot4.West;
+                                    break;
+                                }
+                            case 3:
+                                {
+                                    direction = Rot4.North;
+                                    break;
+                                }
+                        }
+                        break;
+                    }
+                case 2:
+                    {
+                        switch (direction.AsInt)
+                        {
+                            case 0:
+                                {
+                                    direction = Rot4.South;
+                                    break;
+                                }
+                            case 1:
+                                {
+                                    direction = Rot4.West;
+                                    break;
+                                }
+                            case 2:
+                                {
+                                    direction = Rot4.North;
+                                    break;
+                                }
+                            case 3:
+                                {
+                                    direction = Rot4.East;
+                                    break;
+                                }
+                        }
+                        break;
+                    }
+                case 3:
+                    {
+                        switch (direction.AsInt)
+                        {
+                            case 0:
+                                {
+                                    direction = Rot4.West;
+                                    break;
+                                }
+                            case 1:
+                                {
+                                    direction = Rot4.North;
+                                    break;
+                                }
+                            case 2:
+                                {
+                                    direction = Rot4.East;
+                                    break;
+                                }
+                            case 3:
+                                {
+                                    direction = Rot4.South;
+                                    break;
+                                }
+                        }
+                        break;
+                    }
+            }
+            return direction;
+        }
+
         public override IEnumerable<Gizmo> CompGetGizmosExtra()
         {
             foreach (Gizmo gizmo in base.CompGetGizmosExtra())
@@ -122,22 +255,26 @@ namespace ComplementaryOdyssey
                 action = delegate
                 {
                     List<FloatMenuOption> floatMenuOptions = new List<FloatMenuOption>();
-                    floatMenuOptions.Add(new FloatMenuOption("+x", delegate
+                    FloatMenuOption floatMenuOptionEast = new FloatMenuOption(DirectionRotated(Rot4.East).ToStringWord(), delegate
                     {
-                        barrierOffset.x = Mathf.Min(barrierOffset.x + 1, Props.maxBarrierOffset.x);
-                    }));
-                    floatMenuOptions.Add(new FloatMenuOption("-x", delegate
+                        ChangeBarrier(new IntVec2(1, 0), IntVec2.Invalid);
+                    });
+                    floatMenuOptionEast.Disabled = !CanChangeBarrier(new IntVec2(1, 0), IntVec2.Invalid);
+                    if (floatMenuOptionEast.Disabled)
                     {
-                        barrierOffset.x = Mathf.Max(barrierOffset.x - 1, Props.maxBarrierOffset.y);
-                    }));
-                    floatMenuOptions.Add(new FloatMenuOption("+z", delegate
+                        floatMenuOptionEast.Label += $" {"Disabled".Translate()}";
+                    }
+                    floatMenuOptions.Add(floatMenuOptionEast);
+                    FloatMenuOption floatMenuOptionWest = new FloatMenuOption(DirectionRotated(Rot4.West).ToStringWord(), delegate
                     {
-                        barrierOffset.z = Mathf.Min(barrierOffset.z + 1, Props.maxBarrierOffset.z);
-                    }));
-                    floatMenuOptions.Add(new FloatMenuOption("-z", delegate
+                        ChangeBarrier(new IntVec2(-1, 0), IntVec2.Invalid);
+                    });
+                    floatMenuOptionWest.Disabled = !CanChangeBarrier(new IntVec2(-1, 0), IntVec2.Invalid);
+                    if (floatMenuOptionWest.Disabled)
                     {
-                        barrierOffset.z = Mathf.Max(barrierOffset.z - 1, 1);
-                    }));
+                        floatMenuOptionWest.Label += $" {"Disabled".Translate()}";
+                    }
+                    floatMenuOptions.Add(floatMenuOptionWest);
                     Find.WindowStack.Add(new FloatMenu(floatMenuOptions));
                 },
                 defaultLabel = "ComplementaryOdyssey.VacBarrierRoofPojector.Gizmo.Offset.Label".Translate(),
@@ -150,22 +287,46 @@ namespace ComplementaryOdyssey
                 action = delegate
                 {
                     List<FloatMenuOption> floatMenuOptions = new List<FloatMenuOption>();
-                    floatMenuOptions.Add(new FloatMenuOption("+x", delegate
+                    FloatMenuOption floatMenuOptionEast = new FloatMenuOption($"+{DirectionRotated(Rot4.East).ToStringWord()}", delegate
                     {
-                        barrierSize.x = Mathf.Min(barrierSize.x + 1, Props.maxBarrierSize.x);
-                    }));
-                    floatMenuOptions.Add(new FloatMenuOption("-x", delegate
+                        ChangeBarrier(IntVec2.Invalid, new IntVec2(1, 0));
+                    });
+                    floatMenuOptionEast.Disabled = !CanChangeBarrier(IntVec2.Invalid, new IntVec2(1, 0));
+                    if (floatMenuOptionEast.Disabled)
                     {
-                        barrierSize.x = Mathf.Max(barrierSize.x - 1, 1);
-                    }));
-                    floatMenuOptions.Add(new FloatMenuOption("+z", delegate
+                        floatMenuOptionEast.Label += $" {"Disabled".Translate()}";
+                    }
+                    floatMenuOptions.Add(floatMenuOptionEast);
+                    FloatMenuOption floatMenuOptionWest = new FloatMenuOption($"-{DirectionRotated(Rot4.East).ToStringWord()}", delegate
                     {
-                        barrierSize.z = Mathf.Min(barrierSize.z + 1, Props.maxBarrierSize.z);
-                    }));
-                    floatMenuOptions.Add(new FloatMenuOption("-z", delegate
+                        ChangeBarrier(IntVec2.Invalid, new IntVec2(-1, 0));
+                    });
+                    floatMenuOptionWest.Disabled = !CanChangeBarrier(IntVec2.Invalid, new IntVec2(-1, 0));
+                    if (floatMenuOptionWest.Disabled)
                     {
-                        barrierSize.z = Mathf.Max(barrierSize.z - 1, 1);
-                    }));
+                        floatMenuOptionWest.Label += $" {"Disabled".Translate()}";
+                    }
+                    floatMenuOptions.Add(floatMenuOptionWest);
+                    FloatMenuOption floatMenuOptionNorth = new FloatMenuOption($"+{DirectionRotated(Rot4.North).ToStringWord()}", delegate
+                    {
+                        ChangeBarrier(IntVec2.Invalid, new IntVec2(0, 1));
+                    });
+                    floatMenuOptionNorth.Disabled = !CanChangeBarrier(IntVec2.Invalid, new IntVec2(0, 1));
+                    if (floatMenuOptionNorth.Disabled)
+                    {
+                        floatMenuOptionNorth.Label += $" {"Disabled".Translate()}";
+                    }
+                    floatMenuOptions.Add(floatMenuOptionNorth);
+                    FloatMenuOption floatMenuOptionSouth = new FloatMenuOption($"-{DirectionRotated(Rot4.North).ToStringWord()}", delegate
+                    {
+                        ChangeBarrier(IntVec2.Invalid, new IntVec2(0, -1));
+                    });
+                    floatMenuOptionSouth.Disabled = !CanChangeBarrier(IntVec2.Invalid, new IntVec2(0, -1));
+                    if (floatMenuOptionSouth.Disabled)
+                    {
+                        floatMenuOptionSouth.Label += $" {"Disabled".Translate()}";
+                    }
+                    floatMenuOptions.Add(floatMenuOptionSouth);
                     Find.WindowStack.Add(new FloatMenu(floatMenuOptions));
                 },
                 defaultLabel = "ComplementaryOdyssey.VacBarrierRoofPojector.Gizmo.Size.Label".Translate(),
@@ -173,46 +334,12 @@ namespace ComplementaryOdyssey
                 icon = ContentFinder<Texture2D>.Get("UI/Commands/LaunchReport"),
                 Order = 30,
             };
-            //yield return new Command_Action
-            //{
-            //    action = delegate
-            //    {
-            //        scannedTiles = 0;
-            //    },
-            //    defaultLabel = "ComplementaryOdyssey.TerrainScanner.Gizmo.Reset.Label".Translate(),
-            //    defaultDesc = "ComplementaryOdyssey.TerrainScanner.Gizmo.Reset.Desc".Translate(),
-            //    icon = ContentFinder<Texture2D>.Get("UI/Commands/LaunchReport"),
-            //    Order = 30,
-            //};
-            //if (DebugSettings.ShowDevGizmos)
-            //{
-            //    yield return new Command_Action
-            //    {
-            //        action = delegate
-            //        {
-            //            Scan(parent.Map.cellIndices.NumGridCells, 60000);
-            //        },
-            //        defaultLabel = "Dev: Scan all",
-            //        defaultDesc = "Scan whole map"
-            //    };
-            //}
         }
 
         public override string CompInspectStringExtra()
         {
             List<string> inspectStrings = new List<string>();
-            //if (lastScanTick > (float)(Find.TickManager.TicksGame - 30))
-            //{
-            //    inspectStrings.Add("UserScanAbility".Translate() + ": " + lastUserSpeed.ToStringPercent());
-            //}
-            //if (scannedTiles >= parent.MapHeld.cellIndices.NumGridCells)
-            //{
-            //    inspectStrings.Add("ComplementaryOdyssey.TerrainScanner.CanUse.ScannedFully".Translate());
-            //}
-            //else
-            //{
-            //    inspectStrings.Add("ComplementaryOdyssey.TerrainScanner.InspectString.Progress".Translate(((float)scannedTiles / parent.MapHeld.cellIndices.NumGridCells).ToStringPercent()));
-            //}
+            inspectStrings.Add("ComplementaryOdyssey.VacBarrierRoofPojector.InspectString.BarrierTiles".Translate(barrierTiles.Count(), Props.maxArea));
             inspectStrings.Add(base.CompInspectStringExtra());
             return String.Join("\n", inspectStrings);
         }
