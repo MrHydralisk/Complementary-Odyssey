@@ -90,7 +90,7 @@ namespace ComplementaryOdyssey
         public override void CompTick()
         {
             base.CompTick();
-            if (Find.TickManager.TicksGame % 250 == 0)
+            if (Find.TickManager.TicksGame % 250 == 0 && parent.Spawned)
             {
                 UpdatePowerOutput();
                 if (isWasPowered != PowerOn)

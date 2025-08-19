@@ -249,6 +249,7 @@
 		<statBases>
 			<MaxHitPoints>250</MaxHitPoints>
 			<WorkToBuild>7200</WorkToBuild>
+			<Mass>6</Mass>
 			<Flammability>0</Flammability>
 		</statBases>
 		<costList>
@@ -265,6 +266,10 @@
 			<ai_chillDestination>false</ai_chillDestination>
 			<paintable>true</paintable>
 		</building>
+		<thingCategories>
+			<li>BuildingsMisc</li>
+		</thingCategories>
+		<minifiedDef>MinifiedThing</minifiedDef>
 		<drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
 		<placeWorkers>
 			<li>ComplementaryOdyssey.PlaceWorker_VacBarrierRoofProjector</li>

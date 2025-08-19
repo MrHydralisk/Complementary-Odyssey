@@ -11,7 +11,7 @@ namespace ComplementaryOdyssey
         public override void DrawGhost(ThingDef def, IntVec3 center, Rot4 rot, Color ghostCol, Thing thing = null)
         {
             List<IntVec3> tiles = new List<IntVec3>();
-            if (thing != null)
+            if (thing != null && thing.Spawned && thing.PositionHeld == center)
             {
                 tiles = thing.TryGetComp<CompVacBarrierRoofProjector>()?.barrierTiles ?? new List<IntVec3>();
             }
