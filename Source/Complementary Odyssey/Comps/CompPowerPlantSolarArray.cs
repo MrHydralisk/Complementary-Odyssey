@@ -12,10 +12,6 @@ namespace ComplementaryOdyssey
     {
         public new CompProperties_PowerPlantDeployable Props => (CompProperties_PowerPlantDeployable)props;
 
-        private const float NightPower = 0f;
-
-        private static readonly Vector2 BarSize = new Vector2(0.77f, 0.046f);
-
         private static readonly Material PowerPlantSolarBarFilledMat = SolidColorMaterials.SimpleSolidColorMaterial(new Color(0.5f, 0.475f, 0.1f));
         private static readonly Material PowerPlantSolarVacBarFilledMat = SolidColorMaterials.SimpleSolidColorMaterial(new Color(0.5f, 0.1f, 0.1f));
         private static readonly Material PowerPlantSolarBarUnfilledMat = SolidColorMaterials.SimpleSolidColorMaterial(new Color(0.15f, 0.15f, 0.15f));
@@ -198,6 +194,11 @@ namespace ComplementaryOdyssey
         public void Notify_SolarPanelDestroyed(Building_SolarArrayPanel solarPanel)
         {
             solarPanels.Remove(solarPanel);
+            if (isDeploying)
+            {
+                isDeploying = false;
+                tickNextRecharging = Find.TickManager.TicksGame + Props.ticksPerRecharging * 4;
+            }
         }
 
         public override void PostDeSpawn(Map map, DestroyMode mode = DestroyMode.Vanish)
