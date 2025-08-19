@@ -2,17 +2,17 @@
 <Defs>
 
 	<ThingDef ParentName="BuildingBase">
-		<defName>CO_VacBarrierRoofFraming</defName>
-		<label>vac barrier roof</label>
-		<description>Roofing with a frame for supporting a ultrasonic barrier. When the vac barrier is projected, it prevents oxygen from leaking into the vacuum of space. Without the projection, it's equivalent to having no roof.\n\nThe roof must be projected with a powered vac barrier roof projector to prevent depressurization. This also allows light and objects to move through while preventing weather effects and temperature changes.</description>
+		<defName>CO_VacRoofFraming</defName>
+		<label>vac roof</label>
+		<description>Roofing with a frame for maintaining an ultrasonic barrier. When the vac barrier is projected, it prevents oxygen from leaking into the vacuum of space. Without the projection, it's equivalent to having no roof.\n\nThe roof must be projected with a powered vac barrier projector to prevent depressurization. This also allows light and objects to move through while preventing weather effects and temperature changes.</description>
 		<graphicData>
 			<graphicClass>Graphic_Single</graphicClass>
-			<texPath>Things/Building/CO_VacBarrierRoof/CO_VacBarrierRoofFrame</texPath>
+			<texPath>Things/Building/CO_VacRoof/CO_VacRoofFrame</texPath>
 			<damageData>
 				<enabled>false</enabled>
 			</damageData>
 		</graphicData>
-		<uiIconPath>Things/Building/CO_VacBarrierRoof/CO_VacBarrierRoof</uiIconPath>
+		<uiIconPath>Things/Building/CO_VacRoof/CO_VacRoof</uiIconPath>
 		<uiIconScale>0.7</uiIconScale>
 		<uiOrder>2016</uiOrder>
 		<staticSunShadowHeight>1.0</staticSunShadowHeight>
@@ -38,7 +38,7 @@
 			<canPlaceOverWall>true</canPlaceOverWall>
 			<isEdifice>false</isEdifice>
 			<blueprintGraphicData>
-				<texPath>Things/Building/CO_VacBarrierRoof/CO_VacBarrierRoofFrame</texPath>
+				<texPath>Things/Building/CO_VacRoof/CO_VacRoofFrame</texPath>
 			</blueprintGraphicData>
 		</building>
 		<resourcesFractionWhenDeconstructed>1</resourcesFractionWhenDeconstructed>
@@ -48,8 +48,8 @@
 		<canOverlapZones>true</canOverlapZones>
 		<comps>
 			<li Class="CompProperties_Forbiddable"/>
-			<li Class="ComplementaryOdyssey.CompProperties_VacBarrierRoofBlueprint">
-				<roofDef>CO_VacBarrierRoof</roofDef>
+			<li Class="ComplementaryOdyssey.CompProperties_VacRoofBlueprint">
+				<roofDef>CO_VacRoof</roofDef>
 			</li>
 		</comps>
 		<constructionSkillPrerequisite>8</constructionSkillPrerequisite>

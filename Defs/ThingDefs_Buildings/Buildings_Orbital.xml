@@ -222,12 +222,12 @@
 	
 
 	<ThingDef ParentName="BuildingBase">
-		<defName>CO_VacBarrierRoofProjector</defName>
-		<label>vac barrier roof projector</label>
-		<description>This device projects an ultrasonic barrier onto a special vacuum barrier roof. This prevents depressurization and protects against weather and temperature changes while still allowing light and objects to pass through.</description>
+		<defName>CO_VacBarrierProjector</defName>
+		<label>vac barrier projector</label>
+		<description>This device projects an ultrasonic barrier onto a special roof that can maintain a vac barrier over a large-area. This prevents depressurization and protects against weather and temperature changes while still allowing light and objects to pass through. Can project on up to 16 vac roof.</description>
 		<graphicData>
 			<drawSize>1.3</drawSize>
-			<texPath>Things/Building/CO_VacBarrierRoof/CO_VacBarrierRoofProjector</texPath>
+			<texPath>Things/Building/CO_VacRoof/CO_VacBarrierProjector</texPath>
 			<graphicClass>Graphic_Multi</graphicClass>
 			<shaderType>CutoutComplex</shaderType>
 			<shadowData>
@@ -258,7 +258,6 @@
 			<ComponentSpacer>1</ComponentSpacer>
 			<GravlitePanel>8</GravlitePanel>
 		</costList>
-		<holdsRoof>true</holdsRoof>
 		<canOverlapZones>false</canOverlapZones>
 		<rotatable>true</rotatable>
 		<building>
@@ -272,13 +271,18 @@
 		<minifiedDef>MinifiedThing</minifiedDef>
 		<drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
 		<placeWorkers>
-			<li>ComplementaryOdyssey.PlaceWorker_VacBarrierRoofProjector</li>
+			<li>ComplementaryOdyssey.PlaceWorker_VacBarrierProjector</li>
 		</placeWorkers>
 		<comps>
-			<li Class="ComplementaryOdyssey.CompProperties_VacBarrierRoofProjector">
-				<basePowerConsumption>-50</basePowerConsumption>
-				<transmitsPower>true</transmitsPower>
+			<li Class="ComplementaryOdyssey.CompProperties_VacBarrierProjector">
+				<basePowerConsumption>50</basePowerConsumption>
+				<maxBarrierSize>(5, 5)</maxBarrierSize>
+				<maxBarrierOffset>(0, -4, 1)</maxBarrierOffset>
+				<initialBarrierSize>(5, 3)</initialBarrierSize>
+				<initialBarrierOffset>(-2, 1)</initialBarrierOffset>
+				<maxArea>16</maxArea>
 			</li>
+      <li Class="CompProperties_Flickable"/>
 			<li Class="CompProperties_Breakdownable"/>
 			<li Class="CompProperties_Stunnable">
 				<useLargeEMPEffecter>true</useLargeEMPEffecter>
@@ -288,6 +292,11 @@
 				</affectedDamageDefs>
 			</li>
 		</comps>
+		<constructionSkillPrerequisite>8</constructionSkillPrerequisite>
+		<researchPrerequisites>
+			<li>OrbitalTech</li>
+			<li>AdvancedGravtech</li>
+		</researchPrerequisites>
 	</ThingDef>
 	
 </Defs>

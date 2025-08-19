@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+	<CO_TerrainScan.label>работать с сканером местности</CO_TerrainScan.label>
+	<CO_TerrainScan.gerund>сканировать, используя</CO_TerrainScan.gerund>
+	<CO_TerrainScan.verb>сканировать, используя</CO_TerrainScan.verb>
+
+</Defs>

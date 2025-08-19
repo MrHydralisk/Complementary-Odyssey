@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+	<ComplementaryOdyssey.VacBarrierProjector.Gizmo.Offset.Label>Move Projection Area</ComplementaryOdyssey.VacBarrierProjector.Gizmo.Offset.Label>
+	<ComplementaryOdyssey.VacBarrierProjector.Gizmo.Offset.Desc>Will move projection area.</ComplementaryOdyssey.VacBarrierProjector.Gizmo.Offset.Desc>
+
+	<ComplementaryOdyssey.VacBarrierProjector.Gizmo.Size.Label>Change Projection Area Size</ComplementaryOdyssey.VacBarrierProjector.Gizmo.Size.Label>
+	<ComplementaryOdyssey.VacBarrierProjector.Gizmo.Size.Desc>Will change size of projection area.</ComplementaryOdyssey.VacBarrierProjector.Gizmo.Size.Desc>
+	
+	<ComplementaryOdyssey.VacBarrierProjector.InspectString.BarrierTiles>Projection Area {0}/{1}</ComplementaryOdyssey.VacBarrierProjector.InspectString.BarrierTiles>
+
+</LanguageData>

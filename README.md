@@ -31,6 +31,10 @@ Allowing to scan current map rock formation to find ore veins inside. Which can 
 
 Allowing to drag select all over all containers in ruins, instead of searching for each on map and clicking one by one.
 
+### Vac Barrier Roof Projector and Vac Barrier Roof
+
+A device that can power vac barrier on the vac roof, which allow shuttles, drop pods and light through. Powered vac roof will prevent oxygen leaks, weather effects and temperature change. Size and Offset of projection barrier can be adjusted with up to 16 tiles total. When projector not powered vac roof act as if there is no roof.
+
 ## Links
 
 [Steam Workshop Page](https://steamcommunity.com/sharedfiles/filedetails/?id=3546612303)
@@ -44,7 +48,8 @@ Should have no compatibility issues with other mods.
 Supported languages:
 * English,
 * Russian,
-* Chinese (available on workshop by 恰似宛然一笑生花)
+* Chinese (available on workshop by 恰似宛然一笑生花),
+* Spanish (available on workshop by Forestt)
 
 ## Add/Remove
 

@@ -3,9 +3,9 @@ using Verse;
 
 namespace ComplementaryOdyssey
 {
-    public class CompVacBarrierRoofBlueprint : ThingComp
+    public class CompVacRoofBlueprint : ThingComp
     {
-        private CompProperties_VacBarrierRoofBlueprint Props => (CompProperties_VacBarrierRoofBlueprint)props;
+        private CompProperties_VacRoofBlueprint Props => (CompProperties_VacRoofBlueprint)props;
 
         public override void CompTick()
         {

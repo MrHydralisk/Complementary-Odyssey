@@ -2,8 +2,8 @@
 <Defs>
 
 	<RoofDef>
-		<defName>CO_VacBarrierRoof</defName>
-		<label>vac barrier roof</label>
+		<defName>CO_VacRoof</defName>
+		<label>vac roof</label>
 		<collapseLeavingThingDef>GravlitePanel</collapseLeavingThingDef>
 		<modExtensions>
 			<li Class="ComplementaryOdyssey.ComplementaryOdysseyDefModExtension">

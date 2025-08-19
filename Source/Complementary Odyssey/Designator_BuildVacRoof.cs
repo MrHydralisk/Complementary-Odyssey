@@ -3,15 +3,15 @@ using Verse;
 
 namespace ComplementaryOdyssey
 {
-    public class Designator_BuildVacBarrierRoof : Designator_Build
+    public class Designator_BuildVacRoof : Designator_Build
     {
         private readonly RoofDef roofDef;
 
         public override BuildableDef PlacingDef => entDef;
 
-        public Designator_BuildVacBarrierRoof() : base(DefOfLocal.CO_VacBarrierRoofFraming)
+        public Designator_BuildVacRoof() : base(DefOfLocal.CO_VacRoofFraming)
         {
-            this.roofDef = DefOfLocal.CO_VacBarrierRoof;
+            this.roofDef = DefOfLocal.CO_VacRoof;
         }
 
         public override AcceptanceReport CanDesignateCell(IntVec3 loc)

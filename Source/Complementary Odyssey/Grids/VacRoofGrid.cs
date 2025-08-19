@@ -75,13 +75,13 @@ namespace ComplementaryOdyssey
             Thing SelectedThing = Find.Selector.FirstSelectedObject as Thing;
             if (SelectedThing != null)
             {
-                CompVacBarrierRoofProjector compVacBarrierRoofPojector = SelectedThing.TryGetComp<CompVacBarrierRoofProjector>();
-                if ((compVacBarrierRoofPojector != null))
+                CompVacBarrierProjector compVacBarrierProjector = SelectedThing.TryGetComp<CompVacBarrierProjector>();
+                if ((compVacBarrierProjector != null))
                 {
                     isRender = true;
                 }
             }
-            if (!isRender && Find.DesignatorManager.SelectedDesignator is Designator_BuildVacBarrierRoof)
+            if (!isRender && Find.DesignatorManager.SelectedDesignator is Designator_BuildVacRoof)
             {
                 isRender = true;
             }

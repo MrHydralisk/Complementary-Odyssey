@@ -20,8 +20,8 @@ namespace ComplementaryOdyssey
             patchType = typeof(HarmonyPatches);
             Harmony val = new Harmony("rimworld.mrhydralisk.ComplementaryOdyssey");
 
-            AccessTools.Method(typeof(ThingDefGenerator_Buildings), "NewBlueprintDef_Thing").Invoke(null, new object[] { DefOfLocal.CO_VacBarrierRoofFraming, false, null, true });
-            AccessTools.Method(typeof(ThingDefGenerator_Buildings), "NewFrameDef_Thing").Invoke(null, new object[] { DefOfLocal.CO_VacBarrierRoofFraming, true });
+            AccessTools.Method(typeof(ThingDefGenerator_Buildings), "NewBlueprintDef_Thing").Invoke(null, new object[] { DefOfLocal.CO_VacRoofFraming, false, null, true });
+            AccessTools.Method(typeof(ThingDefGenerator_Buildings), "NewFrameDef_Thing").Invoke(null, new object[] { DefOfLocal.CO_VacRoofFraming, true });
 
             val.Patch(AccessTools.Method(typeof(MapInterface), "MapInterfaceOnGUI_AfterMainTabs"), transpiler: new HarmonyMethod(patchType, "MI_AfterMainTabs_Transpiler"));
             val.Patch(AccessTools.Method(typeof(Mineable), "DestroyMined"), prefix: new HarmonyMethod(patchType, "M_DestroyMined_Prefix"));
@@ -59,6 +59,8 @@ namespace ComplementaryOdyssey
                 val.Patch(AccessTools.Method(typeof(ThoughtWorker_IsOutdoorsForUndergrounder), "CurrentStateInternal"), transpiler: new HarmonyMethod(patchType, "ReplaceRoofed_Transpiler"));
 
                 val.Patch(AccessTools.Method(typeof(WorldComponent_GravshipController), "InitiateLanding"), postfix: new HarmonyMethod(patchType, "WCGC_InitiateLanding_Postfix"));
+
+                val.Patch(AccessTools.Property(typeof(ThingDef), "ConnectToPower").GetGetMethod(), transpiler: new HarmonyMethod(patchType, "TD_ConnectToPower_Transpiler"));
             }
         }
 
@@ -228,6 +230,51 @@ namespace ComplementaryOdyssey
                     mapComponent_CompOdyssey.vacRoofGrid.InitialPowered();
                 }
             }
+        }
+
+        public static IEnumerable<CodeInstruction> TD_ConnectToPower_Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator il)
+        {
+            int retCount = 0;
+            int startIndex = -1;
+            int endIndex = -1;
+            List<CodeInstruction> codes = new List<CodeInstruction>(instructions);
+            for (int i = 0; i < codes.Count - 1; i++)
+            {
+                if (codes[i].opcode == OpCodes.Ret)
+                {
+                    retCount++;
+                    if (retCount == 2)
+                    {
+                        startIndex = i;
+                    }
+                    else if (retCount == 3)
+                    {
+                        endIndex = i;
+                    }
+                }
+            }
+            if (startIndex > -1 && endIndex > -1)
+            {
+                Label labelSkipIn = il.DefineLabel();
+                Label labelSkipOut = (Label)codes[endIndex - 2].operand;
+                codes[endIndex - 2].operand = labelSkipIn;
+                List<CodeInstruction> instructionsToInsert = new List<CodeInstruction>();
+                for (int i = startIndex + 1; i <= endIndex; i++)
+                {
+                    if (codes[i].opcode == OpCodes.Ldtoken)
+                    {
+                        instructionsToInsert.Add(new CodeInstruction(OpCodes.Ldtoken, typeof(CompVacBarrierProjector)));
+                    }
+                    else
+                    {
+                        instructionsToInsert.Add(new CodeInstruction(codes[i]));
+                    }
+                }
+                instructionsToInsert[0].labels.Add(labelSkipIn);
+                instructionsToInsert[instructionsToInsert.Count - 3].operand = labelSkipOut;
+                codes.InsertRange(endIndex + 1, instructionsToInsert);
+            }
+            return codes.AsEnumerable();
         }
     }
 }

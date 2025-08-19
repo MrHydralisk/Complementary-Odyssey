@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+	<ComplementaryOdyssey.VacBarrierProjector.Gizmo.Offset.Label>Передвинуть зону проектора</ComplementaryOdyssey.VacBarrierProjector.Gizmo.Offset.Label>
+	<ComplementaryOdyssey.VacBarrierProjector.Gizmo.Offset.Desc>Позволит передвинуть зону проектора.</ComplementaryOdyssey.VacBarrierProjector.Gizmo.Offset.Desc>
+
+	<ComplementaryOdyssey.VacBarrierProjector.Gizmo.Size.Label>Изменить размер зоны проектора</ComplementaryOdyssey.VacBarrierProjector.Gizmo.Size.Label>
+	<ComplementaryOdyssey.VacBarrierProjector.Gizmo.Size.Desc>Позволит изменить размер зоны проектора.</ComplementaryOdyssey.VacBarrierProjector.Gizmo.Size.Desc>
+	
+	<ComplementaryOdyssey.VacBarrierProjector.InspectString.BarrierTiles>Зона проектора {0}/{1}</ComplementaryOdyssey.VacBarrierProjector.InspectString.BarrierTiles>
+
+</LanguageData>

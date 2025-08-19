@@ -56,7 +56,7 @@
 			<li Class="PatchOperationAdd">
 				<xpath>/Defs/DesignationCategoryDef[defName = "Odyssey"]/specialDesignatorClasses</xpath>
 				<value>
-					<li>ComplementaryOdyssey.Designator_BuildVacBarrierRoof</li>
+					<li>ComplementaryOdyssey.Designator_BuildVacRoof</li>
 				</value>
 			</li>
 		</operations>

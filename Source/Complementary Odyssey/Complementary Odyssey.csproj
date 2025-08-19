@@ -38,19 +38,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="COMod.cs" />
-    <Compile Include="CompProperties\CompProperties_VacBarrierRoofBlueprint.cs" />
-    <Compile Include="Comps\CompVacBarrierRoofBlueprint.cs" />
+    <Compile Include="CompProperties\CompProperties_VacRoofBlueprint.cs" />
+    <Compile Include="Comps\CompVacRoofBlueprint.cs" />
     <Compile Include="DefOfLocal.cs" />
-    <Compile Include="Designator_BuildVacBarrierRoof.cs" />
-    <Compile Include="VacBarrierRoofProjectorSettingsClipboard.cs" />
-    <Compile Include="CompProperties\CompProperties_VacBarrierRoofProjector.cs" />
-    <Compile Include="Comps\CompVacBarrierRoofProjector.cs" />
+    <Compile Include="Designator_BuildVacRoof.cs" />
+    <Compile Include="VacBarrierProjectorSettingsClipboard.cs" />
+    <Compile Include="CompProperties\CompProperties_VacBarrierProjector.cs" />
+    <Compile Include="Comps\CompVacBarrierProjector.cs" />
     <Compile Include="COSettings.cs" />
     <Compile Include="ComplementaryOdysseyDefModExtension.cs" />
     <Compile Include="CompProperties\CompProperties_TerrainScanner.cs" />
     <Compile Include="HarmonyPatches.cs" />
     <Compile Include="ComplementaryOdysseyUtility.cs" />
-    <Compile Include="PlaceWorkers\PlaceWorker_VacBarrierRoofProjector.cs" />
+    <Compile Include="PlaceWorkers\PlaceWorker_VacBarrierProjector.cs" />
     <Compile Include="Grids\VacRoofGrid.cs" />
     <Compile Include="Grids\SurfaceResourceGrid.cs" />
     <Compile Include="MapComponent_CompOdyssey.cs" />

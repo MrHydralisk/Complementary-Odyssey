@@ -6,7 +6,7 @@ using Verse.Sound;
 
 namespace ComplementaryOdyssey
 {
-    public static class VacBarrierRoofProjectorSettingsClipboard
+    public static class VacBarrierProjectorSettingsClipboard
     {
         private static IntVec2 barrierSize;
         private static IntVec2 barrierOffset;
@@ -15,7 +15,7 @@ namespace ComplementaryOdyssey
 
         public static bool HasCopiedSettings => copied;
 
-        public static void Copy(CompVacBarrierRoofProjector vbrp)
+        public static void Copy(CompVacBarrierProjector vbrp)
         {
             barrierSize = vbrp.barrierSize;
             barrierOffset = vbrp.barrierOffset;
@@ -23,7 +23,7 @@ namespace ComplementaryOdyssey
             Messages.Message("StorageSettingsCopiedToClipboard".Translate(), null, MessageTypeDefOf.NeutralEvent, historical: false);
         }
 
-        public static void PasteInto(CompVacBarrierRoofProjector vbrp)
+        public static void PasteInto(CompVacBarrierProjector vbrp)
         {
             vbrp.barrierSize = barrierSize;
             vbrp.barrierOffset = barrierOffset;
@@ -31,7 +31,7 @@ namespace ComplementaryOdyssey
             Messages.Message("StorageSettingsPastedFromClipboard".Translate(), null, MessageTypeDefOf.NeutralEvent, historical: false);
         }
 
-        public static IEnumerable<Gizmo> CopyPasteGizmosFor(CompVacBarrierRoofProjector vbrp)
+        public static IEnumerable<Gizmo> CopyPasteGizmosFor(CompVacBarrierProjector vbrp)
         {
             Command_Action command_Action = new Command_Action();
             command_Action.icon = ContentFinder<Texture2D>.Get("UI/Commands/CopySettings");

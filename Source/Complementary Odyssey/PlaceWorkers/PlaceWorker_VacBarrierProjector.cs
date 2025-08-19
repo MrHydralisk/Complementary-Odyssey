@@ -4,16 +4,16 @@ using Verse;
 
 namespace ComplementaryOdyssey
 {
-    public class PlaceWorker_VacBarrierRoofProjector : PlaceWorker
+    public class PlaceWorker_VacBarrierProjector : PlaceWorker
     {
-        public CompProperties_VacBarrierRoofProjector propsCached;
+        public CompProperties_VacBarrierProjector propsCached;
 
         public override void DrawGhost(ThingDef def, IntVec3 center, Rot4 rot, Color ghostCol, Thing thing = null)
         {
             List<IntVec3> tiles = new List<IntVec3>();
             if (thing != null && thing.Spawned && thing.PositionHeld == center)
             {
-                tiles = thing.TryGetComp<CompVacBarrierRoofProjector>()?.barrierTiles ?? new List<IntVec3>();
+                tiles = thing.TryGetComp<CompVacBarrierProjector>()?.barrierTiles ?? new List<IntVec3>();
             }
             else
             {
@@ -24,7 +24,7 @@ namespace ComplementaryOdyssey
                 }
                 if (propsCached == null)
                 {
-                    propsCached = thingDef.GetCompProperties<CompProperties_VacBarrierRoofProjector>();
+                    propsCached = thingDef.GetCompProperties<CompProperties_VacBarrierProjector>();
                 }
                 if (propsCached != null)
                 {

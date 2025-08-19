@@ -6,8 +6,8 @@ namespace ComplementaryOdyssey
     [DefOf]
     public static class DefOfLocal
     {
-        public static ThingDef CO_VacBarrierRoofFraming;
-        public static RoofDef CO_VacBarrierRoof;
+        public static ThingDef CO_VacRoofFraming;
+        public static RoofDef CO_VacRoof;
     }
 }
 

@@ -7,9 +7,9 @@ using Verse;
 
 namespace ComplementaryOdyssey
 {
-    public class CompVacBarrierRoofProjector : CompPowerTrader
+    public class CompVacBarrierProjector : CompPowerTrader
     {
-        public new CompProperties_VacBarrierRoofProjector Props => props as CompProperties_VacBarrierRoofProjector;
+        public new CompProperties_VacBarrierProjector Props => props as CompProperties_VacBarrierProjector;
 
         public MapComponent_CompOdyssey compOdysseyMapComponent => compOdysseyMapComponentCached ?? (compOdysseyMapComponentCached = parent.MapHeld.GetComponent<MapComponent_CompOdyssey>() ?? null);
         private MapComponent_CompOdyssey compOdysseyMapComponentCached;
@@ -111,7 +111,7 @@ namespace ComplementaryOdyssey
                     num++;
                 }
             }
-            PowerOutput = Props.PowerConsumption * num;
+            PowerOutput = -Props.PowerConsumption * num;
         }
 
         public void Notify_ChangedPowerState(bool newState)
@@ -290,8 +290,8 @@ namespace ComplementaryOdyssey
                     floatMenuOptions.Add(floatMenuOptionWest);
                     Find.WindowStack.Add(new FloatMenu(floatMenuOptions));
                 },
-                defaultLabel = "ComplementaryOdyssey.VacBarrierRoofPojector.Gizmo.Offset.Label".Translate(),
-                defaultDesc = "ComplementaryOdyssey.VacBarrierRoofPojector.Gizmo.Offset.Desc".Translate(),
+                defaultLabel = "ComplementaryOdyssey.VacBarrierProjector.Gizmo.Offset.Label".Translate(),
+                defaultDesc = "ComplementaryOdyssey.VacBarrierProjector.Gizmo.Offset.Desc".Translate(),
                 icon = ContentFinder<Texture2D>.Get("UI/Designators/ZoneCreate_Stockpile"),
                 Order = 30,
             };
@@ -342,13 +342,13 @@ namespace ComplementaryOdyssey
                     floatMenuOptions.Add(floatMenuOptionSouth);
                     Find.WindowStack.Add(new FloatMenu(floatMenuOptions));
                 },
-                defaultLabel = "ComplementaryOdyssey.VacBarrierRoofPojector.Gizmo.Size.Label".Translate(),
-                defaultDesc = "ComplementaryOdyssey.VacBarrierRoofPojector.Gizmo.Size.Desc".Translate(),
+                defaultLabel = "ComplementaryOdyssey.VacBarrierProjector.Gizmo.Size.Label".Translate(),
+                defaultDesc = "ComplementaryOdyssey.VacBarrierProjector.Gizmo.Size.Desc".Translate(),
                 icon = ContentFinder<Texture2D>.Get("UI/Designators/AreaAllowedExpand"),
                 Order = 30,
             };
-            yield return DesignatorUtility.FindAllowedDesignator<Designator_BuildVacBarrierRoof>();
-            foreach (Gizmo item in VacBarrierRoofProjectorSettingsClipboard.CopyPasteGizmosFor(this))
+            yield return DesignatorUtility.FindAllowedDesignator<Designator_BuildVacRoof>();
+            foreach (Gizmo item in VacBarrierProjectorSettingsClipboard.CopyPasteGizmosFor(this))
             {
                 yield return item;
             }
@@ -357,7 +357,7 @@ namespace ComplementaryOdyssey
         public override string CompInspectStringExtra()
         {
             List<string> inspectStrings = new List<string>();
-            inspectStrings.Add("ComplementaryOdyssey.VacBarrierRoofPojector.InspectString.BarrierTiles".Translate(barrierTiles.Count(), Props.maxArea));
+            inspectStrings.Add("ComplementaryOdyssey.VacBarrierProjector.InspectString.BarrierTiles".Translate(barrierTiles.Count(), Props.maxArea));
             inspectStrings.Add(base.CompInspectStringExtra());
             return String.Join("\n", inspectStrings);
         }
