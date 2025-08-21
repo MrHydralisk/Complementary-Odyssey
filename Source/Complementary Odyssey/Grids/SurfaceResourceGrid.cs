@@ -59,11 +59,8 @@ namespace ComplementaryOdyssey
                     {
                         if (list[i] is Mineable mineable)
                         {
-                            if (mineable.def.building.mineableThing != null)
-                            {
-                                ore = mineable;
-                                oreDict.SetOrAdd(index, ore);
-                            }
+                            ore = mineable;
+                            oreDict.SetOrAdd(index, ore);
                             break;
                         }
                     }
@@ -158,8 +155,17 @@ namespace ComplementaryOdyssey
                 Text.Anchor = TextAnchor.MiddleLeft;
                 float num2 = (UI.CurUICellSize() - IconSize) / 2f;
                 Rect rect = new Rect(vector.x + num2, vector.y - UI.CurUICellSize() + num2, IconSize, IconSize);
-                Widgets.ThingIcon(rect, ore.def.building.mineableThing);
-                Widgets.Label(new Rect(rect.xMax + IconPaddingRight, rect.y, 999f, LineSpacing), $"{ore.def.building.mineableThing.label} x{ore.def.building.EffectiveMineableYield}");
+                ThingDef oreMine = ore.def.building.mineableThing;
+                if (oreMine == null)
+                {
+                    Widgets.ThingIcon(rect, ore);
+                    Widgets.Label(new Rect(rect.xMax + IconPaddingRight, rect.y, 999f, LineSpacing), $"{ore.Label}");
+                }
+                else
+                {
+                    Widgets.ThingIcon(rect, ore.def.building.mineableThing);
+                    Widgets.Label(new Rect(rect.xMax + IconPaddingRight, rect.y, 999f, LineSpacing), $"{ore.def.building.mineableThing.label} x{ore.def.building.EffectiveMineableYield}");
+                }
                 Text.Anchor = TextAnchor.UpperLeft;
             }
         }
@@ -175,7 +181,23 @@ namespace ComplementaryOdyssey
             Mineable ore = OreAt(c);
             if (ore != null)
             {
-                float transparencyValue = (float)ore.HitPoints / ore.MaxHitPoints * 0.5f;
+                float transparencyValue = (float)ore.HitPoints / ore.MaxHitPoints;
+                ThingDef oreMine = ore.def.building.mineableThing;
+                if (oreMine == null) 
+                {
+                    transparencyValue *= 0.25f;
+                }
+                else
+                {
+                    if (ThingCategoryDefOf.Chunks.ContainedInThisOrDescendant(oreMine))
+                    {
+                        transparencyValue *= 0.5f;
+                    }
+                    else
+                    {
+                        transparencyValue *= 0.75f;
+                    }
+                }
                 Color colorOre = ore.DrawColorTwo;
                 if (colorOre == Color.white)
                 {
