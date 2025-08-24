@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+	<TerrainDef ParentName="BridgeBase">
+		<defName>CO_ExtBridge</defName>
+		<label>extendable bridge tile</label>
+		<description>A tile of extendable lightweight bridge.</description>
+		<texturePath>Terrain/Surfaces/CO_Bridge/CO_Bridge</texturePath>
+		<bridgePropsPath>Terrain/Surfaces/CO_Bridge/CO_BridgeProps</bridgePropsPath>
+		<affordances>
+			<li>Walkable</li>
+		</affordances>
+		<designationCategory/>
+		<constructEffect>ConstructMetal</constructEffect>
+		<statBases>
+			<CleaningTimeFactor>0.9</CleaningTimeFactor>
+		</statBases>
+		<destroyOnBombDamageThreshold>40</destroyOnBombDamageThreshold>
+	</TerrainDef>
+
+</Defs>
