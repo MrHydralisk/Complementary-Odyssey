@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+	<ThingDef ParentName="BuildingBase">
+		<defName>CO_ExtBridge</defName>
+		<label>extendable bridge</label>
+		<description>An extendable lightweight bridge. Can deploy extendable bridge tiles in one direction and pack them back, when needed.</description>
+		<graphicData>
+			<texPath>Things/Building/CO_ExtBridge/CO_ExtBridge</texPath>
+			<graphicClass>Graphic_Multi</graphicClass>
+		</graphicData>
+		<altitudeLayer>FloorEmplacement</altitudeLayer>
+		<statBases>
+			<MaxHitPoints>210</MaxHitPoints>
+			<WorkToBuild>9000</WorkToBuild>
+			<Flammability>0</Flammability>
+		</statBases>
+		<drawerType>MapMeshOnly</drawerType>
+		<tickerType>Normal</tickerType>
+		<canOverlapZones>true</canOverlapZones>
+		<drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
+		<fillPercent>0.05</fillPercent>
+		<costList>
+			<Steel>60</Steel>
+			<ComponentIndustrial>4</ComponentIndustrial>
+			<GravlitePanel>15</GravlitePanel>
+		</costList>
+		<building>
+			<destroySound>BuildingDestroyed_Metal_Small</destroySound>
+			<isTargetable>false</isTargetable>
+			<isInert>true</isInert>
+			<isEdifice>false</isEdifice>
+		</building>
+		<comps>
+			<li Class="ComplementaryOdyssey.CompProperties_ExtBridge">
+				<ticksPerDeploy>300</ticksPerDeploy>
+				<ticksPerPacking>200</ticksPerPacking>
+				<maxDeploy>15</maxDeploy>
+				<deployableTerrain>CO_ExtBridgeTile</deployableTerrain>
+			</li>
+			<li Class="CompProperties_Power">
+				<compClass>CompPowerTrader</compClass>
+				<basePowerConsumption>120</basePowerConsumption>
+			</li>
+			<li Class="CompProperties_Flickable"/>
+			<li Class="CompProperties_Breakdownable"/>
+			<li Class="CompProperties_Stunnable">
+				<useLargeEMPEffecter>true</useLargeEMPEffecter>
+				<empChancePerTick>0.03</empChancePerTick>
+				<affectedDamageDefs>
+					<li>EMP</li>
+				</affectedDamageDefs>
+			</li>
+		</comps>
+		<pathCost>0</pathCost>
+		<designationCategory>Odyssey</designationCategory>
+		<uiOrder>2100</uiOrder>
+		<placeWorkers>
+			<li>ComplementaryOdyssey.PlaceWorker_ExtBridge</li>
+		</placeWorkers>
+		<researchPrerequisites>
+			<li>MicroelectronicsBasics</li>
+		</researchPrerequisites>
+	</ThingDef>
+
+
+</Defs>

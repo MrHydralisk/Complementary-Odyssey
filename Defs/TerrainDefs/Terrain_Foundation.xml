@@ -2,11 +2,11 @@
 <Defs>
 
 	<TerrainDef ParentName="BridgeBase">
-		<defName>CO_ExtBridge</defName>
+		<defName>CO_ExtBridgeTile</defName>
 		<label>extendable bridge tile</label>
 		<description>A tile of extendable lightweight bridge.</description>
-		<texturePath>Terrain/Surfaces/CO_Bridge/CO_Bridge</texturePath>
-		<bridgePropsPath>Terrain/Surfaces/CO_Bridge/CO_BridgeProps</bridgePropsPath>
+		<texturePath>Terrain/Surfaces/CO_ExtBridge/CO_ExtBridge</texturePath>
+		<bridgePropsPath>Terrain/Surfaces/CO_ExtBridge/CO_ExtBridgeProps</bridgePropsPath>
 		<affordances>
 			<li>Walkable</li>
 		</affordances>

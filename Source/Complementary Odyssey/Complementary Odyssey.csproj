@@ -38,10 +38,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="COMod.cs" />
+    <Compile Include="CompProperties\CompProperties_ExtBridge.cs" />
     <Compile Include="CompProperties\CompProperties_VacRoofBlueprint.cs" />
+    <Compile Include="Comps\CompExtBridge.cs" />
     <Compile Include="Comps\CompVacRoofBlueprint.cs" />
     <Compile Include="DefOfLocal.cs" />
     <Compile Include="Designator_BuildVacRoof.cs" />
+    <Compile Include="PlaceWorkers\PlaceWorker_ExtBridge.cs" />
     <Compile Include="VacBarrierProjectorSettingsClipboard.cs" />
     <Compile Include="CompProperties\CompProperties_VacBarrierProjector.cs" />
     <Compile Include="Comps\CompVacBarrierProjector.cs" />

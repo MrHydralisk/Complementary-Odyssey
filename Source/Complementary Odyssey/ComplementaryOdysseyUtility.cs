@@ -85,5 +85,100 @@ namespace ComplementaryOdyssey
             }
             return false;
         }
+
+
+
+        public static Rot4 DirectionRotated(Rot4 rotation, Rot4 direction)
+        {
+            switch (rotation.AsInt)
+            {
+                case 0:
+                    {
+                        break;
+                    }
+                case 1:
+                    {
+                        switch (direction.AsInt)
+                        {
+                            case 0:
+                                {
+                                    direction = Rot4.East;
+                                    break;
+                                }
+                            case 1:
+                                {
+                                    direction = Rot4.South;
+                                    break;
+                                }
+                            case 2:
+                                {
+                                    direction = Rot4.West;
+                                    break;
+                                }
+                            case 3:
+                                {
+                                    direction = Rot4.North;
+                                    break;
+                                }
+                        }
+                        break;
+                    }
+                case 2:
+                    {
+                        switch (direction.AsInt)
+                        {
+                            case 0:
+                                {
+                                    direction = Rot4.South;
+                                    break;
+                                }
+                            case 1:
+                                {
+                                    direction = Rot4.West;
+                                    break;
+                                }
+                            case 2:
+                                {
+                                    direction = Rot4.North;
+                                    break;
+                                }
+                            case 3:
+                                {
+                                    direction = Rot4.East;
+                                    break;
+                                }
+                        }
+                        break;
+                    }
+                case 3:
+                    {
+                        switch (direction.AsInt)
+                        {
+                            case 0:
+                                {
+                                    direction = Rot4.West;
+                                    break;
+                                }
+                            case 1:
+                                {
+                                    direction = Rot4.North;
+                                    break;
+                                }
+                            case 2:
+                                {
+                                    direction = Rot4.East;
+                                    break;
+                                }
+                            case 3:
+                                {
+                                    direction = Rot4.South;
+                                    break;
+                                }
+                        }
+                        break;
+                    }
+            }
+            return direction;
+        }
     }
 }

@@ -263,6 +263,18 @@ namespace ComplementaryOdyssey
             command_Toggle.hotKey = KeyBindingDefOf.Misc6;
             command_Toggle.Order = 30;
             yield return command_Toggle;
+            if (DebugSettings.ShowDevGizmos)
+            {
+                yield return new Command_Action
+                {
+                    action = delegate
+                    {
+                        tickNextRecharging = -1;
+                    },
+                    defaultLabel = "Dev: Reset cooldown",
+                    defaultDesc = "Reset cooldown between activation"
+                };
+            }
         }
 
         public override void PostExposeData()

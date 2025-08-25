@@ -164,99 +164,6 @@ namespace ComplementaryOdyssey
             return rect.minX <= 0 && rect.maxX >= 0 && rect.minZ > 0 && rect.Count() <= Props.maxArea;
         }
 
-        public Rot4 DirectionRotated(Rot4 direction)
-        {
-            switch (parent.Rotation.AsInt)
-            {
-                case 0:
-                    {
-                        break;
-                    }
-                case 1:
-                    {
-                        switch (direction.AsInt)
-                        {
-                            case 0:
-                                {
-                                    direction = Rot4.East;
-                                    break;
-                                }
-                            case 1:
-                                {
-                                    direction = Rot4.South;
-                                    break;
-                                }
-                            case 2:
-                                {
-                                    direction = Rot4.West;
-                                    break;
-                                }
-                            case 3:
-                                {
-                                    direction = Rot4.North;
-                                    break;
-                                }
-                        }
-                        break;
-                    }
-                case 2:
-                    {
-                        switch (direction.AsInt)
-                        {
-                            case 0:
-                                {
-                                    direction = Rot4.South;
-                                    break;
-                                }
-                            case 1:
-                                {
-                                    direction = Rot4.West;
-                                    break;
-                                }
-                            case 2:
-                                {
-                                    direction = Rot4.North;
-                                    break;
-                                }
-                            case 3:
-                                {
-                                    direction = Rot4.East;
-                                    break;
-                                }
-                        }
-                        break;
-                    }
-                case 3:
-                    {
-                        switch (direction.AsInt)
-                        {
-                            case 0:
-                                {
-                                    direction = Rot4.West;
-                                    break;
-                                }
-                            case 1:
-                                {
-                                    direction = Rot4.North;
-                                    break;
-                                }
-                            case 2:
-                                {
-                                    direction = Rot4.East;
-                                    break;
-                                }
-                            case 3:
-                                {
-                                    direction = Rot4.South;
-                                    break;
-                                }
-                        }
-                        break;
-                    }
-            }
-            return direction;
-        }
-
         public override IEnumerable<Gizmo> CompGetGizmosExtra()
         {
             foreach (Gizmo gizmo in base.CompGetGizmosExtra())
@@ -268,7 +175,7 @@ namespace ComplementaryOdyssey
                 action = delegate
                 {
                     List<FloatMenuOption> floatMenuOptions = new List<FloatMenuOption>();
-                    FloatMenuOption floatMenuOptionEast = new FloatMenuOption(DirectionRotated(Rot4.East).ToStringWord(), delegate
+                    FloatMenuOption floatMenuOptionEast = new FloatMenuOption(ComplementaryOdysseyUtility.DirectionRotated(parent.Rotation, Rot4.East).ToStringWord(), delegate
                     {
                         ChangeBarrier(new IntVec2(1, 0), IntVec2.Invalid);
                     });
@@ -278,7 +185,7 @@ namespace ComplementaryOdyssey
                         floatMenuOptionEast.Label += $" {"Disabled".Translate()}";
                     }
                     floatMenuOptions.Add(floatMenuOptionEast);
-                    FloatMenuOption floatMenuOptionWest = new FloatMenuOption(DirectionRotated(Rot4.West).ToStringWord(), delegate
+                    FloatMenuOption floatMenuOptionWest = new FloatMenuOption(ComplementaryOdysseyUtility.DirectionRotated(parent.Rotation, Rot4.West).ToStringWord(), delegate
                     {
                         ChangeBarrier(new IntVec2(-1, 0), IntVec2.Invalid);
                     });
@@ -300,7 +207,7 @@ namespace ComplementaryOdyssey
                 action = delegate
                 {
                     List<FloatMenuOption> floatMenuOptions = new List<FloatMenuOption>();
-                    FloatMenuOption floatMenuOptionEast = new FloatMenuOption($"+{DirectionRotated(Rot4.East).ToStringWord()}", delegate
+                    FloatMenuOption floatMenuOptionEast = new FloatMenuOption($"+{ComplementaryOdysseyUtility.DirectionRotated(parent.Rotation, Rot4.East).ToStringWord()}", delegate
                     {
                         ChangeBarrier(IntVec2.Invalid, new IntVec2(1, 0));
                     });
@@ -310,7 +217,7 @@ namespace ComplementaryOdyssey
                         floatMenuOptionEast.Label += $" {"Disabled".Translate()}";
                     }
                     floatMenuOptions.Add(floatMenuOptionEast);
-                    FloatMenuOption floatMenuOptionWest = new FloatMenuOption($"-{DirectionRotated(Rot4.East).ToStringWord()}", delegate
+                    FloatMenuOption floatMenuOptionWest = new FloatMenuOption($"-{ComplementaryOdysseyUtility.DirectionRotated(parent.Rotation, Rot4.East).ToStringWord()}", delegate
                     {
                         ChangeBarrier(IntVec2.Invalid, new IntVec2(-1, 0));
                     });
@@ -320,7 +227,7 @@ namespace ComplementaryOdyssey
                         floatMenuOptionWest.Label += $" {"Disabled".Translate()}";
                     }
                     floatMenuOptions.Add(floatMenuOptionWest);
-                    FloatMenuOption floatMenuOptionNorth = new FloatMenuOption($"+{DirectionRotated(Rot4.North).ToStringWord()}", delegate
+                    FloatMenuOption floatMenuOptionNorth = new FloatMenuOption($"+{ComplementaryOdysseyUtility.DirectionRotated(parent.Rotation, Rot4.North).ToStringWord()}", delegate
                     {
                         ChangeBarrier(IntVec2.Invalid, new IntVec2(0, 1));
                     });
@@ -330,7 +237,7 @@ namespace ComplementaryOdyssey
                         floatMenuOptionNorth.Label += $" {"Disabled".Translate()}";
                     }
                     floatMenuOptions.Add(floatMenuOptionNorth);
-                    FloatMenuOption floatMenuOptionSouth = new FloatMenuOption($"-{DirectionRotated(Rot4.North).ToStringWord()}", delegate
+                    FloatMenuOption floatMenuOptionSouth = new FloatMenuOption($"-{ComplementaryOdysseyUtility.DirectionRotated(parent.Rotation, Rot4.North).ToStringWord()}", delegate
                     {
                         ChangeBarrier(IntVec2.Invalid, new IntVec2(0, -1));
                     });
