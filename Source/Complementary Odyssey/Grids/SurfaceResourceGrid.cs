@@ -183,7 +183,7 @@ namespace ComplementaryOdyssey
             {
                 float transparencyValue = (float)ore.HitPoints / ore.MaxHitPoints;
                 ThingDef oreMine = ore.def.building.mineableThing;
-                if (oreMine == null) 
+                if (oreMine == null)
                 {
                     transparencyValue *= 0.25f;
                 }
