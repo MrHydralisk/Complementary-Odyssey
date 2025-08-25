@@ -46,6 +46,10 @@ namespace ComplementaryOdyssey
         private void Notify_OnTerrainChanged(IntVec3 cell)
         {
             int index = bridgeDepTiles.IndexOf(cell);
+            if (index > -1)
+            {
+                bridgeDepTiles.RemoveAt(index);
+            }
         }
 
         public virtual List<IntVec3> bridgeTiles(Rot4 rotation)
@@ -63,15 +67,22 @@ namespace ComplementaryOdyssey
             if (isDeploying && Find.TickManager.TicksGame >= tickNextDeploy)
             {
                 bool isNotDeployed = true;
-                if (bridgeTilesDeployed < maxDeploy)
+                List<IntVec3> bTiles = bridgeTiles(parent.Rotation);
+                int i = 0;
+                while (i < maxDeploy)
                 {
-                    IntVec3 cell = bridgeTiles(parent.Rotation)[bridgeTilesDeployed];
-                    if (CanDeploy(cell))
+                    IntVec3 cell = bTiles[i];
+                    if (bridgeDepTiles.Contains(cell))
+                    {
+                        i++;
+                    }
+                    else if (CanDeploy(cell))
                     {
                         terrainGrid.SetFoundation(cell, Props.deployableTerrain);
                         bridgeDepTiles.Add(cell);
                         tickNextDeploy = Find.TickManager.TicksGame + Props.ticksPerDeploy;
                         isNotDeployed = false;
+                        break;
                     }
                 }
                 if (isNotDeployed)
@@ -79,6 +90,7 @@ namespace ComplementaryOdyssey
                     isDeploying = false;
                     tickNextRecharging = Find.TickManager.TicksGame + Props.ticksPerRecharging;
                 }
+                bridgeDepTiles.Sort((IntVec3 a, IntVec3 b) => a.DistanceTo(parent.Position).CompareTo(b.DistanceTo(parent.Position)));
             }
             else if (isPacking && Find.TickManager.TicksGame >= tickNextPacking)
             {
