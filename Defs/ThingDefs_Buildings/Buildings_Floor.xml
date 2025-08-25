@@ -30,6 +30,7 @@
 			<isTargetable>false</isTargetable>
 			<isInert>true</isInert>
 			<isEdifice>false</isEdifice>
+			<paintable>true</paintable>
 		</building>
 		<comps>
 			<li Class="ComplementaryOdyssey.CompProperties_ExtBridge">

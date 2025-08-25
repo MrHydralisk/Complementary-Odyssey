@@ -32,6 +32,8 @@ namespace ComplementaryOdyssey
 
         public bool isWasPowered;
 
+        public Rot4 rotation => parent.def.building.isAttachment ? parent.Rotation.Opposite : parent.Rotation;
+
         public override void PostPostMake()
         {
             base.PostPostMake();
@@ -61,7 +63,12 @@ namespace ComplementaryOdyssey
 
         public List<IntVec3> BarrierTiles()
         {
-            return new CellRect(barrierOffset.x, barrierOffset.z, barrierSize.x, barrierSize.z).Cells.ToList();
+            int offsetZ = barrierOffset.z;
+            if (parent.def.building.isAttachment)
+            {
+                offsetZ -= 1;
+            }
+            return new CellRect(barrierOffset.x, offsetZ, barrierSize.x, barrierSize.z).Cells.ToList();
         }
 
         public List<IntVec3> BarrierTilesRotated()
@@ -69,7 +76,7 @@ namespace ComplementaryOdyssey
             List<IntVec3> tiles = new List<IntVec3>();
             foreach (IntVec3 tile in BarrierTiles())
             {
-                tiles.Add(parent.Position + tile.RotatedBy(parent.Rotation));
+                tiles.Add(parent.Position + tile.RotatedBy(rotation));
             }
             return tiles;
         }
@@ -175,7 +182,7 @@ namespace ComplementaryOdyssey
                 action = delegate
                 {
                     List<FloatMenuOption> floatMenuOptions = new List<FloatMenuOption>();
-                    FloatMenuOption floatMenuOptionEast = new FloatMenuOption(ComplementaryOdysseyUtility.DirectionRotated(parent.Rotation, Rot4.East).ToStringWord(), delegate
+                    FloatMenuOption floatMenuOptionEast = new FloatMenuOption(ComplementaryOdysseyUtility.DirectionRotated(rotation, Rot4.East).ToStringWord(), delegate
                     {
                         ChangeBarrier(new IntVec2(1, 0), IntVec2.Invalid);
                     });
@@ -185,7 +192,7 @@ namespace ComplementaryOdyssey
                         floatMenuOptionEast.Label += $" {"Disabled".Translate()}";
                     }
                     floatMenuOptions.Add(floatMenuOptionEast);
-                    FloatMenuOption floatMenuOptionWest = new FloatMenuOption(ComplementaryOdysseyUtility.DirectionRotated(parent.Rotation, Rot4.West).ToStringWord(), delegate
+                    FloatMenuOption floatMenuOptionWest = new FloatMenuOption(ComplementaryOdysseyUtility.DirectionRotated(rotation, Rot4.West).ToStringWord(), delegate
                     {
                         ChangeBarrier(new IntVec2(-1, 0), IntVec2.Invalid);
                     });
@@ -207,7 +214,7 @@ namespace ComplementaryOdyssey
                 action = delegate
                 {
                     List<FloatMenuOption> floatMenuOptions = new List<FloatMenuOption>();
-                    FloatMenuOption floatMenuOptionEast = new FloatMenuOption($"+{ComplementaryOdysseyUtility.DirectionRotated(parent.Rotation, Rot4.East).ToStringWord()}", delegate
+                    FloatMenuOption floatMenuOptionEast = new FloatMenuOption($"+{ComplementaryOdysseyUtility.DirectionRotated(rotation, Rot4.East).ToStringWord()}", delegate
                     {
                         ChangeBarrier(IntVec2.Invalid, new IntVec2(1, 0));
                     });
@@ -217,7 +224,7 @@ namespace ComplementaryOdyssey
                         floatMenuOptionEast.Label += $" {"Disabled".Translate()}";
                     }
                     floatMenuOptions.Add(floatMenuOptionEast);
-                    FloatMenuOption floatMenuOptionWest = new FloatMenuOption($"-{ComplementaryOdysseyUtility.DirectionRotated(parent.Rotation, Rot4.East).ToStringWord()}", delegate
+                    FloatMenuOption floatMenuOptionWest = new FloatMenuOption($"-{ComplementaryOdysseyUtility.DirectionRotated(rotation, Rot4.East).ToStringWord()}", delegate
                     {
                         ChangeBarrier(IntVec2.Invalid, new IntVec2(-1, 0));
                     });
@@ -227,7 +234,7 @@ namespace ComplementaryOdyssey
                         floatMenuOptionWest.Label += $" {"Disabled".Translate()}";
                     }
                     floatMenuOptions.Add(floatMenuOptionWest);
-                    FloatMenuOption floatMenuOptionNorth = new FloatMenuOption($"+{ComplementaryOdysseyUtility.DirectionRotated(parent.Rotation, Rot4.North).ToStringWord()}", delegate
+                    FloatMenuOption floatMenuOptionNorth = new FloatMenuOption($"+{ComplementaryOdysseyUtility.DirectionRotated(rotation, Rot4.North).ToStringWord()}", delegate
                     {
                         ChangeBarrier(IntVec2.Invalid, new IntVec2(0, 1));
                     });
@@ -237,7 +244,7 @@ namespace ComplementaryOdyssey
                         floatMenuOptionNorth.Label += $" {"Disabled".Translate()}";
                     }
                     floatMenuOptions.Add(floatMenuOptionNorth);
-                    FloatMenuOption floatMenuOptionSouth = new FloatMenuOption($"-{ComplementaryOdysseyUtility.DirectionRotated(parent.Rotation, Rot4.North).ToStringWord()}", delegate
+                    FloatMenuOption floatMenuOptionSouth = new FloatMenuOption($"-{ComplementaryOdysseyUtility.DirectionRotated(rotation, Rot4.North).ToStringWord()}", delegate
                     {
                         ChangeBarrier(IntVec2.Invalid, new IntVec2(0, -1));
                     });

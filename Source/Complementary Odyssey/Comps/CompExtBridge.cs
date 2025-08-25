@@ -78,6 +78,10 @@ namespace ComplementaryOdyssey
                     else if (CanDeploy(cell))
                     {
                         terrainGrid.SetFoundation(cell, Props.deployableTerrain);
+                        if (parent is Building building && building.PaintColorDef != null)
+                        {
+                            terrainGrid.SetTerrainColor(cell, building.PaintColorDef);
+                        }
                         bridgeDepTiles.Add(cell);
                         tickNextDeploy = Find.TickManager.TicksGame + Props.ticksPerDeploy;
                         isNotDeployed = false;

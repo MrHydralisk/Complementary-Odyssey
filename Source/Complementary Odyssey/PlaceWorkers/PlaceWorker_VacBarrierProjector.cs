@@ -28,9 +28,16 @@ namespace ComplementaryOdyssey
                 }
                 if (propsCached != null)
                 {
+                    Rot4 rotation = rot;
+                    IntVec3 initOffset = IntVec3.Zero;
+                    if (def.building.isAttachment)
+                    {
+                        rotation = rot.Opposite;
+                        initOffset = new IntVec3(0, 0, -1);
+                    }
                     foreach (IntVec3 tile in propsCached.barrierTiles())
                     {
-                        tiles.Add(center + tile.RotatedBy(rot));
+                        tiles.Add(center + (tile + initOffset).RotatedBy(rotation));
                     }
                 }
             }
