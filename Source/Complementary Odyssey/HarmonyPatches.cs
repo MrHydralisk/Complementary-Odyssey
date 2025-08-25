@@ -57,6 +57,7 @@ namespace ComplementaryOdyssey
                 val.Patch(AccessTools.Method(typeof(JobDriver_Skygaze), "<MakeNewToils>b__1_2"), transpiler: new HarmonyMethod(patchType, "ReplaceRoofed_Transpiler"));
                 val.Patch(AccessTools.Method(typeof(JobDriver_Skydreaming), "<MakeNewToils>b__1_2"), transpiler: new HarmonyMethod(patchType, "ReplaceRoofed_Transpiler"));
                 val.Patch(AccessTools.Method(typeof(ThoughtWorker_IsOutdoorsForUndergrounder), "CurrentStateInternal"), transpiler: new HarmonyMethod(patchType, "ReplaceRoofed_Transpiler"));
+                val.Patch(AccessTools.Method(typeof(RitualObligationTargetWorker_SkyLanterns), "CanUseTargetInternal"), transpiler: new HarmonyMethod(patchType, "ReplaceRoofed_Transpiler"));
 
                 val.Patch(AccessTools.Method(typeof(WorldComponent_GravshipController), "InitiateLanding"), postfix: new HarmonyMethod(patchType, "WCGC_InitiateLanding_Postfix"));
 
