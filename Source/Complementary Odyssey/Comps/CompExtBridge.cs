@@ -85,12 +85,16 @@ namespace ComplementaryOdyssey
                 bool isNotPacked = true;
                 if (bridgeTilesDeployed > 0)
                 {
-                    if (terrainGrid.FoundationAt(bridgeDepTiles.Last()) == Props.deployableTerrain)
+                    IntVec3 lastTile = bridgeDepTiles.Last();
+                    if (terrainGrid.FoundationAt(lastTile) == Props.deployableTerrain)
                     {
-                        terrainGrid.RemoveFoundation(bridgeDepTiles.Last());
-                        bridgeDepTiles.RemoveAt(bridgeTilesDeployed - 1);
-                        tickNextPacking = Find.TickManager.TicksGame + Props.ticksPerPacking;
-                        isNotPacked = false;
+                        if (lastTile.GetFirstPawn(parent.Map) == null)
+                        {
+                            terrainGrid.RemoveFoundation(lastTile);
+                            bridgeDepTiles.RemoveAt(bridgeTilesDeployed - 1);
+                            tickNextPacking = Find.TickManager.TicksGame + Props.ticksPerPacking;
+                            isNotPacked = false;
+                        }
                     }
                 }
                 if (isNotPacked)
