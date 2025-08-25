@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+	<ComplementaryOdyssey.ExtBridge.Gizmo.Rotate.Label>Rotate</ComplementaryOdyssey.ExtBridge.Gizmo.Rotate.Label>
+	<ComplementaryOdyssey.ExtBridge.Gizmo.Rotate.Desc>Will rotate towards new direction for deployment.</ComplementaryOdyssey.ExtBridge.Gizmo.Rotate.Desc>
+	<ComplementaryOdyssey.ExtBridge.Gizmo.Rotate.Reason.Current> [Current].</ComplementaryOdyssey.ExtBridge.Gizmo.Rotate.Reason.Current>
+	<ComplementaryOdyssey.ExtBridge.Gizmo.Rotate.Reason.Obstructed> [Obstructed].</ComplementaryOdyssey.ExtBridge.Gizmo.Rotate.Reason.Obstructed>
+	<ComplementaryOdyssey.ExtBridge.Gizmo.Rotate.Reason.Deployed>Currently deployed.</ComplementaryOdyssey.ExtBridge.Gizmo.Rotate.Reason.Deployed>
+	
+	<ComplementaryOdyssey.ExtBridge.Command.SetMaxExtBridgeTiles.Title>Max bridge tiles</ComplementaryOdyssey.ExtBridge.Command.SetMaxExtBridgeTiles.Title>
+	
+	<ComplementaryOdyssey.ExtBridge.InspectString.Deployed>Deployed {0}/{1}[{2}]</ComplementaryOdyssey.ExtBridge.InspectString.Deployed>
+
+</LanguageData>

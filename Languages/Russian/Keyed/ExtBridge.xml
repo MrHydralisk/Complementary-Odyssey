@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+	<ComplementaryOdyssey.ExtBridge.Gizmo.Rotate.Label>Повернуть</ComplementaryOdyssey.ExtBridge.Gizmo.Rotate.Label>
+	<ComplementaryOdyssey.ExtBridge.Gizmo.Rotate.Desc>Изменит направления для развёртывания.</ComplementaryOdyssey.ExtBridge.Gizmo.Rotate.Desc>
+	<ComplementaryOdyssey.ExtBridge.Gizmo.Rotate.Reason.Current> [Текущее].</ComplementaryOdyssey.ExtBridge.Gizmo.Rotate.Reason.Current>
+	<ComplementaryOdyssey.ExtBridge.Gizmo.Rotate.Reason.Obstructed> [Препятствие].</ComplementaryOdyssey.ExtBridge.Gizmo.Rotate.Reason.Obstructed>
+	<ComplementaryOdyssey.ExtBridge.Gizmo.Rotate.Reason.Deployed>Уже развёрнут.</ComplementaryOdyssey.ExtBridge.Gizmo.Rotate.Reason.Deployed>
+	
+	<ComplementaryOdyssey.ExtBridge.Command.SetMaxExtBridgeTiles.Title>Максимум плит</ComplementaryOdyssey.ExtBridge.Command.SetMaxExtBridgeTiles.Title>
+	
+	<ComplementaryOdyssey.ExtBridge.InspectString.Deployed>Развёрнуто: {0}/{1}[{2}]</ComplementaryOdyssey.ExtBridge.InspectString.Deployed>
+
+</LanguageData>

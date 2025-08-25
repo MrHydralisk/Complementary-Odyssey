@@ -44,6 +44,7 @@
     <Compile Include="Comps\CompVacRoofBlueprint.cs" />
     <Compile Include="DefOfLocal.cs" />
     <Compile Include="Designator_BuildVacRoof.cs" />
+    <Compile Include="Gizmo_SetMaxExtBridgeTiles.cs" />
     <Compile Include="PlaceWorkers\PlaceWorker_ExtBridge.cs" />
     <Compile Include="VacBarrierProjectorSettingsClipboard.cs" />
     <Compile Include="CompProperties\CompProperties_VacBarrierProjector.cs" />

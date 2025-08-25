@@ -24,9 +24,17 @@ namespace ComplementaryOdyssey
         public int tickNextRecharging = -1;
         public bool isDeploying;
         public bool isPacking;
+        public int maxDeploy;
 
         private int bridgeTilesDeployed => bridgeDepTiles.Count();
         private TerrainGrid terrainGrid => parent.Map.terrainGrid;
+        public bool PowerOn => compPowerTrader?.PowerOn ?? true;
+
+        public override void PostPostMake()
+        {
+            base.PostPostMake();
+            maxDeploy = Props.maxDeploy;
+        }
 
         public override void PostSpawnSetup(bool respawningAfterLoad)
         {
@@ -42,23 +50,23 @@ namespace ComplementaryOdyssey
 
         public virtual List<IntVec3> bridgeTiles(Rot4 rotation)
         {
-            return Props.bridgeTiles().Select((IntVec3 iv3) => parent.Position + iv3.RotatedBy(rotation)).ToList();
+            return Props.bridgeTiles(maxDeploy).Select((IntVec3 iv3) => parent.Position + iv3.RotatedBy(rotation)).ToList();
         }
 
         public override void CompTick()
         {
             base.CompTick();
-            if (!parent.Spawned || !(compPowerTrader?.PowerOn ?? true))
+            if (!parent.Spawned || !PowerOn)
             {
                 return;
             }
             if (isDeploying && Find.TickManager.TicksGame >= tickNextDeploy)
             {
                 bool isNotDeployed = true;
-                if (bridgeTilesDeployed < Props.maxDeploy)
+                if (bridgeTilesDeployed < maxDeploy)
                 {
                     IntVec3 cell = bridgeTiles(parent.Rotation)[bridgeTilesDeployed];
-                    if (GenConstruct.CanBuildOnTerrain(Props.deployableTerrain, cell, parent.Map, Rot4.North))
+                    if (CanDeploy(cell))
                     {
                         terrainGrid.SetFoundation(cell, Props.deployableTerrain);
                         bridgeDepTiles.Add(cell);
@@ -93,47 +101,21 @@ namespace ComplementaryOdyssey
             }
         }
 
-        //public bool CanDeploy(IntVec3 tile)
-        //{
-        //    List<Thing> list = parent.Map.thingGrid.ThingsListAt(tile);
-        //    bool isCanDeploy = true;
-        //    for (int i = 0; i < list.Count; i++)
-        //    {
-        //        if (list[i] is Building building)
-        //        {
-        //            isCanDeploy = isCanDeploy && ((building == null) || (building == parent) || ((building.def != Props.deployableThing) && !building.def.IsEdifice()));
-        //        }
-        //        if (list[i].def.category == ThingCategory.Plant && list[i].def.blockWind)
-        //        {
-        //            isCanDeploy = false;
-        //        }
-        //        if (!isCanDeploy)
-        //        {
-        //            break;
-        //        }
-        //    }
-        //    return isCanDeploy;
-        //}
-
-        //public void Notify_SolarPanelDestroyed(Building_SolarArrayPanel solarPanel)
-        //{
-        //    bridgeTiles.Remove(solarPanel);
-        //    if (isDeploying)
-        //    {
-        //        isDeploying = false;
-        //        tickNextRecharging = Find.TickManager.TicksGame + Props.ticksPerRecharging * 4;
-        //    }
-        //}
+        public bool CanDeploy(IntVec3 cell)
+        {
+            return cell.InBounds(parent.Map) && GenConstruct.CanBuildOnTerrain(Props.deployableTerrain, cell, parent.Map, Rot4.North);
+        }
 
         public override void PostDeSpawn(Map map, DestroyMode mode = DestroyMode.Vanish)
         {
             map.events.TerrainChanged -= Notify_OnTerrainChanged;
             for (int i = bridgeTilesDeployed - 1; i >= 0; i--)
             {
-                if (terrainGrid.FoundationAt(bridgeDepTiles[i]) == Props.deployableTerrain)
+                if (map.terrainGrid.FoundationAt(bridgeDepTiles[i]) == Props.deployableTerrain)
                 {
-                    terrainGrid.RemoveFoundation(bridgeDepTiles[i]);
+                    map.terrainGrid.RemoveFoundation(bridgeDepTiles[i]);
                 }
+                bridgeDepTiles.RemoveAt(bridgeTilesDeployed - 1);
             }
             base.PostDeSpawn(map, mode);
         }
@@ -144,6 +126,7 @@ namespace ComplementaryOdyssey
             {
                 yield return gizmo;
             }
+            yield return new Gizmo_SetMaxExtBridgeTiles(this);
             yield return new Command_Action
             {
                 action = delegate
@@ -178,58 +161,78 @@ namespace ComplementaryOdyssey
                 action = delegate
                 {
                     List<FloatMenuOption> floatMenuOptions = new List<FloatMenuOption>();
-                    FloatMenuOption floatMenuOptionEast = new FloatMenuOption($"{Rot4.North.ToStringWord()}", delegate
+                    FloatMenuOption floatMenuOptionNorth = new FloatMenuOption($"{Rot4.North.ToStringWord()}", delegate
                     {
                         parent.Rotation = Rot4.North;
                         parent.Map.mapDrawer.MapMeshDirty(parent.Position, MapMeshFlagDefOf.Things);
                     });
-                    floatMenuOptionEast.Disabled = parent.Rotation == Rot4.North;
-                    if (floatMenuOptionEast.Disabled)
+                    if (parent.Rotation == Rot4.North)
                     {
-                        floatMenuOptionEast.Label += $" {"Disabled".Translate()}";
+                        floatMenuOptionNorth.Disabled = true;
+                        floatMenuOptionNorth.Label += "ComplementaryOdyssey.ExtBridge.Gizmo.Rotate.Reason.Current".Translate();
                     }
-                    floatMenuOptions.Add(floatMenuOptionEast);
-                    FloatMenuOption floatMenuOptionWest = new FloatMenuOption($"{Rot4.East.ToStringWord()}", delegate
+                    else if (!CanDeploy(parent.Position + Rot4.North.AsIntVec3))
+                    {
+                        floatMenuOptionNorth.Disabled = true;
+                        floatMenuOptionNorth.Label += "ComplementaryOdyssey.ExtBridge.Gizmo.Rotate.Reason.Obstructed".Translate();
+                    }
+                    floatMenuOptions.Add(floatMenuOptionNorth);
+                    FloatMenuOption floatMenuOptionEast = new FloatMenuOption($"{Rot4.East.ToStringWord()}", delegate
                     {
                         parent.Rotation = Rot4.East;
                         parent.Map.mapDrawer.MapMeshDirty(parent.Position, MapMeshFlagDefOf.Things);
                     });
-                    floatMenuOptionWest.Disabled = parent.Rotation == Rot4.East;
-                    if (floatMenuOptionWest.Disabled)
+                    if (parent.Rotation == Rot4.East)
                     {
-                        floatMenuOptionWest.Label += $" {"Disabled".Translate()}";
+                        floatMenuOptionEast.Disabled = true;
+                        floatMenuOptionEast.Label += "ComplementaryOdyssey.ExtBridge.Gizmo.Rotate.Reason.Current".Translate();
                     }
-                    floatMenuOptions.Add(floatMenuOptionWest);
-                    FloatMenuOption floatMenuOptionNorth = new FloatMenuOption($"{Rot4.South.ToStringWord()}", delegate
+                    else if (!CanDeploy(parent.Position + Rot4.East.AsIntVec3))
+                    {
+                        floatMenuOptionEast.Disabled = true;
+                        floatMenuOptionEast.Label += "ComplementaryOdyssey.ExtBridge.Gizmo.Rotate.Reason.Obstructed".Translate();
+                    }
+                    floatMenuOptions.Add(floatMenuOptionEast);
+                    FloatMenuOption floatMenuOptionSouth = new FloatMenuOption($"{Rot4.South.ToStringWord()}", delegate
                     {
                         parent.Rotation = Rot4.South;
                         parent.Map.mapDrawer.MapMeshDirty(parent.Position, MapMeshFlagDefOf.Things);
                     });
-                    floatMenuOptionNorth.Disabled = parent.Rotation == Rot4.South;
-                    if (floatMenuOptionNorth.Disabled)
+                    if (parent.Rotation == Rot4.South)
                     {
-                        floatMenuOptionNorth.Label += $" {"Disabled".Translate()}";
+                        floatMenuOptionSouth.Disabled = true;
+                        floatMenuOptionSouth.Label += "ComplementaryOdyssey.ExtBridge.Gizmo.Rotate.Reason.Current".Translate();
                     }
-                    floatMenuOptions.Add(floatMenuOptionNorth);
-                    FloatMenuOption floatMenuOptionSouth = new FloatMenuOption($"{Rot4.West.ToStringWord()}", delegate
+                    else if (!CanDeploy(parent.Position + Rot4.South.AsIntVec3))
+                    {
+                        floatMenuOptionSouth.Disabled = true;
+                        floatMenuOptionSouth.Label += "ComplementaryOdyssey.ExtBridge.Gizmo.Rotate.Reason.Obstructed".Translate();
+                    }
+                    floatMenuOptions.Add(floatMenuOptionSouth);
+                    FloatMenuOption floatMenuOptionWest = new FloatMenuOption($"{Rot4.West.ToStringWord()}", delegate
                     {
                         parent.Rotation = Rot4.West;
                         parent.Map.mapDrawer.MapMeshDirty(parent.Position, MapMeshFlagDefOf.Things);
                     });
-                    floatMenuOptionSouth.Disabled = parent.Rotation == Rot4.West;
-                    if (floatMenuOptionSouth.Disabled)
+                    if (parent.Rotation == Rot4.West)
                     {
-                        floatMenuOptionSouth.Label += $" {"Disabled".Translate()}";
+                        floatMenuOptionWest.Disabled = true;
+                        floatMenuOptionWest.Label += "ComplementaryOdyssey.ExtBridge.Gizmo.Rotate.Reason.Current".Translate();
                     }
-                    floatMenuOptions.Add(floatMenuOptionSouth);
+                    else if (!CanDeploy(parent.Position + Rot4.West.AsIntVec3))
+                    {
+                        floatMenuOptionWest.Disabled = true;
+                        floatMenuOptionWest.Label += "ComplementaryOdyssey.ExtBridge.Gizmo.Rotate.Reason.Obstructed".Translate();
+                    }
+                    floatMenuOptions.Add(floatMenuOptionWest);
                     Find.WindowStack.Add(new FloatMenu(floatMenuOptions));
                 },
-                defaultLabel = "Rotate"/*.Translate()*/,
-                defaultDesc = "ComplementaryOdyssey.VacBarrierProjector.Gizmo.Size.Desc".Translate(),
+                defaultLabel = "ComplementaryOdyssey.ExtBridge.Gizmo.Rotate.Label".Translate(),
+                defaultDesc = "ComplementaryOdyssey.ExtBridge.Gizmo.Rotate.Desc".Translate(),
                 icon = ContentFinder<Texture2D>.Get("UI/Widgets/RotRight"),
                 Order = 30,
-                Disabled = bridgeDepTiles.Count() > 0,
-                disabledReason = "Already deployed"
+                Disabled = bridgeDepTiles.Count() > 0 || !PowerOn,
+                disabledReason = PowerOn ? "ComplementaryOdyssey.ExtBridge.Gizmo.Rotate.Reason.Deployed".Translate() : "NoPower".Translate()
             };
             if (DebugSettings.ShowDevGizmos)
             {
@@ -252,6 +255,7 @@ namespace ComplementaryOdyssey
             Scribe_Values.Look(ref tickNextDeploy, "tickNextDeploy", -1);
             Scribe_Values.Look(ref tickNextPacking, "tickNextPacking", -1);
             Scribe_Values.Look(ref tickNextRecharging, "tickNextRecharging", -1);
+            Scribe_Values.Look(ref maxDeploy, "maxDeploy", Props.maxDeploy);
             Scribe_Values.Look(ref isDeploying, "isDeploying", false);
             Scribe_Values.Look(ref isPacking, "isPacking", false);
         }
@@ -259,7 +263,7 @@ namespace ComplementaryOdyssey
         public override string CompInspectStringExtra()
         {
             List<string> inspectStrings = new List<string>();
-            inspectStrings.Add("ComplementaryOdyssey.Deployable.InspectString.Deployed".Translate(bridgeTilesDeployed, 0, Props.maxDeploy));
+            inspectStrings.Add("ComplementaryOdyssey.ExtBridge.InspectString.Deployed".Translate(bridgeTilesDeployed, maxDeploy, Props.maxDeploy));
             if (isDeploying)
             {
                 inspectStrings.Add("ComplementaryOdyssey.Deployable.Gizmo.isDeploying.Reason.Active".Translate(Props.deployableTerrain.label));
