@@ -4,7 +4,7 @@
 	<ThingDef ParentName="BuildingBase">
 		<defName>CO_ExtBridge</defName>
 		<label>extendable bridge</label>
-		<description>An extendable lightweight bridge. Can deploy extendable bridge tiles in one direction and pack them back, when needed.</description>
+		<description>An extendable lightweight bridge. Can deploy extendable bridge tiles in one direction and pack them back, when needed. Can extend up to 15 bridge tiles.</description>
 		<graphicData>
 			<texPath>Things/Building/CO_ExtBridge/CO_ExtBridge</texPath>
 			<graphicClass>Graphic_Multi</graphicClass>
@@ -54,13 +54,15 @@
 		</comps>
 		<pathCost>0</pathCost>
 		<designationCategory>Odyssey</designationCategory>
-		<uiOrder>2100</uiOrder>
+		<uiOrder>1000</uiOrder>
 		<placeWorkers>
 			<li>ComplementaryOdyssey.PlaceWorker_ExtBridge</li>
 		</placeWorkers>
 		<researchPrerequisites>
-			<li>MicroelectronicsBasics</li>
+			<li>HeavyBridges</li>
+			<li>StandardGravtech</li>
 		</researchPrerequisites>
+		<constructionSkillPrerequisite>8</constructionSkillPrerequisite>
 	</ThingDef>
 
 

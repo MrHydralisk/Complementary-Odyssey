@@ -2,6 +2,6 @@
 <Defs>
 
 	<CO_ExtBridge.label>выдвижной мост</CO_ExtBridge.label>
-	<CO_ExtBridge.description>Выдвижной облегчённый мост. Может развернуть выдвижные панели моста и упаковать их обратно при необходимости.</CO_ExtBridge.description>
+	<CO_ExtBridge.description>Выдвижной облегчённый мост. Может развернуть выдвижные панели моста и упаковать их обратно при необходимости. Может выдвинуть до 15 панелей моста.</CO_ExtBridge.description>
 
 </Defs>
