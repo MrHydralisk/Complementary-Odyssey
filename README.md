@@ -13,7 +13,7 @@ This mod improve space-efficiency of things inside gravship and time consumption
 ### Vac Door
 
 Compact combination of vac barrier functionality and autodoor. Prevents oxygen leaks, when closed or powered. Prevents pen animals and prisoners from roaming around the ship and raiders from entering, like normal door.
-Includes version 1x1, 2x2 and 3x1.
+Includes version 1x1, 2x1 and 3x1.
 
 ### Twin Thruster
 
@@ -34,6 +34,10 @@ Allowing to drag select all over all containers in ruins, instead of searching f
 ### Vac Barrier Roof Projector and Vac Barrier Roof
 
 A device that can power vac barrier on the vac roof, which allow shuttles, drop pods and light through. Powered vac roof will prevent oxygen leaks, weather effects and temperature change. Size and Offset of projection barrier can be adjusted with up to 16 tiles total. When projector not powered vac roof act as if there is no roof.
+
+### Extendable Bridge
+
+No longer need to build bridges after each landing. Can be extended and retracted, when needed. Can deploy tiles over water, emptyness of space and anything normal bridges can. Can be installed anywhere, even under doors or walls for compactness.
 
 ## Links
 
