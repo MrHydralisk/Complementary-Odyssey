@@ -75,6 +75,7 @@ namespace ComplementaryOdyssey
                     if (bridgeDepTiles.Contains(cell))
                     {
                         i++;
+                        continue;
                     }
                     else if (CanDeploy(cell))
                     {
@@ -82,8 +83,8 @@ namespace ComplementaryOdyssey
                         bridgeDepTiles.Add(cell);
                         tickNextDeploy = Find.TickManager.TicksGame + Props.ticksPerDeploy;
                         isNotDeployed = false;
-                        break;
                     }
+                    break;
                 }
                 if (isNotDeployed)
                 {
@@ -103,7 +104,6 @@ namespace ComplementaryOdyssey
                         if (lastTile.GetFirstPawn(parent.Map) == null)
                         {
                             terrainGrid.RemoveFoundation(lastTile);
-                            bridgeDepTiles.RemoveAt(bridgeTilesDeployed - 1);
                             tickNextPacking = Find.TickManager.TicksGame + Props.ticksPerPacking;
                             isNotPacked = false;
                         }
