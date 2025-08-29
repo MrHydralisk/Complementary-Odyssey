@@ -52,6 +52,7 @@ Should have no compatibility issues with other mods.
 Supported languages:
 * English,
 * Russian,
+* Japanese (available on JP mod database site),
 * Chinese (available on workshop by 恰似宛然一笑生花),
 * Spanish (available on workshop by Forestt)
 
