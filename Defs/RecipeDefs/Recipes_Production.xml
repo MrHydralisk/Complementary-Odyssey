@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+	<RecipeDef Name="RecipeMake_CO_Vacsop" Abstract="True">
+		<descriptionHyperlinks>
+			<ThingDef>CO_Vacsop</ThingDef>
+			<ThingDef>CO_Vacdew</ThingDef>
+		</descriptionHyperlinks>
+		<workSpeedStat>DrugSynthesisSpeed</workSpeedStat>
+		<soundWorking>Recipe_Drug</soundWorking>
+		<workSkill>Intellectual</workSkill>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>CO_Vacdew</li>
+				<li>Steel</li>
+				<li>BlocksVacstone</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<recipeUsers>
+			<li>DrugLab</li>
+		</recipeUsers>
+		<displayPriority>3600</displayPriority>
+		<researchPrerequisites>
+			<li>DrugProduction</li>
+		</researchPrerequisites>
+	</RecipeDef>
+
+	<RecipeDef ParentName="RecipeMake_CO_Vacsop">
+		<defName>CO_MakeVacsopSingle</defName>
+		<label>make vacscop</label>
+		<description>Synthesize vacscop from vacdew.</description>
+		<jobString>Synthesizing vacscop.</jobString>
+		<workAmount>600</workAmount>
+		<products>
+			<CO_Vacsop>1</CO_Vacsop>
+		</products>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>CO_Vacdew</li>
+					</thingDefs>
+				</filter>
+				<count>1</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Steel</li>
+						<li>BlocksVacstone</li>
+					</thingDefs>
+				</filter>
+				<count>5</count>
+			</li>
+		</ingredients>
+		<skillRequirements>
+			<Intellectual>4</Intellectual>
+		</skillRequirements>
+	</RecipeDef>
+
+	<RecipeDef ParentName="RecipeMake_CO_Vacsop">
+		<defName>CO_MakeVacsop</defName>
+		<label>make vacscop x5</label>
+		<description>Synthesize vacscop x5 from vacdew.</description>
+		<jobString>Synthesizing vacscop x5.</jobString>
+		<workAmount>3000</workAmount>
+		<products>
+			<CO_Vacsop>5</CO_Vacsop>
+		</products>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>CO_Vacdew</li>
+					</thingDefs>
+				</filter>
+				<count>5</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Steel</li>
+						<li>BlocksVacstone</li>
+					</thingDefs>
+				</filter>
+				<count>25</count>
+			</li>
+		</ingredients>
+		<skillRequirements>
+			<Intellectual>6</Intellectual>
+		</skillRequirements>
+	</RecipeDef>
+
+	<RecipeDef ParentName="RecipeMake_CO_Vacsop">
+		<defName>CO_MakeVacsopBulk</defName>
+		<label>make vacscop x20</label>
+		<description>Synthesize vacscop x20 from vacdew.</description>
+		<jobString>Synthesizing vacscop x20.</jobString>
+		<workAmount>10800</workAmount>
+		<products>
+			<CO_Vacsop>20</CO_Vacsop>
+		</products>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>CO_Vacdew</li>
+					</thingDefs>
+				</filter>
+				<count>20</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Steel</li>
+						<li>BlocksVacstone</li>
+					</thingDefs>
+				</filter>
+				<count>100</count>
+			</li>
+		</ingredients>
+		<skillRequirements>
+			<Intellectual>8</Intellectual>
+		</skillRequirements>
+	</RecipeDef>
+
+</Defs>

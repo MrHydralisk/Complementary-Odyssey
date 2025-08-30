@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+	<ThingDef ParentName="MakeableDrugBase">
+		<defName>CO_Vacsop</defName>
+		<label>vacsop</label>
+		<description>A syringe of purple, viscous fluid. Injected in bloodstream, it grants subjects temporary resistance to the vacuum of space and prevent vacuum burns, making it invaluable for asteroid miners and deep-space explorers.\n\nThe effect is temporary.</description>
+		<descriptionHyperlinks>
+			<HediffDef>CO_Vacsop</HediffDef>
+		</descriptionHyperlinks>
+		<graphicData>
+			<texPath>Things/Item/Drug/CO_Vacsop</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+		</graphicData>
+		<rotatable>false</rotatable>
+		<statBases>
+			<MarketValue>53</MarketValue>
+			<Mass>0.1</Mass>
+		</statBases>
+		<techLevel>Industrial</techLevel>
+		<ingestible>
+			<drugCategory>Medical</drugCategory>
+			<foodType>Processed, Fluid</foodType>
+			<baseIngestTicks>80</baseIngestTicks>
+			<ingestSound>Ingest_Inject</ingestSound>
+			<ingestHoldOffsetStanding>
+				<northDefault>
+					<offset>(0.18,0,0)</offset>
+				</northDefault>
+			</ingestHoldOffsetStanding>
+			<ingestCommandString>Inject {0}</ingestCommandString>
+			<ingestReportString>Injecting {0}.</ingestReportString>
+			<useEatingSpeedStat>false</useEatingSpeedStat>
+			<chairSearchRadius>0</chairSearchRadius>
+			<outcomeDoers>
+				<li Class="IngestionOutcomeDoer_GiveHediff">
+					<hediffDef>CO_Vacsop</hediffDef>
+					<severity>0.5</severity>
+				</li>
+			</outcomeDoers>
+		</ingestible>
+		<comps>
+			<li Class="CompProperties_Drug">
+				<listOrder>3600</listOrder>
+			</li>
+		</comps>
+		<recipeMaker IsNull="True"/>
+	</ThingDef>
+  
+	<HediffDef>
+		<defName>CO_Vacsop</defName>
+		<label>vacsop</label>
+		<labelNoun>a vacsop</labelNoun>
+		<description>Vacsop in the bloodstream. It grants subjects temporary resistance to the vacuum of space and prevent vacuum burns, making it invaluable for asteroid miners and deep-space explorers.</description>
+		<hediffClass>Hediff_High</hediffClass>
+		<defaultLabelColor>(56,73,158)</defaultLabelColor>
+		<scenarioCanAdd>true</scenarioCanAdd>
+		<maxSeverity>1.0</maxSeverity>
+		<isBad>false</isBad>
+		<comps>
+			<li Class="HediffCompProperties_SeverityPerDay">
+				<severityPerDay>-0.5</severityPerDay>
+				<showHoursToRecover>true</showHoursToRecover>
+			</li>
+		</comps>
+		<stages>
+			<li>
+				<preventVacuumBurns>true</preventVacuumBurns>
+				<statOffsets>
+					<VacuumResistance MayRequire="Ludeon.RimWorld.Odyssey">0.5</VacuumResistance>
+				</statOffsets>
+			</li>
+		</stages>
+	</HediffDef>
+
+</Defs>
