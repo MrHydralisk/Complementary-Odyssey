@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+	<ThingDef ParentName="PlantBase">
+		<defName>CO_Plant_Vacflower</defName>
+		<label>vacflower</label>
+		<description>A rare xenobotanical organism that thrives in the harsh, airless environment of deep space. Anchoring itself to asteroids and other orbital debris. Its core is a bioluminescent sphere that accumulates and stores vacdew.\n\nWhen exposed to vacuum, the plant pulls in cosmic radiation and stray particles, causing it to grow at an accelerated rate.</description>
+		<statBases>
+			<MaxHitPoints>80</MaxHitPoints>
+			<Nutrition>0.2</Nutrition>
+		</statBases>
+		<graphicData>
+			<texPath>Things/Plant/CO_VacflowerPlant</texPath>
+			<graphicClass>Graphic_Random</graphicClass>
+		</graphicData>
+		<ingestible/>
+		<selectable>true</selectable>
+		<neverMultiSelect>false</neverMultiSelect>
+		<pathCost>14</pathCost>
+		<plant>
+			<growDays>10</growDays>
+			<dieIfLeafless>false</dieIfLeafless>
+			<immatureGraphicPath>Things/Plant/CO_VacflowerPlant_Immature</immatureGraphicPath>
+			<harvestYield>4</harvestYield>
+			<harvestWork>600</harvestWork>
+			<harvestTag>Standard</harvestTag>
+			<harvestAfterGrowth>0.30</harvestAfterGrowth>
+			<harvestedThingDef>RawBerries</harvestedThingDef>
+			<visualSizeRange>0.5~1.1</visualSizeRange>
+			<topWindExposure>0.1</topWindExposure>
+			<wildOrder>2</wildOrder>
+			<allowAutoCut>false</allowAutoCut>
+			<pollution>Any</pollution>
+			<dieFromToxicFallout>False</dieFromToxicFallout>
+			<vacuumResistant>true</vacuumResistant>
+			<sowWork>800</sowWork>
+			<sowMinSkill>10</sowMinSkill>
+			<sowTags Inherit="False"/>
+			<!-- <sowTags> -->
+			<!-- <li>Ground</li> -->
+			<!-- <li>Hydroponic</li> -->
+			<!-- </sowTags> -->
+			<purpose>Health</purpose>
+			<!-- <sowResearchPrerequisites> -->
+			<!-- <li></li> -->
+			<!-- </sowResearchPrerequisites> -->
+		</plant>
+	</ThingDef>
+
+</Defs>
