@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  
+	<ThingDef ParentName="ResourceBase">
+		<defName>CO_Vacdew</defName>
+		<label>vacdew</label>
+		<description>A purple, viscous fluid. It contains compounds that temporarily decrease the effects of vacuum on living organism.</description>
+		<graphicData>
+			<texPath>Things/Item/Resource/CO_Vacdew</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<drawSize>0.85</drawSize>
+		</graphicData>
+		<stackLimit>150</stackLimit>
+		<healthAffectsPrice>false</healthAffectsPrice>
+		<intricate>true</intricate>
+		<statBases>
+			<MaxHitPoints>50</MaxHitPoints>
+			<MarketValue>2.3</MarketValue>
+			<Mass>0.05</Mass>
+			<Flammability>0.25</Flammability>
+			<DeteriorationRate>1.0</DeteriorationRate>
+		</statBases>
+		<thingCategories>
+			<li>Manufactured</li>
+		</thingCategories>
+		<allowedArchonexusCount>20</allowedArchonexusCount>
+	</ThingDef>
+  
+</Defs>

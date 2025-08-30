@@ -4,7 +4,7 @@
 	<ThingDef ParentName="PlantBase">
 		<defName>CO_Plant_Vacflower</defName>
 		<label>vacflower</label>
-		<description>A rare xenobotanical organism that thrives in the harsh, airless environment of deep space. Anchoring itself to asteroids and other orbital debris. Its core is a bioluminescent sphere that accumulates and stores vacdew.\n\nWhen exposed to vacuum, the plant pulls in cosmic radiation and stray particles, causing it to grow at an accelerated rate.</description>
+		<description>A rare xenobotanical organism that thrives in the harsh, airless environment of deep space. Anchoring itself to asteroids and other orbital debris. Its core is a bioluminescent sphere that accumulates and stores vacdew.\n\nWhen exposed to vacuum, the plant pulls in cosmic radiation and stray particles, causing it to grow at an accelerated rate.\n\nx4 grow speed in vacuum.</description>
 		<statBases>
 			<MaxHitPoints>80</MaxHitPoints>
 			<Nutrition>0.2</Nutrition>
@@ -18,14 +18,14 @@
 		<neverMultiSelect>false</neverMultiSelect>
 		<pathCost>14</pathCost>
 		<plant>
-			<growDays>10</growDays>
+			<growDays>25</growDays>
 			<dieIfLeafless>false</dieIfLeafless>
 			<immatureGraphicPath>Things/Plant/CO_VacflowerPlant_Immature</immatureGraphicPath>
-			<harvestYield>4</harvestYield>
+			<harvestYield>10</harvestYield>
 			<harvestWork>600</harvestWork>
 			<harvestTag>Standard</harvestTag>
-			<harvestAfterGrowth>0.30</harvestAfterGrowth>
-			<harvestedThingDef>RawBerries</harvestedThingDef>
+			<harvestAfterGrowth>0.2</harvestAfterGrowth>
+			<harvestedThingDef>CO_Vacdew</harvestedThingDef>
 			<visualSizeRange>0.5~1.1</visualSizeRange>
 			<topWindExposure>0.1</topWindExposure>
 			<wildOrder>2</wildOrder>
@@ -45,6 +45,12 @@
 			<!-- <li></li> -->
 			<!-- </sowResearchPrerequisites> -->
 		</plant>
+		<comps>
+			<li Class="CompProperties_Glower">
+				<glowRadius>5.5</glowRadius>
+				<glowColor>(56,73,158)</glowColor>
+			</li>
+		</comps>
 	</ThingDef>
 
 </Defs>
