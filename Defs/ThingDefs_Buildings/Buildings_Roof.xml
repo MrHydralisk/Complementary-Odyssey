@@ -31,7 +31,7 @@
 		</statBases>
 		<costList>
 			<GravlitePanel>1</GravlitePanel>
-            <Plasteel>4</Plasteel>
+			<Plasteel>4</Plasteel>
 			<BlocksVacstone>10</BlocksVacstone>
 		</costList>
 		<building>
@@ -59,6 +59,71 @@
 			<li>OrbitalTech</li>
 			<li>AdvancedGravtech</li>
 		</researchPrerequisites>
+	</ThingDef>
+
+	<ThingDef ParentName="BuildingBase">
+		<defName>CO_RoofRetractor</defName>
+		<label>roof retractor</label>
+		<description>An extendable lightweight bridge. Can deploy extendable bridge tiles in one direction and pack them back, when needed. Can extend up to 15 bridge tiles.</description>
+		<graphicData>
+			<texPath>Things/Building/CO_RoofRetractor</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<drawOffset>(0,0,0.17)</drawOffset>
+		</graphicData>
+		<altitudeLayer>BuildingOnTop</altitudeLayer>
+		<statBases>
+			<MaxHitPoints>60</MaxHitPoints>
+			<WorkToBuild>2500</WorkToBuild>
+			<Flammability>0</Flammability>
+		</statBases>
+		<drawerType>MapMeshOnly</drawerType>
+		<tickerType>Normal</tickerType>
+		<canOverlapZones>true</canOverlapZones>
+		<terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
+		<drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
+		<fillPercent>0.05</fillPercent>
+		<costList>
+			<Steel>30</Steel>
+			<ComponentIndustrial>1</ComponentIndustrial>
+		</costList>
+		<building>
+			<destroySound>BuildingDestroyed_Metal_Small</destroySound>
+			<isPlaceOverableWall>true</isPlaceOverableWall>
+			<isTargetable>false</isTargetable>
+			<isInert>true</isInert>
+			<isEdifice>false</isEdifice>
+			<paintable>true</paintable>
+		</building>
+		<comps>
+			<li Class="ComplementaryOdyssey.CompProperties_RoofRetractor">
+				<ticksPerDeploy>150</ticksPerDeploy>
+				<ticksPerPacking>100</ticksPerPacking>
+				<Borders>(1, 15)</Borders>
+			</li>
+			<li Class="CompProperties_Power">
+				<compClass>CompPowerTrader</compClass>
+				<basePowerConsumption>15</basePowerConsumption>
+			</li>
+			<li Class="CompProperties_Flickable"/>
+			<li Class="CompProperties_Breakdownable"/>
+			<li Class="CompProperties_Stunnable">
+				<useLargeEMPEffecter>true</useLargeEMPEffecter>
+				<empChancePerTick>0.03</empChancePerTick>
+				<affectedDamageDefs>
+					<li>EMP</li>
+				</affectedDamageDefs>
+			</li>
+		</comps>
+		<pathCost>0</pathCost>
+		<designationCategory>Odyssey</designationCategory>
+		<uiOrder>1000</uiOrder>
+		<placeWorkers>
+			<li>ComplementaryOdyssey.PlaceWorker_RoofRetractor</li>
+		</placeWorkers>
+		<researchPrerequisites>
+			<li>StandardGravtech</li>
+		</researchPrerequisites>
+		<constructionSkillPrerequisite>6</constructionSkillPrerequisite>
 	</ThingDef>
 	
 </Defs>

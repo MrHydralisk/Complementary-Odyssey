@@ -1,6 +1,4 @@
-﻿using RimWorld;
-using RimWorld.Planet;
-using UnityEngine;
+﻿using RimWorld.Planet;
 using Verse;
 
 namespace ComplementaryOdyssey
@@ -9,7 +7,7 @@ namespace ComplementaryOdyssey
     {
         public ComplementaryOdysseyDefModExtension complementaryOdysseyDefModExtension => complementaryOdysseyDefModExtensionCached ?? (complementaryOdysseyDefModExtensionCached = def?.GetModExtension<ComplementaryOdysseyDefModExtension>());
         private ComplementaryOdysseyDefModExtension complementaryOdysseyDefModExtensionCached;
-        
+
         protected bool InSpace
         {
             get

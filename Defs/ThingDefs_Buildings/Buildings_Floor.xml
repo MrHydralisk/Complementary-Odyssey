@@ -6,8 +6,8 @@
 		<label>extendable bridge</label>
 		<description>An extendable lightweight bridge. Can deploy extendable bridge tiles in one direction and pack them back, when needed. Can extend up to 15 bridge tiles.</description>
 		<graphicData>
-			<texPath>Things/Building/CO_ExtBridge/CO_ExtBridge</texPath>
-			<graphicClass>Graphic_Multi</graphicClass>
+			<texPath>Things/Building/CO_ExtBridge</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
 		</graphicData>
 		<altitudeLayer>FloorEmplacement</altitudeLayer>
 		<statBases>
