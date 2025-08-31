@@ -3,8 +3,6 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Verse;
-using Verse.Noise;
-using static HarmonyLib.Code;
 
 namespace ComplementaryOdyssey
 {

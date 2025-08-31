@@ -4,7 +4,7 @@
 	<ThingDef ParentName="PlantBase">
 		<defName>CO_Plant_Vacflower</defName>
 		<label>vacflower</label>
-		<description>A rare xenobotanical organism that thrives in the harsh, airless environment of deep space. Anchoring itself to asteroids and other orbital debris. Its core is a bioluminescent sphere that accumulates and stores vacdew.\n\nWhen exposed to vacuum, the plant pulls in cosmic radiation and stray particles, causing it to grow at an accelerated rate. It never resting and can survive without Propagation method of this plant remains a mystery, but it can be replanted to a new location. Vacflower roots similar to such of some tree species.\n\nx4 grow speed in vacuum.</description>
+		<description>A rare xenobotanical organism that thrives in the harsh, airless environment of deep space. Anchoring itself to asteroids and other orbital debris. Its core is a bioluminescent sphere that accumulates and stores vacdew.\n\nWhen exposed to vacuum, the plant pulls in cosmic radiation and stray particles, causing it to grow at an accelerated rate. It never resting and can survive without nutrients from soil. Propagation method of this plant remains a mystery, but it can be replanted to a new location. Vacflower roots similar to such of some tree species.\n\nx4 grow speed in vacuum.</description>
 		<thingClass>ComplementaryOdyssey.VacPlant</thingClass>
 		<statBases>
 			<MaxHitPoints>80</MaxHitPoints>

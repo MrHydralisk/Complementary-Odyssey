@@ -57,6 +57,7 @@
 				<xpath>/Defs/DesignationCategoryDef[defName = "Odyssey"]/specialDesignatorClasses</xpath>
 				<value>
 					<li>ComplementaryOdyssey.Designator_BuildVacRoof</li>
+					<li>ComplementaryOdyssey.Designator_BuildCompressedHay</li>
 				</value>
 			</li>
 		</operations>

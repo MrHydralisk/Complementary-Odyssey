@@ -7,6 +7,8 @@ using System.Linq;
 using System.Reflection.Emit;
 using UnityEngine;
 using Verse;
+using Verse.Noise;
+using static HarmonyLib.Code;
 
 namespace ComplementaryOdyssey
 {
@@ -63,6 +65,9 @@ namespace ComplementaryOdyssey
 
                 val.Patch(AccessTools.Property(typeof(ThingDef), "ConnectToPower").GetGetMethod(), transpiler: new HarmonyMethod(patchType, "TD_ConnectToPower_Transpiler"));
             }
+
+            val.Patch(AccessTools.Method(typeof(CompTerraformer), "Convert"), transpiler: new HarmonyMethod(patchType, "CT_Convert_Transpiler"));
+            val.Patch(AccessTools.Method(typeof(CompTerraformer), "CanEverConvertCell"), postfix: new HarmonyMethod(patchType, "CT_CanEverConvertCell_Postfix"));
         }
 
         public static IEnumerable<CodeInstruction> MI_AfterMainTabs_Transpiler(IEnumerable<CodeInstruction> instructions)
@@ -276,6 +281,42 @@ namespace ComplementaryOdyssey
                 codes.InsertRange(endIndex + 1, instructionsToInsert);
             }
             return codes.AsEnumerable();
+        }
+
+
+
+
+        public static IEnumerable<CodeInstruction> CT_Convert_Transpiler(IEnumerable<CodeInstruction> instructions)
+        {
+            List<CodeInstruction> codes = new List<CodeInstruction>(instructions);
+            for (int i = 0; i < codes.Count; i++)
+            {
+                if (codes[i].opcode == OpCodes.Callvirt && (codes[i].operand?.ToString().Contains("SetTerrain") ?? false))
+                {
+                    codes[i] = new CodeInstruction(OpCodes.Call, AccessTools.Method(typeof(HarmonyPatches), "Convert_SetTerrain"));
+                }
+            }
+            return codes.AsEnumerable();
+        }
+
+        public static void Convert_SetTerrain(TerrainGrid terrainGrid, IntVec3 c, TerrainDef newTerr)
+        {
+            if (terrainGrid.TopTerrainAt(c) == DefOfLocal.CO_SubSoil)
+            {
+                terrainGrid.SetTerrain(c, DefOfLocal.CO_ArcheanSoilRich);
+            }
+            else
+            {
+                terrainGrid.SetTerrain(c, newTerr);
+            }
+        }
+
+        public static void CT_CanEverConvertCell_Postfix(ref bool __result, IntVec3 cell, Map map, TerrainDef skip)
+        {
+            if (__result && skip != null && map.terrainGrid.TopTerrainAt(cell) == DefOfLocal.CO_ArcheanSoilRich)
+            {
+                __result = false;
+            }
         }
     }
 }

@@ -15,7 +15,7 @@
 		<intricate>true</intricate>
 		<statBases>
 			<MaxHitPoints>50</MaxHitPoints>
-			<MarketValue>2.3</MarketValue>
+			<MarketValue>3.2</MarketValue>
 			<Mass>0.05</Mass>
 			<Flammability>0.25</Flammability>
 			<DeteriorationRate>1.0</DeteriorationRate>

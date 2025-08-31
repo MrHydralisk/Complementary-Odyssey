@@ -66,5 +66,46 @@
 		<constructionSkillPrerequisite>8</constructionSkillPrerequisite>
 	</ThingDef>
 
+	<ThingDef ParentName="BuildingBase">
+		<defName>CO_CompressedHay</defName>
+		<label>compressed hay</label>
+		<description>Will lay down hay and compress it. It will decompose over time into new artificial soil.</description>
+		<graphicData>
+			<texPath>Things/Building/CO_SubSoil</texPath>
+			<graphicClass>Graphic_Random</graphicClass>
+		</graphicData>
+		<altitudeLayer>FloorEmplacement</altitudeLayer>
+		<drawStyleCategory>Floors</drawStyleCategory>
+		<statBases>
+			<MaxHitPoints>80</MaxHitPoints>
+			<WorkToBuild>5000</WorkToBuild>
+			<Flammability>0</Flammability>
+		</statBases>
+		<drawerType>MapMeshOnly</drawerType>
+		<tickerType>Normal</tickerType>
+		<fillPercent>0.05</fillPercent>
+		<costList>
+			<Steel>2</Steel>
+			<Hay>18</Hay>
+		</costList>
+		<building>
+			<destroySound>BuildingDestroyed_Metal_Small</destroySound>
+			<isTargetable>false</isTargetable>
+		</building>
+		<comps>
+			<li Class="ComplementaryOdyssey.CompProperties_CompressedSoil">
+				<terrainDef>CO_SubSoil</terrainDef>
+				<ticksPerCompression>300000</ticksPerCompression>
+			</li>
+		</comps>
+		<pathCost>2</pathCost>
+		<designationCategory>Floors</designationCategory>
+		<uiOrder>3600</uiOrder>
+		<researchPrerequisites>
+			<li>Hydroponics</li>
+			<li>MoisturePump</li>
+		</researchPrerequisites>
+		<constructionSkillPrerequisite>4</constructionSkillPrerequisite>
+	</ThingDef>
 
 </Defs>
