@@ -60,6 +60,13 @@
 					<li>ComplementaryOdyssey.Designator_BuildCompressedHay</li>
 				</value>
 			</li>
+			<li Class="PatchOperationAdd">
+				<xpath>Defs/ThingDef[defName ="Plant_TreeGauranlen"]/comps/li[@Class="CompProperties_SpawnSubplant"]/plantsToNotOverwrite</xpath>
+				<order>Append</order>
+				<value>
+					<li>CO_Plant_Vacflower</li>
+				</value>
+			</li>
 		</operations>
 	</Operation>
 

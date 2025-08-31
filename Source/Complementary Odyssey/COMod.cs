@@ -21,6 +21,11 @@ namespace ComplementaryOdyssey
             options.CheckboxLabeled("ComplementaryOdyssey.Settings.VacRoofPatches".Translate().RawText, ref Settings.VacRoofPatches);
             options.Label("ComplementaryOdyssey.Settings.VacRoofPoweredAfterLanding".Translate(Settings.VacRoofPoweredAfterLanding.ToStringTicksToPeriod()));
             Settings.VacRoofPoweredAfterLanding = (int)options.Slider(Settings.VacRoofPoweredAfterLanding, 0, 7500);
+            options.GapLine();
+            options.Label("ComplementaryOdyssey.Settings.VacResistAOEVacOverride".Translate(Settings.VacResistAOEVacOverride.ToStringPercent()));
+            Settings.VacResistAOEVacOverride = Mathf.Round(options.Slider(Settings.VacResistAOEVacOverride, 0.01f, 0.49f) * 100f) / 100f;
+            options.Label("ComplementaryOdyssey.Settings.VacResistAOEGrowthRateFactorTemperature".Translate(Settings.VacResistAOEGrowthRateFactorTemperature.ToStringPercent()));
+            Settings.VacResistAOEGrowthRateFactorTemperature = Mathf.Round(options.Slider(Settings.VacResistAOEGrowthRateFactorTemperature, 0.01f, 1f) * 100f) / 100f;
             options.End();
         }
 

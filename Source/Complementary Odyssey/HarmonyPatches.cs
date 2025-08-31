@@ -7,8 +7,6 @@ using System.Linq;
 using System.Reflection.Emit;
 using UnityEngine;
 using Verse;
-using Verse.Noise;
-using static HarmonyLib.Code;
 
 namespace ComplementaryOdyssey
 {
@@ -66,8 +64,14 @@ namespace ComplementaryOdyssey
                 val.Patch(AccessTools.Property(typeof(ThingDef), "ConnectToPower").GetGetMethod(), transpiler: new HarmonyMethod(patchType, "TD_ConnectToPower_Transpiler"));
             }
 
+            //Archean
             val.Patch(AccessTools.Method(typeof(CompTerraformer), "Convert"), transpiler: new HarmonyMethod(patchType, "CT_Convert_Transpiler"));
             val.Patch(AccessTools.Method(typeof(CompTerraformer), "CanEverConvertCell"), postfix: new HarmonyMethod(patchType, "CT_CanEverConvertCell_Postfix"));
+            //VacPlant
+            val.Patch(AccessTools.Property(typeof(Plant), "LeaflessTemperatureThresh").GetGetMethod(true), postfix: new HarmonyMethod(patchType, "P_LeaflessTemperatureThresh_Postfix"));
+            val.Patch(AccessTools.Property(typeof(Plant), "GrowthRateFactor_Temperature").GetGetMethod(), postfix: new HarmonyMethod(patchType, "P_GrowthRateFactor_Temperature_Postfix"));
+            val.Patch(AccessTools.Method(typeof(VacuumUtility), "GetVacuum"), postfix: new HarmonyMethod(patchType, "VU_GetVacuum_Postfix"));
+            val.Patch(AccessTools.Method(typeof(PlantUtility), "GrowthSeasonNow", new Type[] { typeof(IntVec3), typeof(Map), typeof(ThingDef) }), postfix: new HarmonyMethod(patchType, "PU_GrowthSeasonNow_Postfix"));
         }
 
         public static IEnumerable<CodeInstruction> MI_AfterMainTabs_Transpiler(IEnumerable<CodeInstruction> instructions)
@@ -91,6 +95,7 @@ namespace ComplementaryOdyssey
             {
                 mapComponent_CompOdyssey.surfaceResourceGrid.GridOnGUI();
                 mapComponent_CompOdyssey.vacRoofGrid.GridOnGUI();
+                mapComponent_CompOdyssey.vacResistAOEGrid.GridOnGUI();
             }
         }
 
@@ -316,6 +321,38 @@ namespace ComplementaryOdyssey
             if (__result && skip != null && map.terrainGrid.TopTerrainAt(cell) == DefOfLocal.CO_ArcheanSoilRich)
             {
                 __result = false;
+            }
+        }
+
+        public static void P_LeaflessTemperatureThresh_Postfix(Plant __instance, ref float __result)
+        {
+            if (__result > -75 && __instance.Position.GetVacuum(__instance.Map) > 0f && (MapComponent_CompOdyssey.CachedInstance(__instance.Map)?.vacResistAOEGrid.GetCellBool(__instance.Position) ?? false))
+            {
+                __result = -75;
+            }
+        }
+
+        public static void P_GrowthRateFactor_Temperature_Postfix(Plant __instance, ref float __result)
+        {
+            if (__instance.Spawned && __instance.Position.GetVacuum(__instance.Map) > 0f && (MapComponent_CompOdyssey.CachedInstance(__instance.Map)?.vacResistAOEGrid.GetCellBool(__instance.Position) ?? false))
+            {
+                __result = Mathf.Max(__result, COMod.Settings.VacResistAOEGrowthRateFactorTemperature);
+            }
+        }
+
+        public static void VU_GetVacuum_Postfix(ref float __result, IntVec3 cell, Map map)
+        {
+            if (__result > 0f && (MapComponent_CompOdyssey.CachedInstance(map)?.vacResistAOEGrid.GetCellBool(cell) ?? false))
+            {
+                __result = Mathf.Min(__result, COMod.Settings.VacResistAOEVacOverride);
+            }
+        }
+
+        public static void PU_GrowthSeasonNow_Postfix(ref bool __result, IntVec3 c, Map map, ThingDef plantDef)
+        {
+            if (!__result && c.GetVacuum(map) > 0f && (MapComponent_CompOdyssey.CachedInstance(map)?.vacResistAOEGrid.GetCellBool(c) ?? false))
+            {
+                __result = true;
             }
         }
     }

@@ -40,14 +40,17 @@
     <Compile Include="COMod.cs" />
     <Compile Include="CompProperties\CompProperties_ExtBridge.cs" />
     <Compile Include="CompProperties\CompProperties_CompressedSoil.cs" />
+    <Compile Include="CompProperties\CompProperties_VacResistAOEProjector.cs" />
     <Compile Include="CompProperties\CompProperties_VacRoofBlueprint.cs" />
     <Compile Include="Comps\CompExtBridge.cs" />
     <Compile Include="Comps\CompCompressedSoil.cs" />
+    <Compile Include="Comps\CompVacResistAOEProjector.cs" />
     <Compile Include="Comps\CompVacRoofBlueprint.cs" />
     <Compile Include="DefOfLocal.cs" />
     <Compile Include="Designators\Designator_BuildCompressedHay.cs" />
     <Compile Include="Designators\Designator_BuildVacRoof.cs" />
     <Compile Include="Gizmo_SetMaxExtBridgeTiles.cs" />
+    <Compile Include="Grids\VacResistAOEGrid.cs" />
     <Compile Include="PlaceWorkers\PlaceWorker_ExtBridge.cs" />
     <Compile Include="Things\VacPlant.cs" />
     <Compile Include="VacBarrierProjectorSettingsClipboard.cs" />

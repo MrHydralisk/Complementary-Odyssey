@@ -5,5 +5,7 @@
 	
 	<ComplementaryOdyssey.Settings.VacRoofPatches>Enable Vac Barrier Roof patches. (Can be disabled in case of compatability issues with other roof mod, but it will make Vac Barrier Roof act as normal roof. Require game restart.)</ComplementaryOdyssey.Settings.VacRoofPatches>
 	<ComplementaryOdyssey.Settings.VacRoofPoweredAfterLanding>All Vac Barrier Roof will be force powered for {0} after gravship landing. (Needed to avoid loosing oxygen upon landing.)</ComplementaryOdyssey.Settings.VacRoofPoweredAfterLanding>
+	<ComplementaryOdyssey.Settings.VacResistAOEVacOverride>Vacflower area of effect decreasing vacuum value to {0}. (Vanilla will have normal vacuum value without override.)</ComplementaryOdyssey.Settings.VacResistAOEVacOverride>
+	<ComplementaryOdyssey.Settings.VacResistAOEGrowthRateFactorTemperature>Vacflower area of effect keeping plants warm enough, but increasing growing speed temperature factor to {0}. (In vanilla plants in orbit freeze to 0% growing speed.)</ComplementaryOdyssey.Settings.VacResistAOEGrowthRateFactorTemperature>
 	
 </LanguageData>

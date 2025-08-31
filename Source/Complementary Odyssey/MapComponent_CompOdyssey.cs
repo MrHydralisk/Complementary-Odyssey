@@ -6,6 +6,7 @@ namespace ComplementaryOdyssey
     {
         public SurfaceResourceGrid surfaceResourceGrid;
         public VacRoofGrid vacRoofGrid;
+        public VacResistAOEGrid vacResistAOEGrid;
 
         private static MapComponent_CompOdyssey currentInstance;
 
@@ -13,6 +14,7 @@ namespace ComplementaryOdyssey
         {
             surfaceResourceGrid = new SurfaceResourceGrid(map);
             vacRoofGrid = new VacRoofGrid(map);
+            vacResistAOEGrid = new VacResistAOEGrid(map);
         }
 
         public static MapComponent_CompOdyssey CachedInstance(Map map)
@@ -31,6 +33,7 @@ namespace ComplementaryOdyssey
             {
                 surfaceResourceGrid.GridUpdate();
                 vacRoofGrid.GridUpdate();
+                vacResistAOEGrid.GridUpdate();
             }
         }
 
@@ -38,6 +41,7 @@ namespace ComplementaryOdyssey
         {
             base.MapComponentTick();
             vacRoofGrid.Tick();
+            vacResistAOEGrid.Tick();
         }
 
         public override void ExposeData()
@@ -53,6 +57,10 @@ namespace ComplementaryOdyssey
                 if (vacRoofGrid == null)
                 {
                     vacRoofGrid = new VacRoofGrid(map);
+                }
+                if (vacResistAOEGrid == null)
+                {
+                    vacResistAOEGrid = new VacResistAOEGrid(map);
                 }
             }
         }
