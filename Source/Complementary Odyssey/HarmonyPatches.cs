@@ -20,9 +20,6 @@ namespace ComplementaryOdyssey
             patchType = typeof(HarmonyPatches);
             Harmony val = new Harmony("rimworld.mrhydralisk.ComplementaryOdyssey");
 
-            AccessTools.Method(typeof(ThingDefGenerator_Buildings), "NewBlueprintDef_Thing").Invoke(null, new object[] { DefOfLocal.CO_VacRoofFraming, false, null, true });
-            AccessTools.Method(typeof(ThingDefGenerator_Buildings), "NewFrameDef_Thing").Invoke(null, new object[] { DefOfLocal.CO_VacRoofFraming, true });
-
             val.Patch(AccessTools.Method(typeof(MapInterface), "MapInterfaceOnGUI_AfterMainTabs"), transpiler: new HarmonyMethod(patchType, "MI_AfterMainTabs_Transpiler"));
             val.Patch(AccessTools.Method(typeof(Mineable), "DestroyMined"), prefix: new HarmonyMethod(patchType, "M_DestroyMined_Prefix"));
 
@@ -68,10 +65,13 @@ namespace ComplementaryOdyssey
             val.Patch(AccessTools.Method(typeof(CompTerraformer), "Convert"), transpiler: new HarmonyMethod(patchType, "CT_Convert_Transpiler"));
             val.Patch(AccessTools.Method(typeof(CompTerraformer), "CanEverConvertCell"), postfix: new HarmonyMethod(patchType, "CT_CanEverConvertCell_Postfix"));
             //VacPlant
-            val.Patch(AccessTools.Property(typeof(Plant), "LeaflessTemperatureThresh").GetGetMethod(true), postfix: new HarmonyMethod(patchType, "P_LeaflessTemperatureThresh_Postfix"));
-            val.Patch(AccessTools.Property(typeof(Plant), "GrowthRateFactor_Temperature").GetGetMethod(), postfix: new HarmonyMethod(patchType, "P_GrowthRateFactor_Temperature_Postfix"));
-            val.Patch(AccessTools.Method(typeof(VacuumUtility), "GetVacuum"), postfix: new HarmonyMethod(patchType, "VU_GetVacuum_Postfix"));
-            val.Patch(AccessTools.Method(typeof(PlantUtility), "GrowthSeasonNow", new Type[] { typeof(IntVec3), typeof(Map), typeof(ThingDef) }), postfix: new HarmonyMethod(patchType, "PU_GrowthSeasonNow_Postfix"));
+            if (COMod.Settings.VacResistAOEPatches)
+            {
+                val.Patch(AccessTools.Property(typeof(Plant), "LeaflessTemperatureThresh").GetGetMethod(true), postfix: new HarmonyMethod(patchType, "P_LeaflessTemperatureThresh_Postfix"));
+                val.Patch(AccessTools.Property(typeof(Plant), "GrowthRateFactor_Temperature").GetGetMethod(), postfix: new HarmonyMethod(patchType, "P_GrowthRateFactor_Temperature_Postfix"));
+                val.Patch(AccessTools.Method(typeof(VacuumUtility), "GetVacuum"), postfix: new HarmonyMethod(patchType, "VU_GetVacuum_Postfix"));
+                val.Patch(AccessTools.Method(typeof(PlantUtility), "GrowthSeasonNow", new Type[] { typeof(IntVec3), typeof(Map), typeof(ThingDef) }), postfix: new HarmonyMethod(patchType, "PU_GrowthSeasonNow_Postfix"));
+            }
         }
 
         public static IEnumerable<CodeInstruction> MI_AfterMainTabs_Transpiler(IEnumerable<CodeInstruction> instructions)
@@ -326,7 +326,7 @@ namespace ComplementaryOdyssey
 
         public static void P_LeaflessTemperatureThresh_Postfix(Plant __instance, ref float __result)
         {
-            if (__result > -75 && __instance.Position.GetVacuum(__instance.Map) > 0f && (MapComponent_CompOdyssey.CachedInstance(__instance.Map)?.vacResistAOEGrid.GetCellBool(__instance.Position) ?? false))
+            if (__result > -75 && __instance.Position.GetVacuumOld(__instance.Map) > 0f && (MapComponent_CompOdyssey.CachedInstance(__instance.Map)?.vacResistAOEGrid.GetCellBool(__instance.Position) ?? false))
             {
                 __result = -75;
             }
@@ -334,7 +334,7 @@ namespace ComplementaryOdyssey
 
         public static void P_GrowthRateFactor_Temperature_Postfix(Plant __instance, ref float __result)
         {
-            if (__instance.Spawned && __instance.Position.GetVacuum(__instance.Map) > 0f && (MapComponent_CompOdyssey.CachedInstance(__instance.Map)?.vacResistAOEGrid.GetCellBool(__instance.Position) ?? false))
+            if (__instance.Spawned && __instance.Position.GetVacuumOld(__instance.Map) > 0f && (MapComponent_CompOdyssey.CachedInstance(__instance.Map)?.vacResistAOEGrid.GetCellBool(__instance.Position) ?? false))
             {
                 __result = Mathf.Max(__result, COMod.Settings.VacResistAOEGrowthRateFactorTemperature);
             }
@@ -350,7 +350,7 @@ namespace ComplementaryOdyssey
 
         public static void PU_GrowthSeasonNow_Postfix(ref bool __result, IntVec3 c, Map map, ThingDef plantDef)
         {
-            if (!__result && c.GetVacuum(map) > 0f && (MapComponent_CompOdyssey.CachedInstance(map)?.vacResistAOEGrid.GetCellBool(c) ?? false))
+            if (!__result && c.GetVacuumOld(map) > 0f && (MapComponent_CompOdyssey.CachedInstance(map)?.vacResistAOEGrid.GetCellBool(c) ?? false))
             {
                 __result = true;
             }

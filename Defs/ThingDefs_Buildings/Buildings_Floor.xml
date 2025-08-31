@@ -18,6 +18,7 @@
 		<drawerType>MapMeshOnly</drawerType>
 		<tickerType>Normal</tickerType>
 		<canOverlapZones>true</canOverlapZones>
+		<terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
 		<drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
 		<fillPercent>0.05</fillPercent>
 		<costList>
@@ -83,6 +84,7 @@
 		</statBases>
 		<drawerType>MapMeshOnly</drawerType>
 		<tickerType>Normal</tickerType>
+		<terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
 		<fillPercent>0.05</fillPercent>
 		<costList>
 			<Steel>2</Steel>
@@ -100,7 +102,7 @@
 		</comps>
 		<pathCost>2</pathCost>
 		<designationCategory>Floors</designationCategory>
-		<uiOrder>3600</uiOrder>
+		<uiOrder>2011</uiOrder>
 		<researchPrerequisites>
 			<li>Hydroponics</li>
 			<li>MoisturePump</li>

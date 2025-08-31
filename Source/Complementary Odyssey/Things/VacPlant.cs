@@ -8,7 +8,7 @@ namespace ComplementaryOdyssey
 {
     public class VacPlant : Plant
     {
-        protected bool InVacuum => PositionHeld.GetVacuum(MapHeld) > 0f;
+        protected bool InVacuum => PositionHeld.GetVacuumOld(MapHeld) > 0f;
         public bool isAutoHarvest = true;
 
         protected override bool Resting => false;

@@ -180,5 +180,18 @@ namespace ComplementaryOdyssey
             }
             return direction;
         }
+
+        public static float GetVacuumOld(this IntVec3 cell, Map map)
+        {
+            if (!ModsConfig.OdysseyActive)
+            {
+                return 0f;
+            }
+            if (!((bool)AccessTools.Method(typeof(VacuumUtility), "EverInVacuum").Invoke(null, new object[] { cell, map })))
+            {
+                return 0f;
+            }
+            return cell.GetRoom(map)?.Vacuum ?? 1f;
+        }
     }
 }

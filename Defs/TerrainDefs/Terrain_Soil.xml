@@ -23,6 +23,7 @@
 			<li>Heavy</li>
 			<li>GrowSoil</li>
 		</affordances>
+		<terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
 		<generatedFilth>Filth_Dirt</generatedFilth>
 		<fertility>0.9</fertility>
 		<takeFootprints>True</takeFootprints>
@@ -62,6 +63,7 @@
 			<li>Heavy</li>
 			<li>GrowSoil</li>
 		</affordances>
+		<terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
 		<generatedFilth>Filth_Dirt</generatedFilth>
 		<fertility>1.3</fertility>
 		<takeFootprints>True</takeFootprints>

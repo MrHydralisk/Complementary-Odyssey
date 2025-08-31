@@ -52,8 +52,8 @@
 		<label>vacsop</label>
 		<labelNoun>a vacsop</labelNoun>
 		<description>Vacsop in the bloodstream. It grants subjects temporary resistance to the vacuum of space and prevent vacuum burns, making it invaluable for asteroid miners and deep-space explorers.</description>
-		<hediffClass>Hediff_High</hediffClass>
-		<defaultLabelColor>(56,73,158)</defaultLabelColor>
+		<hediffClass>ComplementaryOdyssey.Hediff_InSpace</hediffClass>
+		<defaultLabelColor>(1,0,0.5)</defaultLabelColor>
 		<scenarioCanAdd>true</scenarioCanAdd>
 		<maxSeverity>1.0</maxSeverity>
 		<isBad>false</isBad>
@@ -71,6 +71,19 @@
 				</statOffsets>
 			</li>
 		</stages>
+		<modExtensions>
+			<li Class="ComplementaryOdyssey.ComplementaryOdysseyDefModExtension">
+				<stagesInSpace>
+					<li>
+						<preventVacuumBurns>true</preventVacuumBurns>
+						<statOffsets>
+							<VacuumResistance MayRequire="Ludeon.RimWorld.Odyssey">0.5</VacuumResistance>
+							<ComfyTemperatureMin>-30</ComfyTemperatureMin>
+						</statOffsets>
+					</li>
+				</stagesInSpace>
+			</li>
+		</modExtensions>
 	</HediffDef>
 
 </Defs>

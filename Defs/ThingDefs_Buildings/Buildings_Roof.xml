@@ -14,6 +14,7 @@
 		</graphicData>
 		<uiIconPath>Things/Building/CO_VacRoof/CO_VacRoof</uiIconPath>
 		<uiIconScale>0.7</uiIconScale>
+		<designationCategory>Odyssey</designationCategory>
 		<uiOrder>2016</uiOrder>
 		<staticSunShadowHeight>1.0</staticSunShadowHeight>
 		<blockLight>false</blockLight>
@@ -24,6 +25,7 @@
 		<blockWind>false</blockWind>
 		<fillPercent>0</fillPercent>
 		<coversFloor>false</coversFloor>
+		<terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
 		<statBases>
 			<WorkToBuild>1250</WorkToBuild>
 		</statBases>

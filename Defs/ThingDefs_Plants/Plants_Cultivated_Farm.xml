@@ -53,15 +53,15 @@
 		</plant>
 		<comps>
 			<li Class="CompProperties_Glower">
-				<glowRadius>5.5</glowRadius>
+				<glowRadius>5</glowRadius>
 				<glowColor>(56,73,158)</glowColor>
 			</li>
 			<li Class="ComplementaryOdyssey.CompProperties_VacResistAOEProjector">
-				<effectRadius>5.5</effectRadius>
+				<effectRadius>5</effectRadius>
 			</li>
 		</comps>
 		<placeWorkers>
-			<!-- <li></li>	   -->
+			<li>ComplementaryOdyssey.PlaceWorker_VacResistAOEProjector</li>	  
 		</placeWorkers>
 	</ThingDef>
 

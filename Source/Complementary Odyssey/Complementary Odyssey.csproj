@@ -46,12 +46,14 @@
     <Compile Include="Comps\CompCompressedSoil.cs" />
     <Compile Include="Comps\CompVacResistAOEProjector.cs" />
     <Compile Include="Comps\CompVacRoofBlueprint.cs" />
+    <Compile Include="Hediff_InSpace.cs" />
     <Compile Include="DefOfLocal.cs" />
     <Compile Include="Designators\Designator_BuildCompressedHay.cs" />
     <Compile Include="Designators\Designator_BuildVacRoof.cs" />
     <Compile Include="Gizmo_SetMaxExtBridgeTiles.cs" />
     <Compile Include="Grids\VacResistAOEGrid.cs" />
     <Compile Include="PlaceWorkers\PlaceWorker_ExtBridge.cs" />
+    <Compile Include="PlaceWorkers\PlaceWorker_VacResistAOEProjector.cs" />
     <Compile Include="Things\VacPlant.cs" />
     <Compile Include="VacBarrierProjectorSettingsClipboard.cs" />
     <Compile Include="CompProperties\CompProperties_VacBarrierProjector.cs" />
