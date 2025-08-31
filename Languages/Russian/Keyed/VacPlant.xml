@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+	<ComplementaryOdyssey.VacPlant.Gizmo.isAutoHarvest.Label>Авто сбор</ComplementaryOdyssey.VacPlant.Gizmo.isAutoHarvest.Label>
+	<ComplementaryOdyssey.VacPlant.Gizmo.isAutoHarvest.Desc>Автоматически отметит {0} для сбора с них {1} после полного созревания.</ComplementaryOdyssey.VacPlant.Gizmo.isAutoHarvest.Desc>
+
+</LanguageData>

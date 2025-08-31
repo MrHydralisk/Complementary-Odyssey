@@ -4,10 +4,12 @@
 	<ThingDef ParentName="PlantBase">
 		<defName>CO_Plant_Vacflower</defName>
 		<label>vacflower</label>
-		<description>A rare xenobotanical organism that thrives in the harsh, airless environment of deep space. Anchoring itself to asteroids and other orbital debris. Its core is a bioluminescent sphere that accumulates and stores vacdew.\n\nWhen exposed to vacuum, the plant pulls in cosmic radiation and stray particles, causing it to grow at an accelerated rate.\n\nx4 grow speed in vacuum.</description>
+		<description>A rare xenobotanical organism that thrives in the harsh, airless environment of deep space. Anchoring itself to asteroids and other orbital debris. Its core is a bioluminescent sphere that accumulates and stores vacdew.\n\nWhen exposed to vacuum, the plant pulls in cosmic radiation and stray particles, causing it to grow at an accelerated rate. It never resting and can survive without Propagation method of this plant remains a mystery, but it can be replanted to a new location. Vacflower roots similar to such of some tree species.\n\nx4 grow speed in vacuum.</description>
+		<thingClass>ComplementaryOdyssey.VacPlant</thingClass>
 		<statBases>
 			<MaxHitPoints>80</MaxHitPoints>
 			<Nutrition>0.2</Nutrition>
+			<Mass>10</Mass>
 		</statBases>
 		<graphicData>
 			<texPath>Things/Plant/CO_VacflowerPlant</texPath>
@@ -16,6 +18,7 @@
 		<ingestible/>
 		<selectable>true</selectable>
 		<neverMultiSelect>false</neverMultiSelect>
+		<minifiedDef>MinifiedTree</minifiedDef>
 		<pathCost>14</pathCost>
 		<plant>
 			<growDays>25</growDays>
@@ -28,22 +31,24 @@
 			<harvestedThingDef>CO_Vacdew</harvestedThingDef>
 			<visualSizeRange>0.5~1.1</visualSizeRange>
 			<topWindExposure>0.1</topWindExposure>
-			<wildOrder>2</wildOrder>
+			<wildOrder>3</wildOrder>
 			<allowAutoCut>false</allowAutoCut>
 			<pollution>Any</pollution>
 			<dieFromToxicFallout>False</dieFromToxicFallout>
+			<fertilitySensitivity>0</fertilitySensitivity>
 			<vacuumResistant>true</vacuumResistant>
 			<sowWork>800</sowWork>
-			<sowMinSkill>10</sowMinSkill>
+			<sowMinSkill>0</sowMinSkill>
 			<sowTags Inherit="False"/>
-			<!-- <sowTags> -->
-			<!-- <li>Ground</li> -->
-			<!-- <li>Hydroponic</li> -->
-			<!-- </sowTags> -->
 			<purpose>Health</purpose>
-			<!-- <sowResearchPrerequisites> -->
-			<!-- <li></li> -->
-			<!-- </sowResearchPrerequisites> -->
+			<sowResearchPrerequisites Inherit="False"/>
+			<warnIfMarkedForCut>true</warnIfMarkedForCut>
+			<forceIsTree>true</forceIsTree>
+			<minGrowthTemperature>-80</minGrowthTemperature>
+			<minOptimalGrowthTemperature>-80</minOptimalGrowthTemperature>
+			<neverBlightable>true</neverBlightable>
+			<growMinGlow>0</growMinGlow>
+			<completelyIgnoreFertility>true</completelyIgnoreFertility>
 		</plant>
 		<comps>
 			<li Class="CompProperties_Glower">
