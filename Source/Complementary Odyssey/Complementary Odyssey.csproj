@@ -37,6 +37,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Clipboards\RoofRetractorSettingsClipboard.cs" />
     <Compile Include="COMod.cs" />
     <Compile Include="CompProperties\CompProperties_RoofRetractor.cs" />
     <Compile Include="CompProperties\CompProperties_ExtBridge.cs" />
@@ -59,7 +60,7 @@
     <Compile Include="PlaceWorkers\PlaceWorker_ExtBridge.cs" />
     <Compile Include="PlaceWorkers\PlaceWorker_VacResistAOEProjector.cs" />
     <Compile Include="Things\VacPlant.cs" />
-    <Compile Include="VacBarrierProjectorSettingsClipboard.cs" />
+    <Compile Include="Clipboards\VacBarrierProjectorSettingsClipboard.cs" />
     <Compile Include="CompProperties\CompProperties_VacBarrierProjector.cs" />
     <Compile Include="Comps\CompVacBarrierProjector.cs" />
     <Compile Include="COSettings.cs" />

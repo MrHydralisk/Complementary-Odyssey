@@ -3,8 +3,8 @@
 
 	<ComplementaryOdyssey.RoofRetractor.Gizmo.Rotate.Reason.Retracted>Currently retracted.</ComplementaryOdyssey.RoofRetractor.Gizmo.Rotate.Reason.Retracted>
 	
-	<ComplementaryOdyssey.RoofRetractor.Command.SetMaxExtBridgeTiles.Title>Roof zone</ComplementaryOdyssey.RoofRetractor.Command.SetMaxExtBridgeTiles.Title>
-	<ComplementaryOdyssey.RoofRetractor.Command.SetMaxExtBridgeTiles.BarLabel>{0} - {1} [{2} - {3}]</ComplementaryOdyssey.RoofRetractor.Command.SetMaxExtBridgeTiles.BarLabel>
+	<ComplementaryOdyssey.RoofRetractor.Command.SetBorderRoofRetractor.Title>Roof zone</ComplementaryOdyssey.RoofRetractor.Command.SetBorderRoofRetractor.Title>
+	<ComplementaryOdyssey.RoofRetractor.Command.SetBorderRoofRetractor.BarLabel>{0} - {1} [{2} - {3}]</ComplementaryOdyssey.RoofRetractor.Command.SetBorderRoofRetractor.BarLabel>
 	
 	<ComplementaryOdyssey.RoofRetractor.InspectString.Retracted>Retracted {0}/{1}[{2}]</ComplementaryOdyssey.RoofRetractor.InspectString.Retracted>
 

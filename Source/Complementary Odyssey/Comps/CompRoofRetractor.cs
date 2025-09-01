@@ -67,13 +67,13 @@ namespace ComplementaryOdyssey
             {
                 bool isNotDeployed = true;
                 List<IntVec3> bTiles = roofTiles(parent.Rotation);
-                int i = 0;
-                while (i < bTiles.Count)
+                int i = bTiles.Count;
+                while (i >= 0)
                 {
                     IntVec3 cell = bTiles[i];
                     if (roofRetTiles.Contains(cell))
                     {
-                        i++;
+                        i--;
                         continue;
                     }
                     else if (CanDeploy(cell))
@@ -100,14 +100,14 @@ namespace ComplementaryOdyssey
                 bool isNotPacked = true;
                 if (roofTilesRetracted > 0)
                 {
-                    IntVec3 lastTile = roofRetTiles.Last();
+                    IntVec3 firstTile = roofRetTiles.First();
 
-                    if (!roofGrid.Roofed(lastTile) && areaManager.NoRoof[lastTile] == true)
+                    if (!roofGrid.Roofed(firstTile) && areaManager.NoRoof[firstTile] == true)
                     {
-                        areaManager.BuildRoof[lastTile] = true;
-                        areaManager.NoRoof[lastTile] = false;
-                        roofGrid.SetRoof(lastTile, RoofDefOf.RoofConstructed);
-                        MoteMaker.PlaceTempRoof(lastTile, parent.Map);
+                        areaManager.BuildRoof[firstTile] = true;
+                        areaManager.NoRoof[firstTile] = false;
+                        roofGrid.SetRoof(firstTile, RoofDefOf.RoofConstructed);
+                        MoteMaker.PlaceTempRoof(firstTile, parent.Map);
                         tickNextPacking = Find.TickManager.TicksGame + Props.ticksPerPacking;
                         isNotPacked = false;
                     }
@@ -123,6 +123,37 @@ namespace ComplementaryOdyssey
         public bool CanDeploy(IntVec3 cell)
         {
             return cell.InBounds(parent.Map) && roofGrid.RoofAt(cell) == RoofDefOf.RoofConstructed;
+        }
+
+        public void SelectNeighbour()
+        {
+            List<ThingWithComps> visited = new List<ThingWithComps>();
+            List<CompRoofRetractor> neighbours = new List<CompRoofRetractor>();
+            neighbours.Add(this);
+            visited.Add(parent);
+            int iteration = 0;
+            while (neighbours.Count > 0 && iteration < 200)
+            {
+                CompRoofRetractor current = neighbours.FirstOrDefault();
+                if (current == null)
+                {
+                    break;
+                }
+                Find.Selector.Select(current.parent);
+                neighbours.RemoveAt(0);
+                foreach (IntVec3 cell in GenAdjFast.AdjacentCells8Way(current.parent.Position))
+                {
+                    foreach (Thing thing in cell.GetThingList(current.parent.Map))
+                    {
+                        CompRoofRetractor compRoofRetractor = thing.TryGetComp<CompRoofRetractor>();
+                        if (compRoofRetractor != null && !visited.Contains(thing) && thing.Rotation == parent.Rotation)
+                        {
+                            neighbours.Add(compRoofRetractor);
+                            visited.Add(compRoofRetractor.parent);
+                        }
+                    }
+                }
+            }
         }
 
         public override void PostDeSpawn(Map map, DestroyMode mode = DestroyMode.Vanish)
@@ -245,6 +276,20 @@ namespace ComplementaryOdyssey
                 Disabled = roofRetTiles.Count() > 0 || !PowerOn,
                 disabledReason = PowerOn ? "ComplementaryOdyssey.RoofRetractor.Gizmo.Rotate.Reason.Retracted".Translate() : "NoPower".Translate()
             };
+            yield return new Command_Action
+            {
+                action = delegate
+                {
+                    SelectNeighbour();
+                },
+                defaultLabel = "SelectAllLinked".Translate(),
+                icon = ContentFinder<Texture2D>.Get("UI/Buttons/ShowColonistBar"),
+                Order = 30
+            };
+            foreach (Gizmo item in RoofRetractorSettingsClipboard.CopyPasteGizmosFor(this))
+            {
+                yield return item;
+            }
             if (DebugSettings.ShowDevGizmos)
             {
                 yield return new Command_Action

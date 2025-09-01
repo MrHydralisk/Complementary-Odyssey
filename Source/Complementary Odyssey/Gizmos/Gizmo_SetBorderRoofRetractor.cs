@@ -65,7 +65,7 @@ namespace ComplementaryOdyssey
         {
             get
             {
-                return "ComplementaryOdyssey.RoofRetractor.Command.SetMaxExtBridgeTiles.BarLabel".Translate(roofRetractor.borders.x, roofRetractor.borders.z, roofRetractor.Props.Borders.x, roofRetractor.Props.Borders.z);
+                return "ComplementaryOdyssey.RoofRetractor.Command.SetBorderRoofRetractor.BarLabel".Translate(roofRetractor.borders.x, roofRetractor.borders.z, roofRetractor.Props.Borders.x, roofRetractor.Props.Borders.z);
             }
         }
 
@@ -155,21 +155,25 @@ namespace ComplementaryOdyssey
             barRect = rect2;
             barRect.yMin = headerRect.yMax + 4f;
             barRect.SplitHorizontally(barRect.height / 2, out Rect topRect, out Rect bottomRect);
+            Vector2 targetValuePctOld = new Vector2(targetValuePct.x, targetValuePct.y);
             bool[] draggingBar = DraggingBar;
             Widgets.DraggableBar(topRect, barTex, barHighlightTex, EmptyBarTex, barDragTex, ref draggingBar[0], ValuePercent.x, ref targetValuePct.x, GetBarThresholds(), Increments, DragRange.min, DragRange.max);
             Widgets.DraggableBar(bottomRect, barTex, barHighlightTex, EmptyBarTex, barDragTex, ref draggingBar[1], ValuePercent.y, ref targetValuePct.y, GetBarThresholds(), Increments, DragRange.min, DragRange.max);
             DraggingBar = draggingBar;
-            if (targetValuePct.x != Target.x)
+            if (targetValuePct != targetValuePctOld)
             {
-                targetValuePct.x = Mathf.Clamp(targetValuePct.x, DragRange.min, DragRange.max);
-                targetValuePct.y = Mathf.Clamp(targetValuePct.y, targetValuePct.x, DragRange.max);
+                if (targetValuePct.x != Target.x)
+                {
+                    targetValuePct.x = Mathf.Clamp(targetValuePct.x, DragRange.min, DragRange.max);
+                    targetValuePct.y = Mathf.Clamp(targetValuePct.y, targetValuePct.x, DragRange.max);
+                }
+                else if (targetValuePct.y != Target.y)
+                {
+                    targetValuePct.y = Mathf.Clamp(targetValuePct.y, DragRange.min, DragRange.max);
+                    targetValuePct.x = Mathf.Clamp(targetValuePct.x, DragRange.min, targetValuePct.y);
+                }
+                Target = targetValuePct;
             }
-            else if (targetValuePct.y != Target.y)
-            {
-                targetValuePct.y = Mathf.Clamp(targetValuePct.y, DragRange.min, DragRange.max);
-                targetValuePct.x = Mathf.Clamp(targetValuePct.x, DragRange.min, targetValuePct.y);
-            }
-            Target = targetValuePct;
             Text.Anchor = TextAnchor.MiddleCenter;
             Widgets.Label(barRect, BarLabel);
             Text.Anchor = TextAnchor.UpperLeft;
