@@ -5,6 +5,7 @@ using Verse;
 
 namespace ComplementaryOdyssey
 {
+    [StaticConstructorOnStartup]
     public class Gizmo_SetBorderRoofRetractor : Gizmo
     {
         private Texture2D barTex;

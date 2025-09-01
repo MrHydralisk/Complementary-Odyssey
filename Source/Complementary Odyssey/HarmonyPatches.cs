@@ -72,6 +72,7 @@ namespace ComplementaryOdyssey
                 val.Patch(AccessTools.Method(typeof(VacuumUtility), "GetVacuum"), postfix: new HarmonyMethod(patchType, "VU_GetVacuum_Postfix"));
                 val.Patch(AccessTools.Method(typeof(PlantUtility), "GrowthSeasonNow", new Type[] { typeof(IntVec3), typeof(Map), typeof(ThingDef) }), postfix: new HarmonyMethod(patchType, "PU_GrowthSeasonNow_Postfix"));
             }
+            val.Patch(AccessTools.Method(typeof(GenStep_Asteroid), "Generate"), postfix: new HarmonyMethod(patchType, "GSA_Generate_Postfix"));
         }
 
         public static IEnumerable<CodeInstruction> MI_AfterMainTabs_Transpiler(IEnumerable<CodeInstruction> instructions)
@@ -353,6 +354,61 @@ namespace ComplementaryOdyssey
             if (!__result && c.GetVacuumOld(map) > 0f && (MapComponent_CompOdyssey.CachedInstance(map)?.vacResistAOEGrid.GetCellBool(c) ?? false))
             {
                 __result = true;
+            }
+        }
+
+        public static void GSA_Generate_Postfix(GenStep_Asteroid __instance, Map map, GenStepParams parms)
+        {
+            if (Rand.Chance(COMod.Settings.VacflowerChance))
+            {
+                List<ThingDef> plantsOptions = new List<ThingDef>() { ThingDefOf.Plant_HealrootWild, ThingDefOf.Plant_Potato, DefOfLocal.Plant_Devilstrand };
+                int VacflowerAmount = new IntRange(1, 3).RandomInRange;
+                FloatRange growthRange = new FloatRange(0.5f, 1f);
+                for (int i = 0; i < VacflowerAmount; i++)
+                {
+                    if (!MapGenUtility.TryGetRandomClearRect(11, 11, out var rect, -1, -1, RectValidator, 0.59999996f, float.MaxValue) && !MapGenUtility.TryGetRandomClearRect(11, 11, out rect, -1, -1, RectValidator, -1f, float.MaxValue))
+                    {
+                        continue;
+                    }
+                    bool isReplaceSoil = Rand.Chance(0.5f);
+                    foreach (IntVec3 cell in rect.Cells)
+                    {
+                        float magnitude = (cell - rect.CenterCell).Magnitude;
+                        if (magnitude < 3.5f || (magnitude < 5f && Rand.Chance(0.1f)))
+                        {
+                            cell.GetEdifice(map)?.Destroy();
+                            map.roofGrid.SetRoof(cell, null);
+                        }
+                        if (isReplaceSoil && (magnitude < 1.9f || (magnitude < 3.5f && Rand.Chance(0.1f))))
+                        {
+                            map.terrainGrid.SetTerrain(cell, TerrainDefOf.Soil);
+                            if (Rand.Chance(0.25f))
+                            {
+                                WildPlantSpawner.SpawnPlant(plantsOptions.RandomElement(), map, cell, setRandomGrowth: false).Growth = growthRange.RandomInRange;
+                            }
+                        }
+                    }
+                    WildPlantSpawner.SpawnPlant(DefOfLocal.CO_Plant_Vacflower, map, rect.CenterCell, setRandomGrowth: false).Growth = 1f;
+                }
+                bool RectValidator(CellRect r)
+                {
+                    for (int j = 0; j < map.layoutStructureSketches.Count; j++)
+                    {
+                        CellRect container = map.layoutStructureSketches[j].structureLayout.container;
+                        if (container.ExpandedBy(5).Overlaps(r))
+                        {
+                            return false;
+                        }
+                    }
+                    foreach (IntVec3 cell2 in r.Cells)
+                    {
+                        if (!cell2.GetTerrain(map).affordances.Contains(TerrainAffordanceDefOf.Medium) || cell2.GetPlant(map)?.def == DefOfLocal.CO_Plant_Vacflower)
+                        {
+                            return false;
+                        }
+                    }
+                    return true;
+                }
             }
         }
     }

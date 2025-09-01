@@ -8,6 +8,8 @@ namespace ComplementaryOdyssey
     {
         public static ThingDef CO_VacRoofFraming;
         public static ThingDef CO_CompressedHay;
+        public static ThingDef CO_Plant_Vacflower;
+        public static ThingDef Plant_Devilstrand;
 
         public static RoofDef CO_VacRoof;
 

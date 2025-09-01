@@ -84,6 +84,10 @@ namespace ComplementaryOdyssey
 
         public Color GetCellExtraColor(int index)
         {
+            if (map.fogGrid.IsFogged(index))
+            {
+                return Color.clear;
+            }
             return Color.blue.ToTransparent(0.25f);
         }
 

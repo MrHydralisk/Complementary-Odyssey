@@ -17,7 +17,7 @@ namespace ComplementaryOdyssey
         public override void TickLong()
         {
             base.TickLong();
-            if (isAutoHarvest && !Destroyed && Spawned && LifeStage == PlantLifeStage.Mature && !Map.designationManager.HasMapDesignationOn(this))
+            if (isAutoHarvest && !Destroyed && Spawned && !this.Fogged() && LifeStage == PlantLifeStage.Mature && !Map.designationManager.HasMapDesignationOn(this))
             {
                 Map.designationManager.AddDesignation(new Designation(this, DesignationDefOf.HarvestPlant));
             }
