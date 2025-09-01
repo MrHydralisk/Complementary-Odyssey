@@ -26,7 +26,7 @@
 		<statBases>
 			<MaxHitPoints>180</MaxHitPoints>
 			<WorkToBuild>4500</WorkToBuild>
-			<Flammability>0.7</Flammability>
+			<Flammability>0</Flammability>
 			<Mass>15</Mass>
 		</statBases>
 		<tickerType>Normal</tickerType>
