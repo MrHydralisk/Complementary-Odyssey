@@ -2,7 +2,7 @@
 <LanguageData>
 
 	<ComplementaryOdyssey.UpgradableGravEngine.Gizmo.GravFieldExtenderInstall.Label>Install {0}</ComplementaryOdyssey.UpgradableGravEngine.Gizmo.GravFieldExtenderInstall.Label>
-	<ComplementaryOdyssey.UpgradableGravEngine.Gizmo.GravFieldExtenderInstall.Desc>Will consume {0} adjacent to {1} and install as upgrade with +{2} {3}.</ComplementaryOdyssey.UpgradableGravEngine.Gizmo.GravFieldExtenderInstall.Desc>
+	<ComplementaryOdyssey.UpgradableGravEngine.Gizmo.GravFieldExtenderInstall.Desc>Will consume {0} adjacent to {1} and install it as upgrade with +{2} {3}.</ComplementaryOdyssey.UpgradableGravEngine.Gizmo.GravFieldExtenderInstall.Desc>
 	<ComplementaryOdyssey.UpgradableGravEngine.Gizmo.GravFieldExtenderInstall.Reason.Missing>Missing {0} adjacent to {1}.</ComplementaryOdyssey.UpgradableGravEngine.Gizmo.GravFieldExtenderInstall.Reason.Missing>
 	<ComplementaryOdyssey.UpgradableGravEngine.Gizmo.GravFieldExtenderInstall.Reason.Maximum>Maximum quantity of {0} reached.</ComplementaryOdyssey.UpgradableGravEngine.Gizmo.GravFieldExtenderInstall.Reason.Maximum>
 	

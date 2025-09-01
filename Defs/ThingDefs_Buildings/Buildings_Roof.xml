@@ -64,7 +64,7 @@
 	<ThingDef ParentName="BuildingBase">
 		<defName>CO_RoofRetractor</defName>
 		<label>roof retractor</label>
-		<description>An extendable lightweight bridge. Can deploy extendable bridge tiles in one direction and pack them back, when needed. Can extend up to 15 bridge tiles.</description>
+		<description>A simple device that is installed at the junction of a wall and ceiling. Can retract roof tiles in one direction and deploy them back, when needed. Can retract up to 15 constructed roof tiles.</description>
 		<graphicData>
 			<texPath>Things/Building/CO_RoofRetractor</texPath>
 			<graphicClass>Graphic_Single</graphicClass>

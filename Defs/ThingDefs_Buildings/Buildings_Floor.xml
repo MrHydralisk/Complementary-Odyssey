@@ -80,7 +80,7 @@
 		<statBases>
 			<MaxHitPoints>80</MaxHitPoints>
 			<WorkToBuild>5000</WorkToBuild>
-			<Flammability>0</Flammability>
+			<Flammability>1.5</Flammability>
 		</statBases>
 		<drawerType>MapMeshOnly</drawerType>
 		<tickerType>Normal</tickerType>

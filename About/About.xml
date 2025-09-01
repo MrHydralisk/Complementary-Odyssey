@@ -10,7 +10,7 @@
 		<li>1.6</li>
 	</supportedVersions>
 	<modIconPath IgnoreIfNoMatchingField="True">Things/Building/CO_VacDoor/CO_VacDoor_MenuIcon_south</modIconPath>
-	<description>Adding new content to Odyssey DLC. Includes compact combination of vac barrier with autodoor, twin thrusters, roll out solar arrays, terrain scanner, vac barrier for roof and extendable bridge.</description>
+	<description>Adding new content to Odyssey DLC. Includes compact combination of vac barrier with autodoor, twin thrusters, roll out solar arrays, terrain scanner, vac barrier for roof, extendable bridge, roof retractor, vacflower, vacdew, vacsop, artifitial soil, compressed hay, archean rich soil and upgradable Grav Engine.</description>
 	<modDependencies>
 		<li>
 			<packageId>Ludeon.RimWorld.Odyssey</packageId>
@@ -26,7 +26,9 @@
 	</modDependencies>
 	<loadAfter>
 		<li>Ludeon.RimWorld</li>
-		<li>Ludeon.Odyssey</li>
+		<li>Ludeon.RimWorld.Royalty</li>
+		<li>Ludeon.RimWorld.Ideology</li>
+		<li>Ludeon.RimWorld.Odyssey</li>
 		<li>brrainz.harmony</li>
 	</loadAfter>
 </ModMetaData>

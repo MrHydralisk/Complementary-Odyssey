@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 using Verse;
-using static HarmonyLib.Code;
 
 namespace ComplementaryOdyssey
 {
@@ -21,7 +20,7 @@ namespace ComplementaryOdyssey
 
         public override void PostDestroy(DestroyMode mode, Map previousMap)
         {
-            for ( int i = 0; i < GravFieldExtenderInstalled; i++)
+            for (int i = 0; i < GravFieldExtenderInstalled; i++)
             {
                 GenSpawn.Spawn(ThingDefOf.GravFieldExtender, parent.Position, previousMap).Destroy(DestroyMode.Deconstruct);
             }
@@ -55,7 +54,7 @@ namespace ComplementaryOdyssey
                     defaultDesc = "ComplementaryOdyssey.UpgradableGravEngine.Gizmo.GravFieldExtenderInstall.Desc".Translate(ThingDefOf.GravFieldExtender.label, parent.Label, SubstructureSupportPerOne * COMod.Settings.GravFieldExtenderOffsetMult, StatDefOf.SubstructureSupport.label),
                     icon = ContentFinder<Texture2D>.Get("UI/Commands/CO_InstallGravFieldExtender"),
                     Order = 30
-                    
+
                 };
                 if (thing == null)
                 {

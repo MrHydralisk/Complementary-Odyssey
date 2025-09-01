@@ -37,7 +37,7 @@ namespace ComplementaryOdyssey
             Settings.GravFieldExtenderOffsetMult = Mathf.Round(options.Slider(Settings.GravFieldExtenderOffsetMult, 0.01f, 1f) * 100f) / 100f;
             options.Label("ComplementaryOdyssey.Settings.GravFieldExtenderMaxAmount".Translate(ThingDefOf.GravFieldExtender.label, ThingDefOf.GravEngine.label));
             options.TextFieldNumeric(ref Settings.GravFieldExtenderMaxAmount, ref inputBufferGravFieldExtenderOffsetMult, 0, 100000);
-            options.End();            
+            options.End();
         }
 
         public override string SettingsCategory()

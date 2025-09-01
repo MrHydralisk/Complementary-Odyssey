@@ -7,7 +7,6 @@ using System.Linq;
 using System.Reflection.Emit;
 using UnityEngine;
 using Verse;
-using static HarmonyLib.Code;
 
 namespace ComplementaryOdyssey
 {
