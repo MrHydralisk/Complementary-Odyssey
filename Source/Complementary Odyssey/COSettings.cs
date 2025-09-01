@@ -10,6 +10,8 @@ namespace ComplementaryOdyssey
         public float VacflowerChance = 0.25f;
         public float VacResistAOEVacOverride = 0.4f;
         public float VacResistAOEGrowthRateFactorTemperature = 0.8f;
+        public float GravFieldExtenderOffsetMult = 0.5f;
+        public int GravFieldExtenderMaxAmount = 16;
 
         public override void ExposeData()
         {
@@ -20,6 +22,8 @@ namespace ComplementaryOdyssey
             Scribe_Values.Look(ref VacflowerChance, "VacflowerChance", defaultValue: 0.25f);
             Scribe_Values.Look(ref VacResistAOEVacOverride, "VacResistAOEVacOverride", defaultValue: 0.4f);
             Scribe_Values.Look(ref VacResistAOEGrowthRateFactorTemperature, "VacResistAOEGrowthRateFactorTemperature", defaultValue: 0.8f);
+            Scribe_Values.Look(ref GravFieldExtenderOffsetMult, "GravFieldExtenderOffsetMult", defaultValue: 0.5f);
+            Scribe_Values.Look(ref GravFieldExtenderMaxAmount, "GravFieldExtenderMaxAmount", defaultValue: 16);
         }
     }
 }

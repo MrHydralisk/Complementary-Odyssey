@@ -39,11 +39,13 @@
   <ItemGroup>
     <Compile Include="Clipboards\RoofRetractorSettingsClipboard.cs" />
     <Compile Include="COMod.cs" />
+    <Compile Include="CompProperties\CompProperties_UpgradableGravEngine.cs" />
     <Compile Include="CompProperties\CompProperties_RoofRetractor.cs" />
     <Compile Include="CompProperties\CompProperties_ExtBridge.cs" />
     <Compile Include="CompProperties\CompProperties_CompressedSoil.cs" />
     <Compile Include="CompProperties\CompProperties_VacResistAOEProjector.cs" />
     <Compile Include="CompProperties\CompProperties_VacRoofBlueprint.cs" />
+    <Compile Include="Comps\CompUpgradableGravEngine.cs" />
     <Compile Include="Comps\CompRoofRetractor.cs" />
     <Compile Include="Comps\CompExtBridge.cs" />
     <Compile Include="Comps\CompCompressedSoil.cs" />

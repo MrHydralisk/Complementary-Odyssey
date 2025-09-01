@@ -7,6 +7,7 @@ using System.Linq;
 using System.Reflection.Emit;
 using UnityEngine;
 using Verse;
+using static HarmonyLib.Code;
 
 namespace ComplementaryOdyssey
 {
@@ -73,6 +74,13 @@ namespace ComplementaryOdyssey
                 val.Patch(AccessTools.Method(typeof(PlantUtility), "GrowthSeasonNow", new Type[] { typeof(IntVec3), typeof(Map), typeof(ThingDef) }), postfix: new HarmonyMethod(patchType, "PU_GrowthSeasonNow_Postfix"));
             }
             val.Patch(AccessTools.Method(typeof(GenStep_Asteroid), "Generate"), postfix: new HarmonyMethod(patchType, "GSA_Generate_Postfix"));
+            //UpgradableGravEngine
+            //val.Patch(AccessTools.Method(typeof(SubstructureGrid), "DrawSubstructureFootprint"), transpiler: new HarmonyMethod(patchType, "SG_DrawSubstructureFootprint_Transpiler"));
+            //val.Patch(AccessTools.Method(typeof(SubstructureGrid), "DrawSubstructureFootprintWithExtra"), transpiler: new HarmonyMethod(patchType, "SG_DrawSubstructureFootprintWithExtra_Transpiler"));
+            //val.Patch(AccessTools.Method(typeof(GravshipUtility), "InsideFootprint"), transpiler: new HarmonyMethod(patchType, "SG_DrawSubstructureFootprint_Transpiler"));
+            //val.Patch(AccessTools.Method(typeof(PlaceWorker_InRangeOfGravEngine), "AllowsPlacing"), transpiler: new HarmonyMethod(patchType, "ReplaceGravFieldExtenderDistance_Transpiler"));
+            //val.Patch(AccessTools.Method(typeof(PlaceWorker_InRangeOfGravEngine), "DrawGhost"), transpiler: new HarmonyMethod(patchType, "ReplaceGravFieldExtenderDistance_Transpiler"));
+            //val.Patch(AccessTools.Method(typeof(CompGravshipFacility), "CompInspectStringExtra"), transpiler: new HarmonyMethod(patchType, "ReplaceGravFieldExtenderDistance_Transpiler"));
         }
 
         public static IEnumerable<CodeInstruction> MI_AfterMainTabs_Transpiler(IEnumerable<CodeInstruction> instructions)
@@ -382,7 +390,7 @@ namespace ComplementaryOdyssey
                         if (isReplaceSoil && (magnitude < 1.9f || (magnitude < 3.5f && Rand.Chance(0.1f))))
                         {
                             map.terrainGrid.SetTerrain(cell, TerrainDefOf.Soil);
-                            if (Rand.Chance(0.25f))
+                            if (cell != rect.CenterCell && Rand.Chance(0.25f) && cell.GetPlant(map) == null)
                             {
                                 WildPlantSpawner.SpawnPlant(plantsOptions.RandomElement(), map, cell, setRandomGrowth: false).Growth = growthRange.RandomInRange;
                             }
@@ -402,7 +410,7 @@ namespace ComplementaryOdyssey
                     }
                     foreach (IntVec3 cell2 in r.Cells)
                     {
-                        if (!cell2.GetTerrain(map).affordances.Contains(TerrainAffordanceDefOf.Medium) || cell2.GetPlant(map)?.def == DefOfLocal.CO_Plant_Vacflower)
+                        if (!cell2.GetTerrain(map).affordances.Contains(TerrainAffordanceDefOf.Medium) || cell2.GetPlant(map) != null)
                         {
                             return false;
                         }
@@ -411,5 +419,103 @@ namespace ComplementaryOdyssey
                 }
             }
         }
+
+
+
+
+        //public static IEnumerable<CodeInstruction> SG_DrawSubstructureFootprint_Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator il)
+        //{
+        //    List<CodeInstruction> codes = new List<CodeInstruction>(instructions);
+        //    for (int i = 0; i < codes.Count; i++)
+        //    {
+        //        if (codes[i].opcode == OpCodes.Ldfld && (codes[i].operand?.ToString().Contains("radius") ?? false))
+        //        {
+        //            codes.RemoveRange(i - 1, 2);
+        //            codes.Insert(i - 1, new CodeInstruction(OpCodes.Call, AccessTools.Method(typeof(HarmonyPatches), "DrawSubstructureFootprintRadius")));
+        //        }
+        //    }
+        //    return codes.AsEnumerable();
+        //}
+
+        //public static float DrawSubstructureFootprintRadius(CompSubstructureFootprint compSubstructureFootprint)
+        //{
+        //    float radius = compSubstructureFootprint.Props.radius;
+        //    if (compSubstructureFootprint is CompUpgradableGravEngine compUpgradableGravEngine)
+        //    {
+        //        radius += compUpgradableGravEngine.AdditionalRadius;
+        //    }
+        //    return radius;
+        //}
+
+        //public static IEnumerable<CodeInstruction> SG_DrawSubstructureFootprintWithExtra_Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator il)
+        //{
+        //    List<CodeInstruction> codes = new List<CodeInstruction>(instructions);
+        //    for (int i = 0; i < codes.Count - 1; i++)
+        //    {
+        //        if (codes[i].opcode == OpCodes.Ldfld && (codes[i].operand?.ToString().Contains("radius") ?? false))
+        //        {
+        //            List<CodeInstruction> instructionsToInsert = new List<CodeInstruction>();
+        //            instructionsToInsert.Add(new CodeInstruction(OpCodes.Ldarg_2));
+        //            instructionsToInsert.Add(new CodeInstruction(OpCodes.Call, AccessTools.Method(typeof(HarmonyPatches), "DrawSubstructureFootprintExtraRadius")));
+        //            codes.InsertRange(i + 1, instructionsToInsert);
+        //        }
+        //    }
+        //    return codes.AsEnumerable();
+        //}
+
+        //public static float DrawSubstructureFootprintExtraRadius(float rad, Thing thing)
+        //{
+        //    float radius = rad;
+        //    if (thing != null)
+        //    {
+        //        CompUpgradableGravEngine compUpgradableGravEngine = thing.TryGetComp<CompUpgradableGravEngine>();
+        //        if (compUpgradableGravEngine != null)
+        //        {
+        //            radius += compUpgradableGravEngine.AdditionalRadius;
+        //        }
+        //    }
+        //    return radius;
+        //}
+
+        //public static IEnumerable<CodeInstruction> ReplaceGravFieldExtenderDistance_Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator il)
+        //{
+        //    int startIndex = -1;
+        //    int endIndex = -1;
+        //    List<CodeInstruction> codes = new List<CodeInstruction>(instructions);
+        //    for (int i = 0; i < codes.Count; i++)
+        //    {
+        //        if (codes[i].opcode == OpCodes.Callvirt && (codes[i].operand?.ToString().Contains("get_Position") ?? false))
+        //        {
+        //            startIndex = i;
+        //        }
+        //        if (codes[i].opcode == OpCodes.Ldfld && (codes[i].operand?.ToString().Contains("maxDistance") ?? false))
+        //        {
+        //            endIndex = i;
+        //            break;
+        //        }
+        //    }
+        //    if (startIndex > -1 && endIndex > -1)
+        //    {
+        //        List<CodeInstruction> instructionsToInsert = new List<CodeInstruction>();
+        //        instructionsToInsert.Add(codes[startIndex - 1]);
+        //        instructionsToInsert.Add(new CodeInstruction(OpCodes.Call, AccessTools.Method(typeof(HarmonyPatches), "ReplaceGravFieldExtenderDistance")));
+        //        codes.InsertRange(endIndex + 1, instructionsToInsert);
+        //    }
+        //    return codes.AsEnumerable();
+        //}
+
+        //public static float ReplaceGravFieldExtenderDistance(float maxDistance, Thing thing)
+        //{
+        //    float radius = maxDistance;
+        //    if (thing != null)
+        //    {
+        //        CompUpgradableGravEngine compUpgradableGravEngine = thing.TryGetComp<CompUpgradableGravEngine>();
+        //        if (compUpgradableGravEngine != null)
+        //        {
+        //            radius += compUpgradableGravEngine.AdditionalRadius;
+        //        }
+        //    }
+        //    return radius;
+        //}
     }
 }

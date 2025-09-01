@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <ResearchProjectDef>
+    <defName>CO_HighGravtech</defName>
+    <label>high gravtech</label>
+    <description>Build hi-tech gravship parts.\n\nAllowing to install grav field extender modules in grav engine to increase substructure support even further.</description>
+    <baseCost>3400</baseCost>
+    <techLevel>Spacer</techLevel>
+    <requiredResearchBuilding>HiTechResearchBench</requiredResearchBuilding>
+    <requiredResearchFacilities>
+      <li>MultiAnalyzer</li>
+    </requiredResearchFacilities>
+    <prerequisites>
+      <li>AdvancedGravtech</li>
+      <li>AdvancedFabrication</li>
+    </prerequisites>
+    <researchViewX>19.00</researchViewX>
+    <researchViewY>5.40</researchViewY>
+  </ResearchProjectDef>
+
+</Defs>

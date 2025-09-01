@@ -8,6 +8,8 @@ namespace ComplementaryOdyssey
     {
         public static COSettings Settings { get; private set; }
 
+        private string inputBufferGravFieldExtenderOffsetMult;
+
         public COMod(ModContentPack content) : base(content)
         {
             Settings = GetSettings<COSettings>();
@@ -29,7 +31,13 @@ namespace ComplementaryOdyssey
             Settings.VacResistAOEVacOverride = Mathf.Round(options.Slider(Settings.VacResistAOEVacOverride, 0.01f, 0.49f) * 100f) / 100f;
             options.Label("ComplementaryOdyssey.Settings.VacResistAOEGrowthRateFactorTemperature".Translate(Settings.VacResistAOEGrowthRateFactorTemperature.ToStringPercent()));
             Settings.VacResistAOEGrowthRateFactorTemperature = Mathf.Round(options.Slider(Settings.VacResistAOEGrowthRateFactorTemperature, 0.01f, 1f) * 100f) / 100f;
-            options.End();
+            options.GapLine();
+            float SubstructureSupportPerOne = ThingDefOf.GravFieldExtender?.GetCompProperties<CompProperties_GravshipFacility>()?.statOffsets?.GetStatOffsetFromList(StatDefOf.SubstructureSupport) ?? 250;
+            options.Label("ComplementaryOdyssey.Settings.GravFieldExtenderOffsetMult".Translate(ThingDefOf.GravFieldExtender.label, ThingDefOf.GravEngine.label, Settings.GravFieldExtenderOffsetMult.ToStringPercent(), Mathf.Round(SubstructureSupportPerOne * Settings.GravFieldExtenderOffsetMult * 100f) / 100f, StatDefOf.SubstructureSupport.label, SubstructureSupportPerOne));
+            Settings.GravFieldExtenderOffsetMult = Mathf.Round(options.Slider(Settings.GravFieldExtenderOffsetMult, 0.01f, 1f) * 100f) / 100f;
+            options.Label("ComplementaryOdyssey.Settings.GravFieldExtenderMaxAmount".Translate(ThingDefOf.GravFieldExtender.label, ThingDefOf.GravEngine.label));
+            options.TextFieldNumeric(ref Settings.GravFieldExtenderMaxAmount, ref inputBufferGravFieldExtenderOffsetMult, 0, 100000);
+            options.End();            
         }
 
         public override string SettingsCategory()

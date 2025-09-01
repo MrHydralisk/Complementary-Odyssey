@@ -72,6 +72,15 @@
 					<li>CO_Plant_Vacflower</li>
 				</value>
 			</li>
+			<li Class="PatchOperationAdd">
+				<xpath>Defs/ThingDef[defName ="GravEngine"]/comps</xpath>
+				<order>Append</order>
+				<value>
+					<li Class="ComplementaryOdyssey.CompProperties_UpgradableGravEngine">
+						<unlockedWithResearchProjectDef>CO_HighGravtech</unlockedWithResearchProjectDef>
+					</li>
+				</value>
+			</li>
 		</operations>
 	</Operation>
 
