@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+	<CO_SubSoil.label>искусственная земля</CO_SubSoil.label>
+	<CO_SubSoil.description>Почва, созданная из спрессованных органических волокон. Идеальна для сохранения ощущения твёрдой земли под ногами, независимо от того, как далеко вы находитесь от поверхности планеты.</CO_SubSoil.description>
+	<CO_SubSoil.tools.dirt.label>земля</CO_SubSoil.tools.dirt.label>
+	
+	<CO_ArcheanSoilRich.label>архейская плодородная земля</CO_ArcheanSoilRich.label>
+	<CO_ArcheanSoilRich.tools.dirt.label>земля</CO_ArcheanSoilRich.tools.dirt.label>
+
+</Defs>

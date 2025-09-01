@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+	<ComplementaryOdyssey.UpgradableGravEngine.Gizmo.GravFieldExtenderInstall.Label>Установить {0}</ComplementaryOdyssey.UpgradableGravEngine.Gizmo.GravFieldExtenderInstall.Label>
+	<ComplementaryOdyssey.UpgradableGravEngine.Gizmo.GravFieldExtenderInstall.Desc>Разберёт {0} по соседству с {1} и установит его как улучшение +{2} {3}.</ComplementaryOdyssey.UpgradableGravEngine.Gizmo.GravFieldExtenderInstall.Desc>
+	<ComplementaryOdyssey.UpgradableGravEngine.Gizmo.GravFieldExtenderInstall.Reason.Missing>Нет {0} по соседству с {1}.</ComplementaryOdyssey.UpgradableGravEngine.Gizmo.GravFieldExtenderInstall.Reason.Missing>
+	<ComplementaryOdyssey.UpgradableGravEngine.Gizmo.GravFieldExtenderInstall.Reason.Maximum>Достигнуто максимальное количество {0}.</ComplementaryOdyssey.UpgradableGravEngine.Gizmo.GravFieldExtenderInstall.Reason.Maximum>
+	
+	<ComplementaryOdyssey.UpgradableGravEngine.StatsReport.Group>Установленные улучшения:</ComplementaryOdyssey.UpgradableGravEngine.StatsReport.Group>
+	<ComplementaryOdyssey.UpgradableGravEngine.StatsReport.Line>    {2}x {0}: {1} x {2} = {3}</ComplementaryOdyssey.UpgradableGravEngine.StatsReport.Line>
+	
+	<ComplementaryOdyssey.UpgradableGravEngine.InspectString.Installed>Установленно {1}x {0}</ComplementaryOdyssey.UpgradableGravEngine.InspectString.Installed>
+
+</LanguageData>

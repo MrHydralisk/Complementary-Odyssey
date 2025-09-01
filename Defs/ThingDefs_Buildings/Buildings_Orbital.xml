@@ -237,7 +237,7 @@
 		<pathCost>0</pathCost>
 		<uiIconScale>1</uiIconScale>
 		<statBases>
-			<MaxHitPoints>250</MaxHitPoints>
+			<MaxHitPoints>160</MaxHitPoints>
 			<WorkToBuild>7200</WorkToBuild>
 			<Mass>6</Mass>
 			<Flammability>0</Flammability>
@@ -263,25 +263,6 @@
 		<placeWorkers>
 			<li>ComplementaryOdyssey.PlaceWorker_VacBarrierProjector</li>
 		</placeWorkers>
-		<comps>
-			<li Class="ComplementaryOdyssey.CompProperties_VacBarrierProjector">
-				<basePowerConsumption>50</basePowerConsumption>
-				<maxBarrierSize>(5, 5)</maxBarrierSize>
-				<maxBarrierOffset>(0, -4, 1)</maxBarrierOffset>
-				<initialBarrierSize>(5, 3)</initialBarrierSize>
-				<initialBarrierOffset>(-2, 1)</initialBarrierOffset>
-				<maxArea>16</maxArea>
-			</li>
-			<li Class="CompProperties_Flickable"/>
-			<li Class="CompProperties_Breakdownable"/>
-			<li Class="CompProperties_Stunnable">
-				<useLargeEMPEffecter>true</useLargeEMPEffecter>
-				<empChancePerTick>0.03</empChancePerTick>
-				<affectedDamageDefs>
-					<li>EMP</li>
-				</affectedDamageDefs>
-			</li>
-		</comps>
 		<constructionSkillPrerequisite>8</constructionSkillPrerequisite>
 		<researchPrerequisites>
 			<li>OrbitalTech</li>
@@ -299,6 +280,37 @@
 				<rect>(0.37,0.05,0.26,0.9)</rect>
 			</damageData>
 		</graphicData>
+		<statBases>
+			<MaxHitPoints>250</MaxHitPoints>
+			<WorkToBuild>11200</WorkToBuild>
+			<Mass>8</Mass>
+			<Flammability>0</Flammability>
+		</statBases>
+		<costList>
+			<Steel>140</Steel>
+			<BlocksVacstone>30</BlocksVacstone>
+			<ComponentSpacer>1</ComponentSpacer>
+			<GravlitePanel>13</GravlitePanel>
+		</costList>
+		<comps>
+			<li Class="ComplementaryOdyssey.CompProperties_VacBarrierProjector">
+				<basePowerConsumption>50</basePowerConsumption>
+				<maxBarrierSize>(6, 6)</maxBarrierSize>
+				<maxBarrierOffset>(0, -5, 1)</maxBarrierOffset>
+				<initialBarrierSize>(5, 5)</initialBarrierSize>
+				<initialBarrierOffset>(-2, 1)</initialBarrierOffset>
+				<maxArea>25</maxArea>
+			</li>
+			<li Class="CompProperties_Flickable"/>
+			<li Class="CompProperties_Breakdownable"/>
+			<li Class="CompProperties_Stunnable">
+				<useLargeEMPEffecter>true</useLargeEMPEffecter>
+				<empChancePerTick>0.03</empChancePerTick>
+				<affectedDamageDefs>
+					<li>EMP</li>
+				</affectedDamageDefs>
+			</li>
+		</comps>
 	</ThingDef>
 	
 	<ThingDef ParentName="CO_VacBarrierProjector">
@@ -333,6 +345,25 @@
 			<isAttachment>true</isAttachment>
 			<expandHomeArea>false</expandHomeArea>
 		</building>
+		<comps>
+			<li Class="ComplementaryOdyssey.CompProperties_VacBarrierProjector">
+				<basePowerConsumption>50</basePowerConsumption>
+				<maxBarrierSize>(5, 5)</maxBarrierSize>
+				<maxBarrierOffset>(0, -4, 1)</maxBarrierOffset>
+				<initialBarrierSize>(5, 3)</initialBarrierSize>
+				<initialBarrierOffset>(-2, 1)</initialBarrierOffset>
+				<maxArea>16</maxArea>
+			</li>
+			<li Class="CompProperties_Flickable"/>
+			<li Class="CompProperties_Breakdownable"/>
+			<li Class="CompProperties_Stunnable">
+				<useLargeEMPEffecter>true</useLargeEMPEffecter>
+				<empChancePerTick>0.03</empChancePerTick>
+				<affectedDamageDefs>
+					<li>EMP</li>
+				</affectedDamageDefs>
+			</li>
+		</comps>
 		<placeWorkers>
 			<li>Placeworker_AttachedToWall</li>
 		</placeWorkers>

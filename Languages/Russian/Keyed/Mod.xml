@@ -6,4 +6,12 @@
 	<ComplementaryOdyssey.Settings.VacRoofPatches>Включает патчи для крыши с вакуумным барьером. (Можно отключить в случае проблем с совместимостью с другим модом на крыши, но это превратит крышу с вакуумным барьером в обычную крышу. Требуется перезагрузка игры.)</ComplementaryOdyssey.Settings.VacRoofPatches>
 	<ComplementaryOdyssey.Settings.VacRoofPoweredAfterLanding>Все крыши с вакуумным барьером будут принудительно запитаны энергией на {0} после приземления гравикорабля. (Это необходимо, чтобы избежать потери кислорода при посадке.)</ComplementaryOdyssey.Settings.VacRoofPoweredAfterLanding>
 	
+	<ComplementaryOdyssey.Settings.VacflowerChance>Шанс генерации 1-3 вакоцвета на астероиде: {0}.</ComplementaryOdyssey.Settings.VacflowerChance>
+	<ComplementaryOdyssey.Settings.VacResistAOEPatches>Включает патчи для зоны устойчивости к вакууму. (Можно отключить в случае проблем с совместимостью с получением значения вакуума на клетке, но это отключит способность вакоцвета поддерживать рост растений вокруг себя в вакууме. Требуется перезагрузка игры.)</ComplementaryOdyssey.Settings.VacResistAOEPatches>
+	<ComplementaryOdyssey.Settings.VacResistAOEVacOverride>Зона вокруг вакоцвета снижает значение вакуума до {0}. (В ванильной игре значение вакуума не переопределяется.)</ComplementaryOdyssey.Settings.VacResistAOEVacOverride>
+	<ComplementaryOdyssey.Settings.VacResistAOEGrowthRateFactorTemperature>Зона вокруг вакоцвета поддерживает растения в достаточном тепле, но увеличивает скорость роста в {0}. (В ванильной игре растения на орбите замерзают до 0% скорости роста.)</ComplementaryOdyssey.Settings.VacResistAOEGrowthRateFactorTemperature>
+	
+	<ComplementaryOdyssey.Settings.GravFieldExtenderOffsetMult>Устанавливает множитель {0} в устанавливаемого в {1} в {2} [+{3} {4}]. (100% соответствует ванильной игре +{5} {4}.)</ComplementaryOdyssey.Settings.GravFieldExtenderOffsetMult>
+	<ComplementaryOdyssey.Settings.GravFieldExtenderMaxAmount>Максимальное количество {0} устанавливаемых в {1}. (Бесконечно при значении 0)</ComplementaryOdyssey.Settings.GravFieldExtenderMaxAmount>
+	
 </LanguageData>

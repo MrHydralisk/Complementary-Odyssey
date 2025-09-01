@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+	<ComplementaryOdyssey.RoofRetractor.Gizmo.Rotate.Reason.Retracted>Убрано в текущий момент.</ComplementaryOdyssey.RoofRetractor.Gizmo.Rotate.Reason.Retracted>
+	
+	<ComplementaryOdyssey.RoofRetractor.Command.SetBorderRoofRetractor.Title>Зона крыши</ComplementaryOdyssey.RoofRetractor.Command.SetBorderRoofRetractor.Title>
+	<ComplementaryOdyssey.RoofRetractor.Command.SetBorderRoofRetractor.BarLabel>{0} - {1} [{2} - {3}]</ComplementaryOdyssey.RoofRetractor.Command.SetBorderRoofRetractor.BarLabel>
+	
+	<ComplementaryOdyssey.RoofRetractor.InspectString.Retracted>Убрано {0}/{1}[{2}]</ComplementaryOdyssey.RoofRetractor.InspectString.Retracted>
+
+</LanguageData>

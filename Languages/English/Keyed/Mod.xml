@@ -7,7 +7,7 @@
 	<ComplementaryOdyssey.Settings.VacRoofPoweredAfterLanding>All Vac Barrier Roof will be force powered for {0} after gravship landing. (Needed to avoid loosing oxygen upon landing.)</ComplementaryOdyssey.Settings.VacRoofPoweredAfterLanding>
 	
 	<ComplementaryOdyssey.Settings.VacflowerChance>Chance to spawn 1-3 Vacflower on asteroid: {0}.</ComplementaryOdyssey.Settings.VacflowerChance>
-	<ComplementaryOdyssey.Settings.VacResistAOEPatches>Enable Vac Resist Area of Effect patches. (Can be disabled in case of compatability issuesrelated to getting Vacuum value at cell, but it will remove ability of Vacflower to grow plants around it in vacuum. Require game restart.)</ComplementaryOdyssey.Settings.VacResistAOEPatches>
+	<ComplementaryOdyssey.Settings.VacResistAOEPatches>Enable Vac Resist Area of Effect patches. (Can be disabled in case of compatability issues related to getting Vacuum value at cell, but it will remove ability of Vacflower to grow plants around it in vacuum. Require game restart.)</ComplementaryOdyssey.Settings.VacResistAOEPatches>
 	<ComplementaryOdyssey.Settings.VacResistAOEVacOverride>Vacflower area of effect decreasing vacuum value to {0}. (Vanilla will have normal vacuum value without override.)</ComplementaryOdyssey.Settings.VacResistAOEVacOverride>
 	<ComplementaryOdyssey.Settings.VacResistAOEGrowthRateFactorTemperature>Vacflower area of effect keeping plants warm enough, but increasing growing speed temperature factor to {0}. (In vanilla plants in orbit freeze to 0% growing speed.)</ComplementaryOdyssey.Settings.VacResistAOEGrowthRateFactorTemperature>
 	

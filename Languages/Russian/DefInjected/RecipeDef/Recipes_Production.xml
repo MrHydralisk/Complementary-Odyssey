@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<LanguageData>
+
+	<CO_MakeVacsopSingle.label>изготовить ваксоп</CO_MakeVacsopSingle.label>
+	<CO_MakeVacsopSingle.description>Изготовить ваксоп из вак росы</CO_MakeVacsopSingle.description>
+	<CO_MakeVacsopSingle.jobString>синтезирует ваксоп</CO_MakeVacsopSingle.jobString>
+
+	<CO_MakeVacsop.label>изготовить ваксоп x5</CO_MakeVacsop.label>
+	<CO_MakeVacsop.description>Изготовить ваксоп x5 из вак росы</CO_MakeVacsop.description>
+	<CO_MakeVacsop.jobString>синтезирует ваксоп x5</CO_MakeVacsop.jobString>
+
+	<CO_MakeVacsopBulk.label>изготовить ваксоп x20</CO_MakeVacsopBulk.label>
+	<CO_MakeVacsopBulk.description>Изготовить ваксоп x20 из вак росы</CO_MakeVacsopBulk.description>
+	<CO_MakeVacsopBulk.jobString>синтезирует ваксоп x20</CO_MakeVacsopBulk.jobString>
+
+</LanguageData>

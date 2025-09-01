@@ -12,6 +12,8 @@
 	
 	<CO_VacBarrierProjector.label>проектор вакуумной крыши</CO_VacBarrierProjector.label>
 	<CO_VacBarrierProjector.description>Это устройство проецирует ультразвуковой барьер на специальную вакуумную крышу. Это предотвращает разгерметизацию и защищает от погодных условий и перепадов температур, при этом позволяя свету и объектам проходить сквозь неё. Он может проецировать на 16 плит вакуумных крыш.</CO_VacBarrierProjector.description>
-
+	
+	<CO_VacBarrierProjectorWall.label>настенный проектор вакуумной крыши</CO_VacBarrierProjectorWall.label>
+	<CO_VacBarrierProjectorWall.description>Это устройство проецирует ультразвуковой барьер на специальную вакуумную крышу. Это предотвращает разгерметизацию и защищает от погодных условий и перепадов температур, при этом позволяя свету и объектам проходить сквозь неё. Он может проецировать на 16 плит вакуумных крыш.</CO_VacBarrierProjectorWall.description>
 
 </Defs>

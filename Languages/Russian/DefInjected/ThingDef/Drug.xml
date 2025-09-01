@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+	<CO_Vacsop.label>ваксоп</CO_Vacsop.label>
+	<CO_Vacsop.description>Шприц с фиолетовой вязкой жидкостью. При введении в кровоток он предоставляет субъекту временное сопротивление вакууму космоса и предотвращает вакуумные ожоги, что делает его бесценным для астероидных шахтёров и исследователей дальнего космоса.\n\nЭффект временный.</CO_Vacsop.description>
+	<CO_Vacsop.ingestible.ingestCommandString>Ввести {lookup: {0}; Case; 3}</CO_Vacsop.ingestible.ingestCommandString>
+	<CO_Vacsop.ingestible.ingestReportString>Вводит {lookup: {0}; Case; 3}</CO_Vacsop.ingestible.ingestReportString>
+	
+</Defs>

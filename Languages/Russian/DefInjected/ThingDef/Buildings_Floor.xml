@@ -3,5 +3,8 @@
 
 	<CO_ExtBridge.label>выдвижной мост</CO_ExtBridge.label>
 	<CO_ExtBridge.description>Выдвижной облегчённый мост. Может развернуть выдвижные панели моста и упаковать их обратно при необходимости. Может выдвинуть до 15 панелей моста.</CO_ExtBridge.description>
+	
+	<CO_CompressedHay.label>спрессованное сено</CO_CompressedHay.label>
+	<CO_CompressedHay.description>Будет разложено и спрессовано. Со временем разложится, превратившись в новую искусственную землю.</CO_CompressedHay.description>
 
 </Defs>
