@@ -67,7 +67,7 @@ namespace ComplementaryOdyssey
             {
                 bool isNotDeployed = true;
                 List<IntVec3> bTiles = roofTiles(parent.Rotation);
-                int i = bTiles.Count;
+                int i = bTiles.Count - 1;
                 while (i >= 0)
                 {
                     IntVec3 cell = bTiles[i];
@@ -85,10 +85,11 @@ namespace ComplementaryOdyssey
                         roofRetTiles.Add(cell);
                         tickNextDeploy = Find.TickManager.TicksGame + Props.ticksPerDeploy;
                         isNotDeployed = false;
+                        break;
                     }
-                    break;
+                    i--;
                 }
-                if (isNotDeployed)
+                if (isNotDeployed || i < 0)
                 {
                     isDeploying = false;
                     tickNextRecharging = Find.TickManager.TicksGame + Props.ticksPerRecharging;
@@ -178,11 +179,11 @@ namespace ComplementaryOdyssey
                         isPacking = true;
                     },
                     defaultLabel = "ComplementaryOdyssey.Deployable.Gizmo.isDeploying.Label".Translate(),
-                    defaultDesc = "ComplementaryOdyssey.Deployable.Gizmo.isDeploying.Desc".Translate(),
+                    defaultDesc = "ComplementaryOdyssey.Deployable.Gizmo.isDeploying.Desc".Translate(RoofDefOf.RoofConstructed.label),
                     icon = ContentFinder<Texture2D>.Get("UI/Commands/SelectNextTransporter"),
                     Order = 30,
                     Disabled = isDeploying || isPacking || Find.TickManager.TicksGame < tickNextRecharging,
-                    disabledReason = isDeploying ? "ComplementaryOdyssey.Deployable.Gizmo.isDeploying.Reason.Active".Translate() : isPacking ? "ComplementaryOdyssey.Deployable.Gizmo.isPacking.Reason.Active".Translate() : "ShieldOnCooldown".Translate() + " " + (tickNextRecharging - Find.TickManager.TicksGame).ToStringTicksToPeriod()
+                    disabledReason = isDeploying ? "ComplementaryOdyssey.Deployable.Gizmo.isDeploying.Reason.Active".Translate(RoofDefOf.RoofConstructed.label) : isPacking ? "ComplementaryOdyssey.Deployable.Gizmo.isPacking.Reason.Active".Translate(RoofDefOf.RoofConstructed.label) : "ShieldOnCooldown".Translate() + " " + (tickNextRecharging - Find.TickManager.TicksGame).ToStringTicksToPeriod()
                 };
             }
             yield return new Command_Action
@@ -192,11 +193,11 @@ namespace ComplementaryOdyssey
                     isDeploying = true;
                 },
                 defaultLabel = "ComplementaryOdyssey.Deployable.Gizmo.isPacking.Label".Translate(),
-                defaultDesc = "ComplementaryOdyssey.Deployable.Gizmo.isPacking.Desc".Translate(),
+                defaultDesc = "ComplementaryOdyssey.Deployable.Gizmo.isPacking.Desc".Translate(RoofDefOf.RoofConstructed.label),
                 icon = ContentFinder<Texture2D>.Get("UI/Commands/SelectPreviousTransporter"),
                 Order = 30,
                 Disabled = isDeploying || isPacking || Find.TickManager.TicksGame < tickNextRecharging,
-                disabledReason = isDeploying ? "ComplementaryOdyssey.Deployable.Gizmo.isDeploying.Reason.Active".Translate() : isPacking ? "ComplementaryOdyssey.Deployable.Gizmo.isPacking.Reason.Active".Translate() : "ShieldOnCooldown".Translate() + " " + (tickNextRecharging - Find.TickManager.TicksGame).ToStringTicksToPeriod()
+                disabledReason = isDeploying ? "ComplementaryOdyssey.Deployable.Gizmo.isDeploying.Reason.Active".Translate(RoofDefOf.RoofConstructed.label) : isPacking ? "ComplementaryOdyssey.Deployable.Gizmo.isPacking.Reason.Active".Translate(RoofDefOf.RoofConstructed.label) : "ShieldOnCooldown".Translate() + " " + (tickNextRecharging - Find.TickManager.TicksGame).ToStringTicksToPeriod()
             };
             yield return new Command_Action
             {
