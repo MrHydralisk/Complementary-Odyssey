@@ -18,6 +18,7 @@
 		<drawerType>MapMeshOnly</drawerType>
 		<tickerType>Normal</tickerType>
 		<canOverlapZones>true</canOverlapZones>
+		<clearBuildingArea>false</clearBuildingArea>
 		<terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
 		<drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
 		<fillPercent>0.05</fillPercent>
