@@ -334,7 +334,7 @@ namespace ComplementaryOdyssey
 
         public static void P_LeaflessTemperatureThresh_Postfix(Plant __instance, ref float __result)
         {
-            if (__result > -75 && __instance.Position.GetVacuumOld(__instance.Map) > 0f && (MapComponent_CompOdyssey.CachedInstance(__instance.Map)?.vacResistAOEGrid.GetCellBool(__instance.Position) ?? false))
+            if (__result > -75 && (MapComponent_CompOdyssey.CachedInstance(__instance.Map)?.vacResistAOEGrid.GetCellEffect(__instance.Position) ?? false))
             {
                 __result = -75;
             }
@@ -342,15 +342,15 @@ namespace ComplementaryOdyssey
 
         public static void P_GrowthRateFactor_Temperature_Postfix(Plant __instance, ref float __result)
         {
-            if (__instance.Spawned && __instance.Position.GetVacuumOld(__instance.Map) > 0f && (MapComponent_CompOdyssey.CachedInstance(__instance.Map)?.vacResistAOEGrid.GetCellBool(__instance.Position) ?? false))
+            if (__instance.Spawned && __result > COMod.Settings.VacResistAOEGrowthRateFactorTemperature && (MapComponent_CompOdyssey.CachedInstance(__instance.Map)?.vacResistAOEGrid.GetCellEffect(__instance.Position) ?? false))
             {
-                __result = Mathf.Max(__result, COMod.Settings.VacResistAOEGrowthRateFactorTemperature);
+                __result = COMod.Settings.VacResistAOEGrowthRateFactorTemperature;
             }
         }
 
         public static void VU_GetVacuum_Postfix(ref float __result, IntVec3 cell, Map map)
         {
-            if (__result > 0f && (MapComponent_CompOdyssey.CachedInstance(map)?.vacResistAOEGrid.GetCellBool(cell) ?? false))
+            if (__result > 0f && (MapComponent_CompOdyssey.CachedInstance(map)?.vacResistAOEGrid.GetCellEffect(cell) ?? false))
             {
                 __result = Mathf.Min(__result, COMod.Settings.VacResistAOEVacOverride);
             }
@@ -358,7 +358,7 @@ namespace ComplementaryOdyssey
 
         public static void PU_GrowthSeasonNow_Postfix(ref bool __result, IntVec3 c, Map map, ThingDef plantDef)
         {
-            if (!__result && c.GetVacuumOld(map) > 0f && (MapComponent_CompOdyssey.CachedInstance(map)?.vacResistAOEGrid.GetCellBool(c) ?? false))
+            if (!__result && (MapComponent_CompOdyssey.CachedInstance(map)?.vacResistAOEGrid.GetCellEffect(c) ?? false))
             {
                 __result = true;
             }

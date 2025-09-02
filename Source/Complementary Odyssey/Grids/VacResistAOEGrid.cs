@@ -9,6 +9,7 @@ namespace ComplementaryOdyssey
         private const float LineSpacing = 29f;
 
         private Map map;
+        private bool BiomeInVacuum;
 
         private CellBoolDrawer drawer;
 
@@ -72,6 +73,11 @@ namespace ComplementaryOdyssey
             }
         }
 
+        public bool GetCellEffect(IntVec3 cell)
+        {
+            return BiomeInVacuum && GetCellBool(cell);
+        }
+
         public bool GetCellBool(IntVec3 cell)
         {
             return GetCellBool(map.cellIndices.CellToIndex(cell));
@@ -88,7 +94,11 @@ namespace ComplementaryOdyssey
             {
                 return Color.clear;
             }
-            return Color.blue.ToTransparent(0.25f);
+            if (BiomeInVacuum)
+            {
+                return Color.blue.ToTransparent(0.25f);
+            }
+            return Color.blue.ToTransparent(0.1f);
         }
 
         public void InitialActivated(bool isActivated = true)
@@ -116,6 +126,7 @@ namespace ComplementaryOdyssey
             if (initializedTick == -1)
             {
                 InitialActivated();
+                BiomeInVacuum = map.Biome.inVacuum;
             }
             else if (initializedTick > -1 && Find.TickManager.TicksGame - initializedTick > COMod.Settings.VacRoofPoweredAfterLanding)
             {

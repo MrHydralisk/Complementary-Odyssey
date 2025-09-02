@@ -1,10 +1,14 @@
 ﻿using HarmonyLib;
+using System.Reflection;
 using Verse;
 
 namespace ComplementaryOdyssey
 {
     public static class ComplementaryOdysseyUtility
     {
+        public static MethodInfo VacuumUtility_EverInVacuum = AccessTools.Method(typeof(VacuumUtility), "EverInVacuum");
+        public static FieldInfo RoofGrid_map = AccessTools.Field(typeof(RoofGrid), "map");
+
         public static bool IsVacRoof(this RoofDef roofDef, out ComplementaryOdysseyDefModExtension defModExtension)
         {
             defModExtension = roofDef?.GetModExtension<ComplementaryOdysseyDefModExtension>();
@@ -39,7 +43,7 @@ namespace ComplementaryOdyssey
 
         public static bool GridRoofed(RoofGrid roofGrid, IntVec3 c)
         {
-            Map map = AccessTools.Field(typeof(RoofGrid), "map").GetValue(roofGrid) as Map;
+            Map map = RoofGrid_map.GetValue(roofGrid) as Map;
             return GridRoofed(roofGrid, map.cellIndices.CellToIndex(c));
         }
 
@@ -50,7 +54,7 @@ namespace ComplementaryOdyssey
 
         public static RoofDef GridRoofAt(RoofGrid roofGrid, IntVec3 c)
         {
-            Map map = AccessTools.Field(typeof(RoofGrid), "map").GetValue(roofGrid) as Map;
+            Map map = RoofGrid_map.GetValue(roofGrid) as Map;
             return GridRoofAt(roofGrid, map.cellIndices.CellToIndex(c));
         }
 
@@ -66,13 +70,13 @@ namespace ComplementaryOdyssey
 
         public static bool PoweredGridRoofed(RoofGrid roofGrid, IntVec3 c)
         {
-            Map map = AccessTools.Field(typeof(RoofGrid), "map").GetValue(roofGrid) as Map;
+            Map map = RoofGrid_map.GetValue(roofGrid) as Map;
             return PoweredGridRoofed(roofGrid, map.cellIndices.CellToIndex(c));
         }
 
         public static bool PoweredGridRoofed(RoofGrid roofGrid, int index)
         {
-            Map map = AccessTools.Field(typeof(RoofGrid), "map").GetValue(roofGrid) as Map;
+            Map map = RoofGrid_map.GetValue(roofGrid) as Map;
             RoofDef roofDef = roofGrid.RoofAt(index);
             if (roofDef != null)
             {
@@ -187,7 +191,7 @@ namespace ComplementaryOdyssey
             {
                 return 0f;
             }
-            if (!((bool)AccessTools.Method(typeof(VacuumUtility), "EverInVacuum").Invoke(null, new object[] { cell, map })))
+            if (!((bool)VacuumUtility_EverInVacuum.Invoke(null, new object[] { cell, map })))
             {
                 return 0f;
             }
