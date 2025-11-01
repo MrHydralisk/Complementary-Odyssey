@@ -30,8 +30,12 @@ namespace ComplementaryOdyssey
                 val.Patch(AccessTools.Method(typeof(RoofGrid), "GetCellExtraColor"), postfix: new HarmonyMethod(patchType, "RG_GetCellExtraColor_Postfix"));
                 val.Patch(AccessTools.Method(typeof(RoofGrid), "SetRoof"), prefix: new HarmonyMethod(patchType, "RG_SetRoof_Prefix"));
                 val.Patch(AccessTools.Method(typeof(Skyfaller).GetNestedTypes(AccessTools.all).First((Type t) => t.Name.Contains("c__DisplayClass57_0")), "<HitRoof>b__0"), transpiler: new HarmonyMethod(patchType, "ReplaceRoofed_Transpiler"));
+                val.Patch(AccessTools.Method(typeof(Skyfaller).GetNestedTypes(AccessTools.all).First((Type t) => t.Name.Contains("c__DisplayClass57_0")), "<HitRoof>b__0"), transpiler: new HarmonyMethod(patchType, "ReplaceGetRoof_Transpiler"));
                 val.Patch(AccessTools.Method(typeof(DropCellFinder), "CanPhysicallyDropInto"), transpiler: new HarmonyMethod(patchType, "ReplaceGetRoof_Transpiler"));
+                val.Patch(AccessTools.Method(typeof(DropCellFinder), "TryFindSafeLandingSpotCloseToColony"), transpiler: new HarmonyMethod(patchType, "ReplaceRoofed_Transpiler"));
+                val.Patch(AccessTools.Method(typeof(DropCellFinder), "TradeDropSpot"), transpiler: new HarmonyMethod(patchType, "ReplaceRoofed_Transpiler"));
                 val.Patch(AccessTools.Method(typeof(RoyalTitlePermitWorker_CallShuttle), "GetReportFromCell"), transpiler: new HarmonyMethod(patchType, "ReplaceGetRoof_Transpiler"));
+                val.Patch(AccessTools.Method(typeof(DropPodUtility).GetNestedTypes(AccessTools.all).First((Type t) => t.Name.Contains("c__DisplayClass3_0")), "<DropThingGroupsNear>b__0"), transpiler: new HarmonyMethod(patchType, "ReplaceGetRoof_Transpiler"));
 
                 val.Patch(AccessTools.Method(typeof(Building_TurretGun), "TryStartShootSomething"), transpiler: new HarmonyMethod(patchType, "BTG_TryStartShootSomething_Transpiler"));
                 val.Patch(AccessTools.Method(typeof(Building_TurretGun), "GetInspectString"), transpiler: new HarmonyMethod(patchType, "ReplaceRoofed_Transpiler"));

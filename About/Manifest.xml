@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Manifest>
 	<identifier>MrHydralisk.ComplementaryOdyssey</identifier>
-	<version>1.9.0.2</version>
+	<version>1.9.1.0</version>
 	<suggests>
+		<li>MrHydralisk.LayeredAtmosphereOrbit</li>
 		<li>MrHydralisk.AnomaliesExpected</li>
 		<li>MrHydralisk.VOEAdditionalOutposts</li>
 		<li>MrHydralisk.UndergroundVault</li>
