@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+
+	<Operation Class="PatchOperationFindMod">
+		<mods>
+			<li>Vanilla Gravship Expanded - Chapter 1</li>
+		</mods>
+		<match Class="PatchOperationSequence">
+			<operations>
+				<li Class="PatchOperationAdd">
+					<xpath>Defs/ThingDef[defName="CO_TwinThruster"]/comps</xpath>
+					<value>
+						<li Class="VanillaGravshipExpanded.CompProperties_ResourceThruster">
+							<pipeNet>VGE_AstrofuelNet</pipeNet>
+							<outOfFuelOverlay>VGE_NoAstrofuel</outOfFuelOverlay>
+						</li>
+						<li Class="VanillaGravshipExpanded.CompProperties_ConstantGravshipFacilityBonus">
+							<statOffsets>
+								<VGE_SubstructureSupportMultiplier>0.1</VGE_SubstructureSupportMultiplier>
+							</statOffsets>
+						</li>
+						<li Class="VanillaGravshipExpanded.CompProperties_GravMaintainable">
+							<fleckEmissionRate>1</fleckEmissionRate>
+						</li>
+					</value>
+				</li>
+				<li Class="PatchOperationAdd">
+					<xpath>Defs/ThingDef[defName="CO_TwinThruster"]/statBases</xpath>
+					<value>
+						<VGE_MaintenanceSensitivity>2</VGE_MaintenanceSensitivity>
+					</value>
+				</li>
+				<li Class="PatchOperationAdd">
+					<xpath>Defs/RitualOutcomeEffectDef[defName ="VGE_GravjumperLaunch" or defName ="VGE_GravhulkLaunch"]/comps</xpath>
+					<order>Append</order>
+					<value>
+						<li Class="ComplementaryOdyssey.RitualOutcomeComp_GravshipFacilities">
+							<facilityQualityOffsets>
+								<li>
+									<key>CO_TwinThruster</key>
+									<value>0.05</value>
+								</li>
+							</facilityQualityOffsets>
+						</li>
+					</value>
+				</li>
+				<li Class="PatchOperationAdd">
+					<xpath>Defs/ThingDef[defName ="VGE_GravjumperEngine" or defName ="VGE_GravhulkEngine"]/comps/li[@Class="CompProperties_AffectedByFacilities"]/linkableFacilities</xpath>
+					<order>Append</order>
+					<value>
+						<li>CO_TwinThruster</li>
+					</value>
+				</li>
+				
+				
+				
+				<li Class="PatchOperationAdd">
+					<xpath>Defs/ThingDef[defName ="VGE_GravjumperEngine" or defName ="VGE_GravhulkEngine"]/comps</xpath>
+					<order>Append</order>
+					<value>
+						<li Class="ComplementaryOdyssey.CompProperties_UpgradableGravEngine">
+							<unlockedWithResearchProjectDef>CO_HighGravtech</unlockedWithResearchProjectDef>
+						</li>
+					</value>
+				</li>
+				
+				
+				
+				<li Class="PatchOperationReplace">
+					<xpath>/Defs/ResearchProjectDef[defName="CO_HighGravtech"]/baseCost</xpath>
+					<value>
+						<baseCost>425</baseCost>
+					</value>
+				</li>
+				<li Class="PatchOperationReplace">
+					<xpath>/Defs/ResearchProjectDef[defName="CO_HighGravtech"]/researchViewX</xpath>
+					<value>
+						<researchViewX>5.00</researchViewX>
+					</value>
+				</li>
+				<li Class="PatchOperationReplace">
+					<xpath>/Defs/ResearchProjectDef[defName="CO_HighGravtech"]/researchViewY</xpath>
+					<value>
+						<researchViewY>3.00</researchViewY>
+					</value>
+				</li>
+				<li Class="PatchOperationAdd">
+					<xpath>/Defs/ResearchProjectDef[defName="CO_HighGravtech"]</xpath>
+					<value>
+						<tab>VGE_Gravtech</tab>
+					</value>
+				</li>
+			</operations>
+		</match>
+	</Operation>
+
+</Patch>
