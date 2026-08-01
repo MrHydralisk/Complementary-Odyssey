@@ -42,7 +42,7 @@ namespace ComplementaryOdyssey
             }
         }
 
-        private int SolarPanelsAvailable => solarPanels.Count((Thing t) => !t.Map.roofGrid.Roofed(t.Position));
+        private int SolarPanelsAvailable => solarPanels.Count((Thing t) => !(t?.Map.roofGrid.Roofed(t.Position) ?? true));
         private int SolarPanelsDeployed => solarPanels.Count();
 
         private float RoofedPowerOutputFactor => (float)SolarPanelsAvailable / SolarPanelsTotal;
@@ -56,6 +56,7 @@ namespace ComplementaryOdyssey
                 solarTiles.Add(parent.Position + tile.RotatedBy(parent.Rotation));
             }
             solarTiles.Sort((IntVec3 a, IntVec3 b) => GetCellAffect(b).CompareTo(GetCellAffect(a)));
+            solarPanels.RemoveAll(t => t == null);
             tickNextDeploy = Find.TickManager.TicksGame + Props.ticksPerDeploy;
             if (isAutoDeploying)
             {
@@ -171,6 +172,10 @@ namespace ComplementaryOdyssey
 
         public bool CanDeploy(IntVec3 tile)
         {
+            if (!tile.InBounds(parent.Map))
+            {
+                return false;
+            }
             List<Thing> list = parent.Map.thingGrid.ThingsListAt(tile);
             bool isCanDeploy = true;
             for (int i = 0; i < list.Count; i++)
