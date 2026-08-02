@@ -338,7 +338,7 @@ namespace ComplementaryOdyssey
 
         public static void P_LeaflessTemperatureThresh_Postfix(Plant __instance, ref float __result)
         {
-            if (__result > -75 && (MapComponent_CompOdyssey.CachedInstance(__instance.Map)?.vacResistAOEGrid.GetCellEffect(__instance.Position) ?? false))
+            if (__instance.Spawned && __result > -75 && (MapComponent_CompOdyssey.CachedInstance(__instance.Map)?.vacResistAOEGrid.GetCellEffect(__instance.Position) ?? false))
             {
                 __result = -75;
             }
