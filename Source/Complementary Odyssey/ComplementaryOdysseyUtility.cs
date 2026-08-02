@@ -83,7 +83,7 @@ namespace ComplementaryOdyssey
                 if (roofDef.IsVacRoof(out _))
                 {
                     MapComponent_CompOdyssey compOdysseyMapComponent = MapComponent_CompOdyssey.CachedInstance(map);
-                    return compOdysseyMapComponent.vacRoofGrid.GetPoweredCellBool(index);
+                    return compOdysseyMapComponent?.vacRoofGrid.GetPoweredCellBool(index) ?? false;
                 }
                 return true;
             }

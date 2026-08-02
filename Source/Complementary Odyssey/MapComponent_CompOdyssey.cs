@@ -19,6 +19,10 @@ namespace ComplementaryOdyssey
 
         public static MapComponent_CompOdyssey CachedInstance(Map map)
         {
+            if (map == null)
+            {
+                return null;
+            }
             if (currentInstance == null || currentInstance.map != map)
             {
                 currentInstance = map.GetComponent<MapComponent_CompOdyssey>();

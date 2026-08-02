@@ -162,7 +162,7 @@ namespace ComplementaryOdyssey
             else
             {
                 rectSize = new IntVec2(barrierSize.x + size.x, barrierSize.z + size.z);
-                if (rectSize.x > Props.maxBarrierSize.x && rectSize.z > Props.maxBarrierSize.z && rectSize.x < 1 && rectSize.z < 1)
+                if (rectSize.x > Props.maxBarrierSize.x || rectSize.z > Props.maxBarrierSize.z || rectSize.x < 1 || rectSize.z < 1)
                 {
                     return false;
                 }

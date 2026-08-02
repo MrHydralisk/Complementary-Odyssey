@@ -145,6 +145,10 @@ namespace ComplementaryOdyssey
 
         public override string CompInspectStringExtra()
         {
+            if (!parent.Spawned || parent.MapHeld == null)
+            {
+                return string.Empty;
+            }
             List<string> inspectStrings = new List<string>();
             if (lastScanTick > (float)(Find.TickManager.TicksGame - 30))
             {

@@ -42,7 +42,7 @@ namespace ComplementaryOdyssey
             }
         }
 
-        private int SolarPanelsAvailable => solarPanels.Count((Thing t) => !(t?.Map.roofGrid.Roofed(t.Position) ?? true));
+        private int SolarPanelsAvailable => solarPanels.Count((Thing t) => !(t?.Map?.roofGrid.Roofed(t.Position) ?? true));
         private int SolarPanelsDeployed => solarPanels.Count();
 
         private float RoofedPowerOutputFactor => (float)SolarPanelsAvailable / SolarPanelsTotal;

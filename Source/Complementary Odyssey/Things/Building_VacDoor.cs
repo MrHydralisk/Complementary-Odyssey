@@ -33,7 +33,7 @@ namespace ComplementaryOdyssey
             {
                 if (PowerTrader.PowerOn)
                 {
-                    return base.Map.Biome.inVacuum;
+                    return base.Map != null && base.Map.Biome.inVacuum;
                 }
                 return false;
             }
