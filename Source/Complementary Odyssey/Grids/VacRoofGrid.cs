@@ -32,9 +32,12 @@ namespace ComplementaryOdyssey
             int offset = (isPowerOn ? +1 : -1);
             foreach (IntVec3 cell in cells)
             {
-                int index = map.cellIndices.CellToIndex(cell);
-                powerGrid[index] = (short)Mathf.Max(powerGrid[index] + offset, 0);
-                map.regionGrid.GetValidRegionAt_NoRebuild(cell)?.District.Notify_RoofChanged();
+                if (cell.InBounds(map))
+                {
+                    int index = map.cellIndices.CellToIndex(cell);
+                    powerGrid[index] = (short)Mathf.Max(powerGrid[index] + offset, 0);
+                    map.regionGrid.GetValidRegionAt_NoRebuild(cell)?.District.Notify_RoofChanged();
+                }
             }
             SetDirty();
         }
